@@ -8,9 +8,10 @@
 int main()
 {
 	MyStruct myStruct;
-	myStruct.mystr = L"Wie gehts dir?";
+	myStruct.mystr = "Wie gehts dir?";
 	myStruct.size = 0;
 	printf("Hallo");
+	
 
 	ManipulateStruct(&myStruct);
 

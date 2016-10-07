@@ -6,7 +6,6 @@ namespace DllConsumer
     public struct MyStruct
     {
         public int size;
-        [MarshalAsAttribute(UnmanagedType.LPTStr)]
         public string mystr;
     }
 }

@@ -15,13 +15,14 @@ extern "C" {
 
 // This class is exported from the CComponent.dll
 
-extern CCOMPONENT_API int nCComponent;
+extern CCOMPONENT_API int APIVERSION;
 
 CCOMPONENT_API int GetNumber(void);
+CCOMPONENT_API void UseClass();
 
 typedef struct MyStruct {
 	int size;
-	wchar_t* mystr;
+	char* mystr;
 }MYSTRUCT;
 
 CCOMPONENT_API int ManipulateStruct(MYSTRUCT* myStruct);

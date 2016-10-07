@@ -10,7 +10,10 @@ namespace DllConsumer
     {
         static void Main(string[] args)
         {
+
+            //TODO: String geschichte haut noch nicht hin..
             MyStruct myStruct = new MyStruct();
+            myStruct.mystr = "";
 
             for (int i = 0; i < 10; i++)
             {
