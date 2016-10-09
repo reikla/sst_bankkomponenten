@@ -24,7 +24,7 @@ CCOMPONENT_API int ManipulateStruct(MYSTRUCT* myStruct) {
 	return -1;
 }
 
-CCOMPONENT_API void UseClass() 
+CCOMPONENT_API void UseClass(AClass *b) 
 {
 	AClass a;
 	a.Foo();

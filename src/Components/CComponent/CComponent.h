@@ -11,6 +11,9 @@
 #else
 #define CCOMPONENT_API __declspec(dllimport)
 #endif
+
+#include "AClass.h"
+
 extern "C" {
 
 // This class is exported from the CComponent.dll
@@ -18,12 +21,14 @@ extern "C" {
 extern CCOMPONENT_API int APIVERSION;
 
 CCOMPONENT_API int GetNumber(void);
-CCOMPONENT_API void UseClass();
+CCOMPONENT_API void UseClass(AClass *b);
+
 
 typedef struct MyStruct {
 	int size;
 	char* mystr;
 }MYSTRUCT;
+
 
 CCOMPONENT_API int ManipulateStruct(MYSTRUCT* myStruct);
 
