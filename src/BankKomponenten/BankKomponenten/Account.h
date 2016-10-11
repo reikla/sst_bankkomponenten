@@ -1,9 +1,11 @@
 #pragma once
 #include <list>
 #include <string>
+#include "AccountType.h"
 
-typedef Transaction;
-typedef Customer;
+class Transaction;
+class Customer;
+
 class Account
 {
 public:
@@ -14,18 +16,21 @@ public:
 
 	std::string getName();
 	
-	std::list<Transaction> GetTransactions();
+	std::list<Transaction*> GetTransactions();
 	void setName(std::string);
 
 	AccountType GetAccountType();
-
-	std::list<Customer> GetDisposers();
-
-
 	void SetAccountType(AccountType);
+
+	std::list<Customer*> GetDisposers();
+
+private:
+	bool m_active;
+	std::string m_name;
+	std::list<Transaction*> m_transactions;
+	AccountType m_accountType;
+	std::list<Customer*> m_disposers;
+
+
 };
 
-enum AccountType {
-	SavingsAccount = 1,
-	LoanAccount = 2
-};

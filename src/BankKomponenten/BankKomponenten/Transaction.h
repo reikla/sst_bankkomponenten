@@ -1,5 +1,9 @@
 #pragma once
-typedef Account;
+
+#include <string>
+
+class Account;
+
 class Transaction
 {
 public:
@@ -8,13 +12,27 @@ public:
 	double getAmount();
 	void setAmount(double);
 
-	Account getFrom();
+	double getFactor();
+	void setFactor(double);
+
+// 	std::string getCurrency();
+// 	void setCurrency(std::string);
+
+	
+
+	Account* getFrom();
 	void setFrom(Account*);
 	
-	Account getTo();
+	Account* getTo();
 	void setTo(Account*);
 
-private:
 
+
+private:
+	double m_amount;
+	double m_factor;
+	std::string m_currency;
+	Account* m_from;
+	Account* m_to;
 };
 

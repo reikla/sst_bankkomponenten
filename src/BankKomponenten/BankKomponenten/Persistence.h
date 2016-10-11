@@ -1,9 +1,10 @@
 #pragma once
 #include <list>
 #include <string>
-typedef Customer;
-typedef Account;
-typedef Transaction;
+
+class Customer;
+class Account;
+class Transaction;
 
 class Persistence
 {
