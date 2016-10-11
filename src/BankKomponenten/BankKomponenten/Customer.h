@@ -37,8 +37,10 @@ private:
 	string m_lastName;
 	string m_street;
 	int m_zip;
+	
 	int m_id;
 	bool m_active;
+	
 	list<Account*> m_accounts;
 };
 
