@@ -1,6 +1,6 @@
 #pragma once
 
-typedef enum currency {
+typedef enum Currency {
 	AED,
 	AFN,
 	ALL,

@@ -24,13 +24,17 @@ public:
 
 	std::list<Customer*> GetDisposers();
 
+	int GetAccountNumber();
+
+	void SetAccountNumber(int accountNumber);
+
+
 private:
 	bool m_active;
+	int m_accountNumber;
 	std::string m_name;
 	std::list<Transaction*> m_transactions;
 	AccountType m_accountType;
 	std::list<Customer*> m_disposers;
-
-
 };
 

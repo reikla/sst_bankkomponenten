@@ -2,22 +2,12 @@
 #include <iostream>
 
 
-BANK_API void Foo(CURRENCY currency)
+BANK_API void StringTest(wchar_t & Name,const wchar_t * outName)
 {
-	switch (currency)
-	{
-	case CURRENCY::USD:
-		std::cout << "USD";
-		break;
-	case CURRENCY::EUR:
-		std::cout << "EUR";
-		break;
-	default:
-		break;
-	}
+	outName = L"HANS";
 }
 
-BANK_API int CreateCustomer(char* firstName, char* lastName, wchar_t* street, int zip, int& id)
+BANK_API int CreateCustomer(wchar_t* firstName, wchar_t* lastName, wchar_t* street, int zip, int& id)
 {
 	std::cout << "Creating customer" << std::endl;
 	std::cout << "First Name: " << firstName << std::endl;

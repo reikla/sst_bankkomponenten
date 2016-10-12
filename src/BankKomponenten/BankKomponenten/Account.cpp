@@ -50,3 +50,13 @@ std::list<Customer*> Account::GetDisposers()
 {
 	return m_disposers;
 }
+
+int Account::GetAccountNumber()
+{
+	return m_accountNumber;
+}
+
+void Account::SetAccountNumber(int accountNumber)
+{
+	m_accountNumber = accountNumber;
+}
