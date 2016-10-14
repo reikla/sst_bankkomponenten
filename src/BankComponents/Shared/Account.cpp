@@ -2,7 +2,7 @@
 
 
 
-Account::Account(std::string accountName, ACCOUNT_TYPE type)
+Account::Account(std::string accountName, AccountType type)
 {
 	m_disposers = new std::list<Customer*>();
 	m_transactions = new std::list<Transaction*>();

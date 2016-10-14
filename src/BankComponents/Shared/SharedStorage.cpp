@@ -2,7 +2,7 @@
 #include "Customer.h"
 #include "Account.h"
 
-
+SharedStorage * SharedStorage::instance;
 
 SharedStorage::SharedStorage()
 {

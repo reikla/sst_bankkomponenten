@@ -25,9 +25,7 @@ public:
 
 private:
 	SharedStorage();
-
 	static SharedStorage * instance;
-
 	list<Customer*> * m_customers;
 	list<Account*> * m_accounts;
 	list<Transaction*> * m_transactions;

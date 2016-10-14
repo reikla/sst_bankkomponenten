@@ -15,7 +15,7 @@ class SHARED_API Account
 
 
 public:
-	Account(string accountName, ACCOUNT_TYPE type);
+	Account(string accountName, AccountType type);
 	virtual ~Account();
 	
 	bool isActive();
