@@ -2,8 +2,11 @@
 
 #include <string>
 #include "Shared.h"
+#include "Currency.h"
 
 class Account;
+
+using namespace std;
 
 class SHARED_API Transaction
 {
@@ -16,23 +19,21 @@ public:
 	double getFactor();
 	void setFactor(double);
 
-// 	std::string getCurrency();
-// 	void setCurrency(std::string);
-
-	
+	CURRENCY getCurrency();
+	void setCurrency(CURRENCY currency);
 
 	Account* getFrom();
-	void setFrom(Account*);
+	void setFrom(Account* fromAccount);
 	
 	Account* getTo();
-	void setTo(Account*);
+	void setTo(Account* toAccount);
 
 
 
 private:
 	double m_amount;
 	double m_factor;
-	std::string m_currency;
+	CURRENCY m_currency;
 	Account* m_from;
 	Account* m_to;
 };

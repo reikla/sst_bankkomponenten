@@ -2,7 +2,7 @@
 
 
 
-Customer::Customer()
+Customer::Customer(string firstName, string lastName, string street, int zip)
 {
 	m_accounts = new std::list<Account*>();
 }

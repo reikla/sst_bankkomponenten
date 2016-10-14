@@ -5,6 +5,10 @@
 #pragma endregion
 
 
-#pragma region Unauthorized
+#pragma region Authorization
 #define E_UNAUTHORIZED -1
 #pragma endregion Unauthorized
+
+#pragma region Initialize
+#define E_NOT_INITIALIZED -2;
+#pragma endregion Initialize

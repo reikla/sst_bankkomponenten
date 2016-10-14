@@ -2,10 +2,13 @@
 
 
 
-Account::Account()
+Account::Account(std::string accountName, ACCOUNT_TYPE type)
 {
 	m_disposers = new std::list<Customer*>();
 	m_transactions = new std::list<Transaction*>();
+
+	m_name = accountName;
+	m_accountType = type;
 }
 
 
@@ -43,7 +46,7 @@ AccountType Account::GetAccountType()
 	return m_accountType;
 }
 
-void Account::SetAccountType(AccountType accountType)
+void Account::SetAccountType(ACCOUNT_TYPE accountType)
 {
 	m_accountType = accountType;
 }

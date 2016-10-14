@@ -8,8 +8,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BankComponents", "BankComponents\BankComponents.vcxproj", "{6C8ADBF4-741D-47ED-8256-900B9BBD6397}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BankComponentsTest", "BankComponentsTest\BankComponentsTest.vcxproj", "{C0DA558E-BEB3-4572-865B-69CFD72F085B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C8ADBF4-741D-47ED-8256-900B9BBD6397} = {6C8ADBF4-741D-47ED-8256-900B9BBD6397}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankComponentsTestCRaute", "BankComponentsTestCRaute\BankComponentsTestCRaute.csproj", "{A6EFDE60-2502-49A6-9E38-05291EF52080}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C0DA558E-BEB3-4572-865B-69CFD72F085B} = {C0DA558E-BEB3-4572-865B-69CFD72F085B}
+		{FB5709E2-339E-4E22-B54B-7621537122D8} = {FB5709E2-339E-4E22-B54B-7621537122D8}
+		{6C8ADBF4-741D-47ED-8256-900B9BBD6397} = {6C8ADBF4-741D-47ED-8256-900B9BBD6397}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

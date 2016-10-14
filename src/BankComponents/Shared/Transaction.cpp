@@ -32,6 +32,16 @@ void Transaction::setFactor(double factor)
 	m_factor = factor;
 }
 
+CURRENCY Transaction::getCurrency()
+{
+	return m_currency;
+}
+
+void Transaction::setCurrency(CURRENCY currency)
+{
+	m_currency = currency;
+}
+
 Account* Transaction::getFrom()
 {
 	return m_from;

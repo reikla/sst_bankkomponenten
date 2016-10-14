@@ -5,6 +5,7 @@
 #include "../Shared/Account.h"
 #include "../Shared/Customer.h"
 #include "../Shared/Transaction.h"
+#include "../Shared/AccountType.h"
 using namespace std;
 
 void Foo(wchar_t** name) {
@@ -26,7 +27,7 @@ int main() {
 	CURRENCY f = CURRENCY::USD;
 	CURRENCY euro = CURRENCY::EUR;
 
-	Account * a = new Account();
+	Account * a = new Account("Giro Konto", ACCOUNT_TYPE.SavingsAccount);
 	Customer * c = new Customer();
 	c->setFirstName("Franz");
 	a->setName("Hansi");

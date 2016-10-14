@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning( push )
+#pragma warning( disable : 4251)
 #include <string>
 #include <list>
 #include "Shared.h"
@@ -9,7 +11,7 @@ class Account;
 class SHARED_API Customer
 {
 public:
-	Customer();
+	Customer(string firstName, string lastName, string street, int zip);
 	virtual ~Customer();
 
 	string getFirstName();
@@ -33,6 +35,7 @@ public:
 
 	list<Account*> * getAccounts();
 	void addAccount(Account*);
+
 private:
 	string m_firstName;
 	string m_lastName;
@@ -44,4 +47,4 @@ private:
 	
 	list<Account*> * m_accounts;
 };
-
+#pragma warning( pop ) 
