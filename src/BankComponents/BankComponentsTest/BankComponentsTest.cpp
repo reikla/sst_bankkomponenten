@@ -32,7 +32,7 @@ int main() {
 	CURRENCY euro = CURRENCY::EUR;
 
 	Account * a = new Account("Giro Konto", LoanAccount);
-	Customer * c = new Customer("Reimar","klammer","Daheim",1112);
+	Customer * c = new Customer("Reimar","klammer","Daheim", 1112);
 	c->setFirstName("Franz");
 	a->setName("Hansi");
 	ptr->StoreAccount(a);
@@ -41,7 +41,7 @@ int main() {
 
 	c->addAccount(a);
 
-
+	getchar();
 
 	
 	return 0;
