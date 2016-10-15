@@ -21,34 +21,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shared.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Account.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Customer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ErrorCodes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transaction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedStorage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AccountType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Currency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Checks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedFunctions.h">
+    <ClInclude Include="AccountModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,22 +29,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shared.cpp">
+    <ClCompile Include="AccountModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Account.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Customer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Transaction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SharedStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

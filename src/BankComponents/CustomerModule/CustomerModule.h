@@ -11,8 +11,6 @@
 #endif
 class Customer;
 
-Customer * GetCustomer(int id);
-
 extern "C" {
 	CUSTOMERMODULE_API int CreateCustomer(char* firstName, char* lastName, char* street, int zip, int& id);
 
