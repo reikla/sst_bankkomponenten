@@ -106,5 +106,21 @@ namespace CurrencyTranslationModuleTest
 			Assert::IsTrue(diffOk);
 		}
 
+		TEST_METHOD(CurrencyTranslation_TranslateSameVariable_OK)
+		{
+			SharedStorage::GetInstance()->clear();
+			SetCurrencyToEuroFactor(USD, 0.911);
+
+			double result = 1;
+			auto returnValue = TranslateFromEuro(USD, result, result);
+
+			auto diff = 1.0971 - result;
+
+			auto diffOk = abs(diff) < 0.01;
+
+			Assert::AreEqual(E_OK, returnValue);
+			Assert::IsTrue(diffOk);
+		}
+
 	};
 }
