@@ -14,6 +14,9 @@
 
 extern "C"
 {
-	CURRENCYTRANSLATIONMODULE_API int SetCurrencyEuroFactor(CURRENCY currency, double factor);
-	CURRENCYTRANSLATIONMODULE_API int GetCurrencyEuroFactor(CURRENCY currency, double & factor);
+	CURRENCYTRANSLATIONMODULE_API int SetCurrencyToEuroFactor(CURRENCY currency, double factor);
+	CURRENCYTRANSLATIONMODULE_API int GetCurrencyToEuroFactor(CURRENCY currency, double & factor);
+	CURRENCYTRANSLATIONMODULE_API int TranslateToEuro(CURRENCY currency, double amount, double & result);
+	CURRENCYTRANSLATIONMODULE_API int TranslateFromEuro(CURRENCY currency, double amount, double & result);
+
 }

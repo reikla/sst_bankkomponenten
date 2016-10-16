@@ -13,14 +13,14 @@
 #include "../Shared/Currency.h"
 #include "../Shared/TransactionStruct.h"
 
-extern "C" { 
-	TRANSACTIONMODULE_API int PayOut(int accountNumber, int disposerId, double amount, CURRENCY currency);
+extern "C" {
+	TRANSACTIONMODULE_API int PayOut(int disposerId, int accountNumber, double amount, CURRENCY currency);
 
-	TRANSACTIONMODULE_API int PayIn(int accountNumber, int disposerId, double amount, CURRENCY currency);
+	TRANSACTIONMODULE_API int PayIn(int disposerId, int accountNumber, double amount, CURRENCY currency);
 
-	TRANSACTIONMODULE_API int Transfer(int fromAccountNumber, int toAccountNumber, int disposerId, double ammount, CURRENCY currency);
+	TRANSACTIONMODULE_API int Transfer(int disposerId, int fromAccountNumber, int toAccountNumber, double ammount, CURRENCY currency);
 
-	TRANSACTIONMODULE_API int AccountStatement(int accountNumber, int disposerId, S_TRANSACTION** data, int& numberOfEntries);
+	TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_TRANSACTION** data, int& numberOfEntries);
 
-	TRANSACTIONMODULE_API int AccountBalancing(int accountNumber, int disposerId, CURRENCY currency, double& balance);
+	TRANSACTIONMODULE_API int AccountBalancing(int disposerId, int accountNumber, CURRENCY currency, double& balance);
 }

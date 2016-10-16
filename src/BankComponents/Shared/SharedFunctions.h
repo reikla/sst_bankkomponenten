@@ -2,6 +2,8 @@
 #include "SharedStorage.h"
 #include "Customer.h"
 #include "Account.h"
+#include "ErrorCodes.h"
+#include "Checks.h"
 
 inline SharedStorage * GetStorage()
 {

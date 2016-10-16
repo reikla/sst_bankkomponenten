@@ -8,7 +8,7 @@
 #include "../Shared/SharedFunctions.h"
 #include "../Shared/CurrencyRate.h"
 
-CURRENCYTRANSLATIONMODULE_API int SetCurrencyEuroFactor(CURRENCY currency, double factor)
+CURRENCYTRANSLATIONMODULE_API int SetCurrencyToEuroFactor(CURRENCY currency, double factor)
 {
 	if (! (CheckCurrencyFactor(factor) && currency != EUR)) //Euro -> Euro darf nicht gesetzt werden. 
 	{
@@ -30,7 +30,7 @@ CURRENCYTRANSLATIONMODULE_API int SetCurrencyEuroFactor(CURRENCY currency, doubl
 	return E_OK;
 }
 
-CURRENCYTRANSLATIONMODULE_API int GetCurrencyEuroFactor(CURRENCY currency, double & factor)
+CURRENCYTRANSLATIONMODULE_API int GetCurrencyToEuroFactor(CURRENCY currency, double & factor)
 {
 	if (currency == EUR) 
 	{
@@ -51,4 +51,31 @@ CURRENCYTRANSLATIONMODULE_API int GetCurrencyEuroFactor(CURRENCY currency, doubl
 	}
 
 	return E_CURRENCY_FACTOR_NOT_STORED;
+}
+
+CURRENCYTRANSLATIONMODULE_API int TranslateToEuro(CURRENCY currency, double amount, double & result)
+{
+	auto factor = 0.0;
+	auto returnValue = GetCurrencyToEuroFactor(currency, factor);
+	if(returnValue != E_OK)
+	{
+		return returnValue;
+	}
+
+	result = amount * factor;
+	return E_OK;
+
+}
+
+CURRENCYTRANSLATIONMODULE_API int TranslateFromEuro(CURRENCY currency, double amount, double & result)
+{
+	auto factor = 0.0;
+	auto returnValue = GetCurrencyToEuroFactor(currency, factor);
+	if (returnValue != E_OK)
+	{
+		return returnValue;
+	}
+
+	result = amount / factor;
+	return E_OK;
 }

@@ -4,6 +4,7 @@
 #include "../Shared/Currency.h"
 #include "../Shared/ErrorCodes.h"
 #include "../Shared/SharedStorage.h"
+#include <cmath>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -17,7 +18,7 @@ namespace CurrencyTranslationModuleTest
 		{
 			SharedStorage::GetInstance()->clear();
 
-			auto returnValue = SetCurrencyEuroFactor(USD, 1);
+			auto returnValue = SetCurrencyToEuroFactor(USD, 1);
 
 			Assert::AreEqual(E_OK, returnValue);
 		}
@@ -26,7 +27,7 @@ namespace CurrencyTranslationModuleTest
 		{
 			SharedStorage::GetInstance()->clear();
 
-			auto returnValue = SetCurrencyEuroFactor(EUR, 1);
+			auto returnValue = SetCurrencyToEuroFactor(EUR, 1);
 
 			Assert::AreEqual(E_INVALID_PARAMETER, returnValue);
 		}
@@ -35,7 +36,7 @@ namespace CurrencyTranslationModuleTest
 		{
 			SharedStorage::GetInstance()->clear();
 
-			auto returnValue = SetCurrencyEuroFactor(USD, -1.2);
+			auto returnValue = SetCurrencyToEuroFactor(USD, -1.2);
 
 			Assert::AreEqual(E_INVALID_PARAMETER, returnValue);
 		}
@@ -43,10 +44,10 @@ namespace CurrencyTranslationModuleTest
 		TEST_METHOD(CurrencyTranslation_GetFactor_OK)
 		{
 			SharedStorage::GetInstance()->clear();
-			SetCurrencyEuroFactor(USD, 1.7);
+			SetCurrencyToEuroFactor(USD, 1.7);
 			double factor;
 
-			auto returnValue = GetCurrencyEuroFactor(USD, factor);
+			auto returnValue = GetCurrencyToEuroFactor(USD, factor);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(1.7, factor);
@@ -57,7 +58,7 @@ namespace CurrencyTranslationModuleTest
 			SharedStorage::GetInstance()->clear();
 			double factor;
 
-			auto returnValue = GetCurrencyEuroFactor(EUR, factor);
+			auto returnValue = GetCurrencyToEuroFactor(EUR, factor);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(1.0, factor);
@@ -68,9 +69,41 @@ namespace CurrencyTranslationModuleTest
 			SharedStorage::GetInstance()->clear();
 			double factor;
 
-			auto returnValue = GetCurrencyEuroFactor(USD, factor);
+			auto returnValue = GetCurrencyToEuroFactor(USD, factor);
 
 			Assert::AreEqual(E_CURRENCY_FACTOR_NOT_STORED, returnValue);
+		}
+
+		TEST_METHOD(CurrencyTranslation_TranslateToEuro_OK)
+		{
+			SharedStorage::GetInstance()->clear();
+			SetCurrencyToEuroFactor(USD, 0.911);
+
+			double result;
+			auto returnValue = TranslateToEuro(USD, 1, result);
+
+			auto diff = 0.911 - result;
+
+			auto diffOk = abs(diff) < 0.01;
+
+			Assert::AreEqual(E_OK, returnValue);
+			Assert::IsTrue(diffOk);
+		}
+
+		TEST_METHOD(CurrencyTranslation_TranslateFromEuro_OK)
+		{
+			SharedStorage::GetInstance()->clear();
+			SetCurrencyToEuroFactor(USD, 0.911);
+
+			double result;
+			auto returnValue = TranslateFromEuro(USD, 1, result);
+
+			auto diff = 1.0971 - result;
+
+			auto diffOk = abs(diff) < 0.01;
+
+			Assert::AreEqual(E_OK, returnValue);
+			Assert::IsTrue(diffOk);
 		}
 
 	};
