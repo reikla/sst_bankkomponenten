@@ -35,9 +35,10 @@ int main()
 {
 	unsigned int start = clock();
 
+
 	getchar();
 
-	for (int i = 0; i < 100000; i++) {
+	for (int i = 0; i < 10; i++) {
 
 	TestAddCustomer("Sepp", "Müller", "Hintertupfing 17", 5020);
 	//TestAddCustomer(NULL, "Müller", "Hintertupfing 17", 5020);
