@@ -4,6 +4,9 @@
 #define E_OK 0
 #pragma endregion
 
+#pragma region Unexpected
+#define E_NOT_EXPECTED -1
+#pragma endregion Unexpected
 
 #pragma region Authorization
 #define E_UNAUTHORIZED -10
@@ -18,6 +21,13 @@
 #pragma	endregion Parameter
 
 #pragma region Customer
-#define E_CUSTOMER_ALREADY_DELETED -40
 #define E_CUSTOMER_NOT_FOUND -41
+
 #pragma endregion Customer
+
+#pragma region Account
+#define E_ACCOUNT_NOT_FOUND -51
+#define E_NEW_DISPOSER_NOT_FOUND -52
+#define E_REMOVE_DISPOSER_NOT_FOUND -53
+#define E_CANNOT_REMOVE_SELF -54
+#pragma endregion Account

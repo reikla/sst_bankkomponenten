@@ -27,6 +27,11 @@ void TestAddCustomer(char * firstName, char * lastName, char * street, int zip)
 	}
 }
 
+void TestDeleteCustomer(int id)
+{
+	DeleteCustomer(id);
+}
+
 
 
 
@@ -41,6 +46,9 @@ int main()
 	for (int i = 0; i < 10; i++) {
 
 	TestAddCustomer("Sepp", "Müller", "Hintertupfing 17", 5020);
+	TestAddCustomer("Sepp", "Müller", "Hintertupfing 17", 5020);
+	DeleteCustomer(0);
+	DeleteCustomer(0);
 	//TestAddCustomer(NULL, "Müller", "Hintertupfing 17", 5020);
 	//TestAddCustomer("Sepp", "Müller", "Hintertupfing 17", 5020);
 	getchar();

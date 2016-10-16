@@ -1,10 +1,16 @@
 #pragma once
 #include "SharedStorage.h"
 #include "Customer.h"
+#include "Account.h"
+
+inline SharedStorage * GetStorage()
+{
+	return SharedStorage::GetInstance();
+}
 
 inline Customer * GetCustomer(int id)
 {
-	auto customers = SharedStorage::GetInstance()->GetCustomers();
+	auto customers = GetStorage()->GetCustomers();
 
 	for (auto it = customers->begin(); it != customers->end(); ++it)
 	{
@@ -17,7 +23,17 @@ inline Customer * GetCustomer(int id)
 	return __nullptr;
 }
 
-inline SharedStorage * GetStorage()
+inline Account * GetAccount(int accountNumber)
 {
-	return SharedStorage::GetInstance();
+	auto accounts = GetStorage()->GetAccounts();
+
+	for(auto it = accounts->begin(); it != accounts->end();++it)
+	{
+		auto account = *it;
+		if (account->GetAccountNumber() == accountNumber) 
+		{
+			return account;
+		}
+	}
+	return __nullptr;
 }

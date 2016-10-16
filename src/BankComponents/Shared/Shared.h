@@ -10,14 +10,3 @@
 #else
 #define SHARED_API __declspec(dllimport)
 #endif
-
-// This class is exported from the Shared.dll
-class SHARED_API CShared {
-public:
-	CShared(void);
-	// TODO: add your methods here.
-};
-
-extern SHARED_API int nShared;
-
-SHARED_API int fnShared(void);

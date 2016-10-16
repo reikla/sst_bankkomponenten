@@ -10,13 +10,17 @@
 #define ACCOUNTMODULE_API __declspec(dllimport)
 #endif
 #include "../Shared/AccountType.h"
+class Customer;
+class Account;
 
 extern "C" {
-	ACCOUNTMODULE_API int CreateAccount(int customerId, char* accountName, ACCOUNT_TYPE accountType, int& accountNumber);
+	ACCOUNTMODULE_API int CreateAccount(int disposerId, char* accountName, ACCOUNT_TYPE accountType, int& accountNumber);
 
-	ACCOUNTMODULE_API int CloseAccount(int customerId, int accountNumber);
+	ACCOUNTMODULE_API int CloseAccount(int disposerId, int accountNumber);
 
-	ACCOUNTMODULE_API int AddDisposer(int accountNumber, int newDisposerId, int disposerId);
+	ACCOUNTMODULE_API int AddDisposer(int disposerId, int accountNumber, int newDisposerId);
 
-	ACCOUNTMODULE_API int RemoveDisposer(int accountNumber, int disposerToRemoveId, int disposerId);
+	ACCOUNTMODULE_API int RemoveDisposer(int disposerId, int accountNumber, int disposerToRemoveId);
+
+	int FindAccountAndAuthorizedDisposer(int disposerId, int accountNumber,  Account** account, Customer** disposer);
 }

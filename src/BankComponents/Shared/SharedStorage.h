@@ -22,6 +22,8 @@ public:
 	bool StoreCustomer(Customer*);
 	bool StoreAccount(Account*);
 	bool StoreTransaction(Transaction*);
+	void clear();
+
 
 private:
 	SharedStorage();

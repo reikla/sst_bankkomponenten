@@ -62,3 +62,10 @@ bool SharedStorage::StoreTransaction(Transaction* transaction)
 	m_transactions->push_back(transaction);
 	return true;
 }
+
+void SharedStorage::clear()
+{
+	m_accounts->clear();
+	m_customers->clear();
+	m_transactions->clear();
+}

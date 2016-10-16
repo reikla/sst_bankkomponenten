@@ -28,17 +28,13 @@ CUSTOMERMODULE_API int DeleteCustomer(int id)
 
 	auto customers = SharedStorage::GetInstance()->GetCustomers();
 	auto customer = GetCustomer(id);
-	if (customer == __nullptr)
+	if (customer == __nullptr || !customer->isActive())
 	{
 		return E_CUSTOMER_NOT_FOUND;
 	}
 	
-	if (customer->isActive())
-	{
-		customer->setIsActive(false);
-		return E_OK;
-	}
-	return E_CUSTOMER_ALREADY_DELETED;
+	customer->setIsActive(false);
+	return E_OK;
 }
 
 CUSTOMERMODULE_API int ModifyCustomer(int id, char * firstName, char * lastName, char * street, int zip)
