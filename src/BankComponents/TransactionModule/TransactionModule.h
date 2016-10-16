@@ -11,6 +11,7 @@
 #endif
 
 #include "../Shared/Currency.h"
+#include "../Shared/TransactionStruct.h"
 
 extern "C" {
 	TRANSACTIONMODULE_API int PayOut(int accountNumber, int disposerId, double amount, CURRENCY currency);
@@ -20,7 +21,7 @@ extern "C" {
 	TRANSACTIONMODULE_API int Transfer(int fromAccountNumber, int toAccountNumber, int disposerId, double ammount, CURRENCY currency);
 
 	//TODO: data pointer muss noch geändert werden auf eine Sturkur denke ich.
-	TRANSACTIONMODULE_API int AccountStatement(int accountNumber, int disposerId, void** data, int& numberOfEntries);
+	TRANSACTIONMODULE_API int AccountStatement(int accountNumber, int disposerId, S_TRANSACTION* data, int& numberOfEntries);
 
 	TRANSACTIONMODULE_API int AccountBalancing(int accountNumber, int disposerId, CURRENCY currency, double& balance);
 }
