@@ -37,3 +37,47 @@ inline Account * GetAccount(int accountNumber)
 	}
 	return __nullptr;
 }
+
+inline int FindAccountAndAuthorizedDisposer(int accountNumber, int disposerId, Account ** account, Customer ** disposer)
+{
+	if (!(CheckId(disposerId) && CheckId(accountNumber)))
+	{
+		return E_INVALID_PARAMETER;
+	}
+
+	auto acc = GetAccount(accountNumber);
+
+	if (acc == __nullptr || !acc->isActive())
+	{
+		return E_ACCOUNT_NOT_FOUND;
+	}
+
+	auto disp = GetCustomer(disposerId);
+
+	if (disp == __nullptr || !disp->isActive()) // Kunde nicht gefunden oder nicht mehr aktiv
+	{
+		return E_CUSTOMER_NOT_FOUND;
+	}
+
+	auto accountsDisposers = acc->GetDisposers();
+
+	bool isAuthorized = false;
+
+	for (auto it = accountsDisposers->begin(); it != accountsDisposers->end(); ++it)
+	{
+		if ((*it)->getId() == disposerId) // kunde berechtigt.
+		{
+			isAuthorized = true;
+		}
+	}
+
+	if (!isAuthorized)
+	{
+		return E_UNAUTHORIZED;
+	}
+
+	*account = acc;
+	*disposer = disp;
+
+	return E_OK;
+}

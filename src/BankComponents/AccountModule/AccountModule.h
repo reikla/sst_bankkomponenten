@@ -21,6 +21,4 @@ extern "C" {
 	ACCOUNTMODULE_API int AddDisposer(int disposerId, int accountNumber, int newDisposerId);
 
 	ACCOUNTMODULE_API int RemoveDisposer(int disposerId, int accountNumber, int disposerToRemoveId);
-
-	int FindAccountAndAuthorizedDisposer(int disposerId, int accountNumber,  Account** account, Customer** disposer);
 }
