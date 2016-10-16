@@ -7,10 +7,10 @@
 
 #include "targetver.h"
 
-
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
 #include <windows.h>
+
 
 using namespace std;
 
@@ -21,3 +21,5 @@ using namespace std;
 #include "../Shared/SharedFunctions.h"
 
 #include <string>
+
+#include "../Shared/AccountType.h"

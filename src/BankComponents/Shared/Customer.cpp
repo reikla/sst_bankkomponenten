@@ -81,5 +81,4 @@ std::list<Account*> * Customer::getAccounts()
 
 void Customer::addAccount(Account*)
 {
-
 }

@@ -41,6 +41,7 @@ extern "C"
 
 	BANK_API int RemoveDisposer(int accountNumber, int disposerToRemoveId, int disposerId);
 
+	
 	BANK_API int PayOut(int accountNumber, int disposer, double amount, CURRENCY currency);
 
 	BANK_API int PayIn(int accountNumber, int disposer, double amount, CURRENCY currency);
