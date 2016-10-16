@@ -13,7 +13,7 @@ namespace AccountModuleTest
 	{
 	public:
 
-		TEST_METHOD(CloseAccount_OK)
+		TEST_METHOD(Account_CloseAccount_OK)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -26,7 +26,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_OK, retVal);
 		}
 
-		TEST_METHOD(CloseAccount_Unauthorized)
+		TEST_METHOD(Account_CloseAccount_Unauthorized)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -40,7 +40,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_UNAUTHORIZED, retVal);
 		}
 
-		TEST_METHOD(CloseAccount_CustomerNotFound)
+		TEST_METHOD(Account_CloseAccount_CustomerNotFound)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -53,7 +53,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_CUSTOMER_NOT_FOUND, retVal);
 		}
 
-		TEST_METHOD(CloseAccount_AccountNotFound)
+		TEST_METHOD(Account_CloseAccount_AccountNotFound)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -66,7 +66,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_ACCOUNT_NOT_FOUND, retVal);
 		}
 
-		TEST_METHOD(CloseAccount_AccountClosed)
+		TEST_METHOD(Account_CloseAccount_AccountClosed)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -80,7 +80,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_ACCOUNT_NOT_FOUND, retVal);
 		}
 
-		TEST_METHOD(CloseAccount_CustomerDeleted)
+		TEST_METHOD(Account_CloseAccount_CustomerDeleted)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -94,7 +94,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_CUSTOMER_NOT_FOUND, retVal);
 		}
 
-		TEST_METHOD(AddDisposer_OK)
+		TEST_METHOD(Account_AddDisposer_OK)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -108,7 +108,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_OK, retVal);
 		}
 
-		TEST_METHOD(AddDisposer_NewDisposerNotFound)
+		TEST_METHOD(Account_ddDisposer_NewDisposerNotFound)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -121,7 +121,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_NEW_DISPOSER_NOT_FOUND, retVal);
 		}
 
-		TEST_METHOD(RemoveDisposer_OK)
+		TEST_METHOD(Account_RemoveDisposer_OK)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -138,7 +138,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_OK, retVal);
 		}
 
-		TEST_METHOD(RemoveDisposer_CanNotRemoveSelf)
+		TEST_METHOD(Account_RemoveDisposer_CanNotRemoveSelf)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
@@ -153,7 +153,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_CANNOT_REMOVE_SELF, retVal);
 		}
 
-		TEST_METHOD(RemoveDisposer_DisposerToRemoveNotFound)
+		TEST_METHOD(Account_RemoveDisposer_DisposerToRemoveNotFound)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;

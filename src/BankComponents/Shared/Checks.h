@@ -21,3 +21,8 @@ inline bool CheckId(int id)
 {
 	return id >= 0;
 }
+
+inline bool CheckCurrencyFactor(double factor)
+{
+	return factor > 0;
+}

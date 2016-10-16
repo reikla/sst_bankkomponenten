@@ -9,6 +9,7 @@ SharedStorage::SharedStorage()
 	m_customers = new std::list<Customer*>();
 	m_accounts = new std::list<Account*>();
 	m_transactions = new std::list<Transaction*>();
+	m_rates = new std::list<CurrencyRate*>();
 }
 
 
@@ -42,6 +43,11 @@ std::list<Transaction*> * SharedStorage::GetTransactions()
 	return m_transactions;
 }
 
+list<CurrencyRate*>* SharedStorage::GetCurrencyRates()
+{
+	return m_rates;
+}
+
 bool SharedStorage::StoreCustomer(Customer* customer)
 {
 	auto id = m_customers->size();
@@ -68,4 +74,5 @@ void SharedStorage::clear()
 	m_accounts->clear();
 	m_customers->clear();
 	m_transactions->clear();
+	m_rates->clear();
 }

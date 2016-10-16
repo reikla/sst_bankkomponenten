@@ -7,6 +7,9 @@
 #include "../Shared/Transaction.h"
 #include "../Shared/AccountType.h"
 #include "../Shared/SharedStorage.h"
+#include "../CustomerModule/CustomerModule.h"
+#include "../AccountModule/AccountModule.h"
+
 using namespace std;
 
 void Foo(wchar_t** name) {
@@ -15,12 +18,21 @@ void Foo(wchar_t** name) {
 		*name = L"Hans";
 	}
 }
+void TestDifferentModules()
+{
+	int id = 0;
+	CreateCustomer("", "", "", 1000, id);
+	CreateAccount(0, "", SavingsAccount, id);
+	CloseAccount(0, 0);
+}
 
 void Bar(int** a) {
 	*(*a) = 12;
 }
 
 int main() {
+
+	TestDifferentModules();
 
 	SharedStorage * ptr = SharedStorage::GetInstance();
 

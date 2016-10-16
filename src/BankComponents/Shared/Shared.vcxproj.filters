@@ -57,6 +57,9 @@
     <ClInclude Include="ForUnitTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CurrencyRate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -81,6 +84,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ForUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CurrencyRate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

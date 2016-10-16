@@ -22,7 +22,6 @@
 
 #pragma region Customer
 #define E_CUSTOMER_NOT_FOUND -41
-
 #pragma endregion Customer
 
 #pragma region Account
@@ -31,3 +30,8 @@
 #define E_REMOVE_DISPOSER_NOT_FOUND -53
 #define E_CANNOT_REMOVE_SELF -54
 #pragma endregion Account
+
+
+#pragma region CurrencyTranslation
+#define E_CURRENCY_FACTOR_NOT_STORED -60
+#pragma endregion CurrencyTranslation
