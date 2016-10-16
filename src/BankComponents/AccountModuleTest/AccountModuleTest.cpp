@@ -108,7 +108,7 @@ namespace AccountModuleTest
 			Assert::AreEqual(E_OK, retVal);
 		}
 
-		TEST_METHOD(Account_ddDisposer_NewDisposerNotFound)
+		TEST_METHOD(Account_AddDisposer_NewDisposerNotFound)
 		{
 			SharedStorage::GetInstance()->clear();
 			int customerId = 0;
