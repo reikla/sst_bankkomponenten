@@ -70,6 +70,7 @@ inline int FindAccountAndAuthorizedDisposer(int accountNumber, int disposerId, A
 		if ((*it)->getId() == disposerId) // kunde berechtigt.
 		{
 			isAuthorized = true;
+			break;
 		}
 	}
 
