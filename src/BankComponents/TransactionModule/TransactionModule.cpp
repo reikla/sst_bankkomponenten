@@ -241,7 +241,8 @@ TRANSACTIONMODULE_API int AccountBalancing(int disposerId, int accountNumber, CU
 	}
 
 	returnValue = TranslateFromEuro(currency, balance, balance);
-	if (returnValue != E_OK) {
+	if (returnValue != E_OK) 
+	{
 		return returnValue;
 	}
 	return E_OK;
