@@ -166,6 +166,9 @@
     <ProjectReference Include="..\AccountModule\AccountModule.vcxproj">
       <Project>{6160cc62-38cd-4fed-87f7-6e0ba77d2065}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\CurrencyTranslationModule\CurrencyTranslationModule.vcxproj">
+      <Project>{145a24d8-c7a0-4cef-b36f-3fe305647c41}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\CustomerModule\CustomerModule.vcxproj">
       <Project>{e5e87c69-6b4f-4d68-b655-2bfff894de61}</Project>
     </ProjectReference>

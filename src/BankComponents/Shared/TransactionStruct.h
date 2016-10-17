@@ -9,3 +9,5 @@ typedef struct TransactionStruct
 	int toAccount;
 	int disposer;
 }S_TRANSACTION;
+
+#define BAR_TRANSACTION -1

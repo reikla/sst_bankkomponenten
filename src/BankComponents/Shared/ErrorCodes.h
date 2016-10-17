@@ -35,3 +35,8 @@
 #pragma region CurrencyTranslation
 #define E_CURRENCY_FACTOR_NOT_STORED -60
 #pragma endregion CurrencyTranslation
+
+#pragma region Transaction
+#define E_INSUFFICIENT_FUNDS -70
+#define E_TARGET_ACCOUNT_NOT_FOUND -71
+#pragma endregion Transaction

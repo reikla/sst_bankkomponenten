@@ -3,8 +3,14 @@
 
 
 
-Transaction::Transaction()
+Transaction::Transaction(double amount, double factor, CURRENCY currency,Account * from, Account * to, Customer* disposer)
 {
+	m_amount = amount;
+	m_factor = factor;
+	m_currency = currency;
+	m_from = from;
+	m_to = to;
+	m_disposer = disposer;
 }
 
 
@@ -60,4 +66,14 @@ Account* Transaction::getTo()
 void Transaction::setTo(Account* to)
 {
 	m_to = to;
+}
+
+Customer * Transaction::getDisposer()
+{
+	return m_disposer;
+}
+
+void Transaction::setDisposer(Customer * disposer)
+{
+	m_disposer = disposer;
 }

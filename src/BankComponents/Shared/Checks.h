@@ -26,3 +26,13 @@ inline bool CheckCurrencyFactor(double factor)
 {
 	return factor > 0;
 }
+
+inline bool CheckPointer(void* ptr)
+{
+	return ptr != __nullptr;
+}
+
+inline bool CheckAmount(double amount)
+{
+	return amount > 0;
+}
