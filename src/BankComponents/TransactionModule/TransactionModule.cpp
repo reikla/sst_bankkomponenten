@@ -49,7 +49,7 @@ TRANSACTIONMODULE_API int PayOut(int disposerId, int accountNumber, double amoun
 		return E_INSUFFICIENT_FUNDS;
 	}
 	double factor = 0;
-	
+
 	//Währung muss schon gespeichert sein, sonst wären wir nicht so weit gekommen.
 	GetCurrencyToEuroFactor(currency, factor);
 
@@ -79,7 +79,7 @@ TRANSACTIONMODULE_API int PayIn(int disposerId, int accountNumber, double amount
 	double factor;
 
 	returnValue = GetCurrencyToEuroFactor(currency, factor);
-	if (returnValue != E_OK) 
+	if (returnValue != E_OK)
 	{
 		return returnValue;
 	}
@@ -167,7 +167,7 @@ TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_
 	auto transactions = TransactionHelper::GetAccountsTransactions(acc);
 
 	numberOfEntries = transactions->size();
-	
+
 	if (numberOfEntries == 0) // Keine Transaktionen gefunden -> kein Fehler
 	{
 		return E_OK;
@@ -177,14 +177,14 @@ TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_
 
 	auto it = transactions->begin();
 
-	for (int i = 0; i < numberOfEntries; ++i,++it) 
+	for (int i = 0; i < numberOfEntries; ++i, ++it)
 	{
 		auto transaction = *it;
 		auto s_transaction = new S_TRANSACTION;
 		s_transaction->amount = transaction->getAmount();
 		s_transaction->factor = transaction->getFactor();
 		s_transaction->currency = transaction->getCurrency();
-		
+
 		//Transaktion kann auch eine Bar Einzahlung from = BAR_TRANSACTION oder Bar Auszahlung to = BAR_TRANSACTION sein.
 		s_transaction->fromAccount = BAR_TRANSACTION;
 		s_transaction->toAccount = BAR_TRANSACTION;
@@ -209,7 +209,7 @@ TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_
 
 TRANSACTIONMODULE_API int AccountBalancing(int disposerId, int accountNumber, CURRENCY currency, double& balance)
 {
-	if (!(CheckId(accountNumber) && CheckId(disposerId))) 
+	if (!(CheckId(accountNumber) && CheckId(disposerId)))
 	{
 		return E_INVALID_PARAMETER;
 	}
@@ -220,7 +220,7 @@ TRANSACTIONMODULE_API int AccountBalancing(int disposerId, int accountNumber, CU
 	balance = 0;
 
 	auto returnValue = FindAccountAndAuthorizedDisposer(accountNumber, disposerId, &acc, &customer);
-	if (returnValue != S_OK)
+	if (returnValue != E_OK)
 	{
 		return returnValue;
 	}
@@ -234,12 +234,15 @@ TRANSACTIONMODULE_API int AccountBalancing(int disposerId, int accountNumber, CU
 		{
 			balance -= transaction->getAmount() * transaction->getFactor();
 		}
-		else 
+		else
 		{
 			balance += transaction->getAmount() * transaction->getFactor();
 		}
 	}
 
-	TranslateFromEuro(currency, balance, balance);
-	return S_OK;
+	returnValue = TranslateFromEuro(currency, balance, balance);
+	if (returnValue != E_OK) {
+		return returnValue;
+	}
+	return E_OK;
 }

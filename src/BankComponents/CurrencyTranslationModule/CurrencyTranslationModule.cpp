@@ -35,7 +35,7 @@ CURRENCYTRANSLATIONMODULE_API int GetCurrencyToEuroFactor(CURRENCY currency, dou
 	if (currency == EUR) 
 	{
 		factor = 1.0;
-		return S_OK;
+		return E_OK;
 	}
 
 	auto rates = GetStorage()->GetCurrencyRates();
