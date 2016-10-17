@@ -16,5 +16,5 @@ extern "C" {
 
 	CUSTOMERMODULE_API int DeleteCustomer(int id);
 
-	CUSTOMERMODULE_API int ModifyCustomer(int id, char* firstName, char* lastName, char* street, int zip);
+	CUSTOMERMODULE_API int ModifyCustomer(int id, char* firstName, char* lastName, char* street, int *zip);
 }

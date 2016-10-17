@@ -3,6 +3,7 @@
 namespace BankKomponentenTestCRaute
 {
     // ReSharper disable once ArrangeTypeModifiers
+    // ReSharper disable once InconsistentNaming
     class API
     {
         [DllImport("BankKomponenten.dll")]
