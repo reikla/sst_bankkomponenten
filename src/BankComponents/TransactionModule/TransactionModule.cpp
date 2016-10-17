@@ -108,7 +108,7 @@ TRANSACTIONMODULE_API int Transfer(int disposerId, int fromAccountNumber, int to
 
 	auto toAccount = GetAccount(toAccountNumber);
 
-	if (toAccount == __nullptr)
+	if (toAccount == __nullptr || !toAccount->isActive())
 	{
 		return E_TARGET_ACCOUNT_NOT_FOUND;
 	}
