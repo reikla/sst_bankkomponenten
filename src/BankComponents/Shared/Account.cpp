@@ -5,8 +5,6 @@
 Account::Account(std::string accountName, AccountType type)
 {
 	m_disposers = new std::list<Customer*>();
-	m_transactions = new std::list<Transaction*>();
-
 	m_name = accountName;
 	m_accountType = type;
 }
@@ -29,11 +27,6 @@ void Account::setIsActive(bool isActive)
 std::string Account::getName()
 {
 	return m_name;
-}
-
-std::list<Transaction*> * Account::GetTransactions()
-{
-	return m_transactions;
 }
 
 void Account::setName(std::string name)

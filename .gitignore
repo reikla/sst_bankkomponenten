@@ -304,3 +304,6 @@ __pycache__/
 
 # Visual Studio Readme
 ReadMe.txt
+
+#localhistory addon
+.localhistory/

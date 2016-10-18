@@ -25,8 +25,6 @@ public:
 	AccountType GetAccountType();
 	void SetAccountType(ACCOUNT_TYPE type);
 	
-	list<Transaction*> * GetTransactions();
-	
 	list<Customer*> * GetDisposers();
 
 	int GetAccountNumber();
@@ -36,7 +34,6 @@ private:
 	bool m_active;
 	int m_accountNumber;
 	string m_name;
-	list<Transaction*> * m_transactions;
 	ACCOUNT_TYPE m_accountType;
 	list<Customer*> * m_disposers;
 };
