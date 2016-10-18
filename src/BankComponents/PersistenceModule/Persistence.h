@@ -24,9 +24,9 @@ public:
 	~Persistence();
 	bool connect();
 	void disconnect();
-	int addEntry();
-	int updateEntry();
-	//template<class T> list<T*>* getAllEntries(DataModule);
+	int insertOrReplace(list<Customer*>* customerList);
+	int insertOrReplace(list<Account*>* accountList);
+	int insertOrReplace(list<Transaction*>* transactionList);
 	list<Customer*>* getAllCustomers();
 	list<Account*>* getAllAccounts();
 	list<Transaction*>* getAllTransactions();

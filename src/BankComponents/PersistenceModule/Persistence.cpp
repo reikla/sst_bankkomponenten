@@ -13,13 +13,58 @@ void Persistence::disconnect() {
 		sqlite3_close(this->dbHandle);
 }
 
-int Persistence::addEntry(){
-
+int Persistence::insertOrReplace(list<Customer*>* customerList){
+	ostringstream insertQuery;
+	for(list<Customer*>::const_iterator it = customerList->begin(); it != customerList->end(); ++it){
+		insertQuery <<
+			"REPLACE INTO CUSTOMER(ID, FIRST_NAME, LAST_NAME, STREET, ZIP, ACTIVE)"
+			<< "VALUES( "
+			<< (*it)->getId() << ", "
+			<< (*it)->getFirstName() << ", "
+			<< (*it)->getLastName() << ", "
+			<< (*it)->getStreet() << ", "
+			<< (*it)->getZip() << ", "
+			<< (*it)->isActive() << " );";
+		query(insertQuery.str().c_str());
+		insertQuery.str(string());//clears the stream
+	}
+	
 }
 
-int Persistence::updateEntry(){
-
+int Persistence::insertOrReplace(list<Account*>* accountList) {
+	ostringstream insertQuery;
+	for (list<Account*>::const_iterator it = accountList->begin(); it != accountList->end(); ++it) {
+		insertQuery <<
+			"REPLACE INTO ACCOUNT(ACCOUNT_NUMBER, NAME, TYPE, ACTIVE)"
+			<< "VALUES( "
+			<< (*it)->GetAccountNumber() << ", "
+			<< (*it)->getName() << ", "
+			<< (*it)->GetAccountType() << ", "
+			<< (*it)->isActive() << " );";
+		query(insertQuery.str().c_str());
+		insertQuery.str(string());//clears the stream
+	}
 }
+
+int Persistence::insertOrReplace(list<Transaction*>* transactionList) {
+	ostringstream insertQuery;
+	query("DELETE FROM TRANSACTION;");//Using a delete without a where clause: The TRUNCATE optimizer removes all data from the table without the need to visit each row in the table.
+	insertQuery.str(string());
+	for (list<Transaction*>::const_iterator it = transactionList->begin(); it != transactionList->end(); ++it) {
+		insertQuery <<
+			"INSERT INTO TRANSACTION(CURRENCY, FACTOR, AMOUNT, SOURCE_ACCOUNT, TARGET_ACCOUNT, DISPOSER)"
+			<< "VALUES( "
+			<< (*it)->getCurrency() << ", "
+			<< (*it)->getFactor() << ", "
+			<< (*it)->getAmount() << ", "
+			<< (*it)->getFrom() << ", " 
+			<< (*it)->getTo() << ", "
+			<< (*it)->getDisposer() << " );";
+		query(insertQuery.str().c_str());
+		insertQuery.str(string());//clears the stream
+	}
+}
+
 
 list<Customer*>* Persistence::getAllCustomers() {
 	list<Customer*>* entityList = new list<Customer*>();
@@ -33,7 +78,7 @@ list<Customer*>* Persistence::getAllCustomers() {
 
 		//Select the related Accounts to this Customer
 		ostringstream getAccountsToCustomerQuery;
-		getAccountsToCustomerQuery << ACCOUNT_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = ACCOUNT.ACCOUNT_NUMBER WHERE CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = " << customer->getId() << ";";
+		getAccountsToCustomerQuery << ACCOUNT_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = ACCOUNT.ACCOUNT_NUMBER WHERE CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = '" << customer->getId() << "';";
 		vector<vector<string>> AccountsToThisCustomerVector = 
 			this->query(getAccountsToCustomerQuery.str().c_str());
 		for (vector<vector<string> >::iterator it = AccountsToThisCustomerVector.begin(); it < resultVector.end(); ++it) {
@@ -60,7 +105,7 @@ list<Account*>* Persistence::getAllAccounts() {
 		
 		//Set the disposer-list
 		ostringstream getCustomersToAccountQuery;
-		getCustomersToAccountQuery << CUSTOMER_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = CUSTOMER.ID WHERE CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = " << account->GetAccountNumber() << ";";
+		getCustomersToAccountQuery << CUSTOMER_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = CUSTOMER.ID WHERE CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = '" << account->GetAccountNumber() << "';";
 		vector<vector<string>> CustomerToThisAccountVector = this->query(getCustomersToAccountQuery.str().c_str());
 		for (vector<vector<string> >::iterator it = CustomerToThisAccountVector.begin(); it < resultVector.end(); ++it) {
 			vector<string> row = *it;
@@ -166,29 +211,29 @@ list<Transaction*>* Persistence::getAllTransactions() {
 
 		//Get the source-Account
 		ostringstream getAdditionalQuery;
-		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = " << row.at(4) << ";";
+		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = '" << row.at(4) << "';";
 		vector<vector<string>> sourceAccountVector = this->query((getAdditionalQuery.str().c_str()));
 		for (vector<vector<string> >::iterator it = sourceAccountVector.begin(); it < sourceAccountVector.end(); ++it) {
 			vector<string> row = *it;
 			sourceAccount = unmarshallingAccount(row);
 		}
-		getAdditionalQuery.clear();
+		getAdditionalQuery.str(string());//clears the stream;
 		//Get the target-Account
-		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = " << row.at(5) << ";";
+		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = '" << row.at(5) << "';";
 		vector<vector<string>> targetAccountVector = this->query((getAdditionalQuery.str().c_str()));
 		for (vector<vector<string> >::iterator it = targetAccountVector.begin(); it < targetAccountVector.end(); ++it) {
 			vector<string> row = *it;
 			targetAccount = unmarshallingAccount(row);
 		}
-		getAdditionalQuery.clear();
+		getAdditionalQuery.str(string());//clears the stream;
 		//Get the disposer
-		getAdditionalQuery << CUSTOMER_SELECT << " WHERE ID = " << row.at(6) << ";";
+		getAdditionalQuery << CUSTOMER_SELECT << " WHERE ID = '" << row.at(6) << "';";
 		vector<vector<string>> disposerVector = this->query((getAdditionalQuery.str().c_str()));
 		for (vector<vector<string> >::iterator it = disposerVector.begin(); it < disposerVector.end(); ++it) {
 			vector<string> row = *it;
 			disposer = unmarshallingCustomer(row);
 		}
-		getAdditionalQuery.clear();
+		getAdditionalQuery.str(string());//clears the stream;
 
 		Transaction *transaction = unmarshallingTransaction(row, sourceAccount, targetAccount, disposer);
 		entityList->push_back(transaction);
