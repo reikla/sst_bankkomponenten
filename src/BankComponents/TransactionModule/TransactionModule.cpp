@@ -55,7 +55,7 @@ TRANSACTIONMODULE_API int PayOut(int disposerId, int accountNumber, double amoun
 
 	auto transaction = new Transaction(amount, factor, currency, acc, __nullptr, customer);
 
-	GetStorage()->GetTransactions()->push_back(transaction);
+	GetStorage()->StoreTransaction(transaction);
 	return E_OK;
 }
 
@@ -142,7 +142,7 @@ TRANSACTIONMODULE_API int Transfer(int disposerId, int fromAccountNumber, int to
 
 	auto transaction = new Transaction(amount, factor, currency, acc, toAccount, customer);
 
-	GetStorage()->GetTransactions()->push_back(transaction);
+	GetStorage()->StoreTransaction(transaction);
 	return E_OK;
 }
 

@@ -14,6 +14,8 @@ class SHARED_API Transaction
 public:
 	Transaction(double amount, double factor, CURRENCY currency, Account * from, Account * to, Customer* disposer);
 	virtual ~Transaction();
+
+
 	double getAmount();
 	void setAmount(double);
 
@@ -32,9 +34,13 @@ public:
 	Customer* getDisposer();
 	void setDisposer(Customer* disposer);
 
+	int getTransactionId();
+	void setTransactionId(int id);
+
 
 
 private:
+	int m_transactionId;
 	double m_amount;
 	double m_factor;
 	CURRENCY m_currency;

@@ -1,6 +1,7 @@
 #include "SharedStorage.h"
 #include "Customer.h"
 #include "Account.h"
+#include "Transaction.h"
 
 SharedStorage * SharedStorage::instance;
 
@@ -65,6 +66,7 @@ bool SharedStorage::StoreAccount(Account* account)
 
 bool SharedStorage::StoreTransaction(Transaction* transaction)
 {
+	transaction->setTransactionId(m_transactions->size());
 	m_transactions->push_back(transaction);
 	return true;
 }

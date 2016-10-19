@@ -77,3 +77,13 @@ void Transaction::setDisposer(Customer * disposer)
 {
 	m_disposer = disposer;
 }
+
+int Transaction::getTransactionId()
+{
+	return m_transactionId;
+}
+
+void Transaction::setTransactionId(int id)
+{
+	m_transactionId = id;
+}
