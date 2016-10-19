@@ -1,11 +1,30 @@
 #include "Persistence.h"
 
+Persistence *Persistence::instance;
+
+Persistence::Persistence() {
+	connect();
+}
+
+Persistence::~Persistence() {
+
+}
+
+Persistence *Persistence::getInstance() {
+	if (Persistence::instance == NULL) {
+		Persistence::instance = new Persistence();
+	}
+	return Persistence::instance;
+}
+
 bool Persistence::connect() {
-	if (sqlite3_open(this->dbName.c_str, &this->dbHandle) == SQLITE_OK) {
+	this->sqliteResultCode = sqlite3_open(this->dbName.c_str, &this->dbHandle);
+	if (this->sqliteResultCode == SQLITE_OK) {
 		this->isConnected = true;
 		this->createTables();
+		return this->isConnected;
 	}
-	return false;
+	return this->isConnected = false;
 }
 
 void Persistence::disconnect() {
@@ -13,12 +32,16 @@ void Persistence::disconnect() {
 		sqlite3_close(this->dbHandle);
 }
 
-int Persistence::insertOrReplace(list<Customer*>* customerList){
+bool Persistence::getIsConnected() {
+	return this->isConnected;
+}
+
+void Persistence::insertOrReplace(list<Customer*>* customerList){
 	ostringstream insertQuery;
 	for(list<Customer*>::const_iterator it = customerList->begin(); it != customerList->end(); ++it){
 		insertQuery <<
-			"REPLACE INTO CUSTOMER(ID, FIRST_NAME, LAST_NAME, STREET, ZIP, ACTIVE)"
-			<< "VALUES( "
+			"REPLACE INTO CUSTOMER(ID, FIRST_NAME, LAST_NAME, STREET, ZIP, ACTIVE) "
+			<< "VALUES ( "
 			<< (*it)->getId() << ", "
 			<< (*it)->getFirstName() << ", "
 			<< (*it)->getLastName() << ", "
@@ -31,29 +54,44 @@ int Persistence::insertOrReplace(list<Customer*>* customerList){
 	
 }
 
-int Persistence::insertOrReplace(list<Account*>* accountList) {
+void Persistence::insertOrReplace(list<Account*>* accountList) {
 	ostringstream insertQuery;
 	for (list<Account*>::const_iterator it = accountList->begin(); it != accountList->end(); ++it) {
 		insertQuery <<
-			"REPLACE INTO ACCOUNT(ACCOUNT_NUMBER, NAME, TYPE, ACTIVE)"
-			<< "VALUES( "
+			"REPLACE INTO ACCOUNT(ACCOUNT_NUMBER, NAME, TYPE, ACTIVE) "
+			<< "VALUES ( "
 			<< (*it)->GetAccountNumber() << ", "
 			<< (*it)->getName() << ", "
 			<< (*it)->GetAccountType() << ", "
 			<< (*it)->isActive() << " );";
 		query(insertQuery.str().c_str());
+		insertOrReplaceRelationCustomerToAccount(it);
 		insertQuery.str(string());//clears the stream
 	}
 }
 
-int Persistence::insertOrReplace(list<Transaction*>* transactionList) {
+void Persistence::insertOrReplaceRelationCustomerToAccount(list<Account *>::const_iterator disposerIterator) {
+	ostringstream insertQuery;
+	//carries about the many-to-many relation table between customer and account
+	for (list<Customer*>::const_iterator it = (*disposerIterator)->GetDisposers()->begin(); it != (*disposerIterator)->GetDisposers()->end(); ++it) {
+		insertQuery <<
+			"REPLACE INTO CUSTOMER_TO_ACCOUNT(CUSTOMER_ID, ACCOUNT_ID) "
+			<< "VALUES ( "
+			<< (*it)->getId() << ", "
+			<< (*disposerIterator)->GetAccountNumber() << " );";
+		query(insertQuery.str().c_str());
+		insertQuery.str(string());//clears the stream
+	}
+}
+
+void Persistence::insertOrReplace(list<Transaction*>* transactionList) {
 	ostringstream insertQuery;
 	query("DELETE FROM TRANSACTION;");//Using a delete without a where clause: The TRUNCATE optimizer removes all data from the table without the need to visit each row in the table.
 	insertQuery.str(string());
 	for (list<Transaction*>::const_iterator it = transactionList->begin(); it != transactionList->end(); ++it) {
 		insertQuery <<
-			"INSERT INTO TRANSACTION(CURRENCY, FACTOR, AMOUNT, SOURCE_ACCOUNT, TARGET_ACCOUNT, DISPOSER)"
-			<< "VALUES( "
+			"INSERT INTO TRANSACTION(CURRENCY, FACTOR, AMOUNT, SOURCE_ACCOUNT, TARGET_ACCOUNT, DISPOSER) "
+			<< "VALUES ( "
 			<< (*it)->getCurrency() << ", "
 			<< (*it)->getFactor() << ", "
 			<< (*it)->getAmount() << ", "
@@ -291,11 +329,13 @@ int Persistence::createTables() {
 	char* dest = new char[str.length() + 1]; std::copy(str.begin(), str.end(), dest);
 	sqlCreateQuery.clear();
 	if (this->dbHandle != nullptr) {
-		if (sqlite3_prepare_v2(this->dbHandle, /*sqlCreateQuery.str().c_str()*/dest, str.length(), &this->statement, 0) == SQLITE_OK) {
-			sqlite3_step(statement);
-			sqlite3_finalize(statement);
+		this ->sqliteResultCode = sqlite3_prepare_v2(this->dbHandle, /*sqlCreateQuery.str().c_str()*/dest, str.length(), &this->statement, 0);
+		if ( this->sqliteResultCode == SQLITE_OK) {
+			this->sqliteResultCode = sqlite3_step(statement);
+			this->sqliteResultCode = sqlite3_finalize(statement);
 		}
 	}
+	return this->sqliteResultCode;
 }
 
 vector<vector<string>> Persistence::query(const char* query){
@@ -305,12 +345,11 @@ vector<vector<string>> Persistence::query(const char* query){
 
 	if (sqlite3_prepare_v2(this->dbHandle, query, -1, &statement, 0) == SQLITE_OK) {
 		int cols = sqlite3_column_count(statement);
-		int result = 0;
 
 		while (true) {
-			result = sqlite3_step(statement);
+			this->sqliteResultCode = sqlite3_step(statement);
 
-			if (result == SQLITE_ROW) {
+			if (sqliteResultCode == SQLITE_ROW) {
 				vector<string> values;
 
 				for (int col = 0; col < cols; col++) {
@@ -338,4 +377,8 @@ vector<vector<string>> Persistence::query(const char* query){
 	if(error != "not an error") cout << query << " " << error << endl;
 
 	return results; 
+}
+
+int Persistence::getSqLiteResultCode() {
+	return this->sqliteResultCode;
 }

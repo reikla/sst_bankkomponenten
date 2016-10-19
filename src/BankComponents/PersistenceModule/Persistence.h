@@ -20,35 +20,33 @@ using namespace std;
 class Persistence
 {
 public:
-	Persistence();
-	~Persistence();
+	virtual ~Persistence();
+	static Persistence *getInstance();
 	bool connect();
 	void disconnect();
-	int insertOrReplace(list<Customer*>* customerList);
-	int insertOrReplace(list<Account*>* accountList);
-	int insertOrReplace(list<Transaction*>* transactionList);
+	bool getIsConnected();
+	void insertOrReplace(list<Customer*>* customerList);
+	void insertOrReplace(list<Account*>* accountList);
+	void insertOrReplace(list<Transaction*>* transactionList);
 	list<Customer*>* getAllCustomers();
 	list<Account*>* getAllAccounts();
 	list<Transaction*>* getAllTransactions();
 	string getDbName();
 	Persistence setDbName(string dbName);
+	int getSqLiteResultCode();
 
 private:
+	Persistence();
+	static Persistence *instance;
 	const string CUSTOMER_SELECT = "SELECT ID, FIRST_NAME, LAST_NAME, STREET, ZIP, ACTIVE FROM CUSTOMER";
 	const string ACCOUNT_SELECT = "SELECT ACCOUNT_NUMBER ,NAME, TYPE, ACTIVE FROM ACCOUNT";
 	const string TRANSACTION_SELECT = "SELECT ID, AMOUNT ,CURRENCY, FACTOR, SOURCE_ACCOUNT, TARGET_ACCOUNT, DISPOSER FROM ACCOUNT";
 	bool isConnected = false;
+	int sqliteResultCode = 0;
 	string dbName = "bank.db";
 	sqlite3 *dbHandle = nullptr;
 	sqlite3_stmt *statement;
 	int createTables();
 	vector<vector<string>> query(const char* query);
+	void insertOrReplaceRelationCustomerToAccount(list<Account *>::const_iterator disposerIterator);
 };
-
-Persistence::Persistence()
-{
-}
-
-Persistence::~Persistence()
-{
-}
