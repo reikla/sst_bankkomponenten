@@ -18,10 +18,10 @@ Persistence *Persistence::getInstance() {
 }
 
 bool Persistence::connect() {
-	this->sqliteResultCode = sqlite3_open(this->dbName.c_str, &this->dbHandle);
+	this->sqliteResultCode = sqlite3_open(this->dbName.c_str(), &this->dbHandle);
 	if (this->sqliteResultCode == SQLITE_OK) {
-		this->isConnected = true;
-		this->createTables();
+		this->isConnected = true;//do tables exist?
+		createTables();
 		return this->isConnected;
 	}
 	return this->isConnected = false;
@@ -86,11 +86,11 @@ void Persistence::insertOrReplaceRelationCustomerToAccount(list<Account *>::cons
 
 void Persistence::insertOrReplace(list<Transaction*>* transactionList) {
 	ostringstream insertQuery;
-	query("DELETE FROM TRANSACTION;");//Using a delete without a where clause: The TRUNCATE optimizer removes all data from the table without the need to visit each row in the table.
+	query("DELETE FROM TRANSFER;");//Using a delete without a where clause: The TRUNCATE optimizer removes all data from the table without the need to visit each row in the table.
 	insertQuery.str(string());
 	for (list<Transaction*>::const_iterator it = transactionList->begin(); it != transactionList->end(); ++it) {
 		insertQuery <<
-			"INSERT INTO TRANSACTION(CURRENCY, FACTOR, AMOUNT, SOURCE_ACCOUNT, TARGET_ACCOUNT, DISPOSER) "
+			"INSERT INTO TRANSFER(CURRENCY, FACTOR, AMOUNT, SOURCE_ACCOUNT, TARGET_ACCOUNT, DISPOSER) "
 			<< "VALUES ( "
 			<< (*it)->getCurrency() << ", "
 			<< (*it)->getFactor() << ", "
@@ -199,7 +199,7 @@ list<Account*>* Persistence::getAllAccounts() {
 	return entityList;
 }
 
-Account* unmarshallingAccount(vector<string> row) {
+Account* Persistence::unmarshallingAccount(vector<string> row) {
 	int accountNumber = atoi(row.at(0).c_str());
 	string name = row.at(1);
 	ACCOUNT_TYPE type = static_cast<ACCOUNT_TYPE>(atoi(row.at(2).c_str()));
@@ -210,7 +210,7 @@ Account* unmarshallingAccount(vector<string> row) {
 	return account;
 }
 
-Customer* unmarshallingCustomer(vector<string> row) {
+Customer* Persistence::unmarshallingCustomer(vector<string> row) {
 	string firstname = row.at(1);
 	string lastname = row.at(2);
 	string street = row.at(3);
@@ -222,14 +222,11 @@ Customer* unmarshallingCustomer(vector<string> row) {
 	return customer;
 }
 
-Transaction* unmarshallingTransaction(vector<string> row, Account *from, Account *to, Customer *disposer) {
+Transaction* Persistence::unmarshallingTransaction(vector<string> row, Account *from, Account *to, Customer *disposer) {
 	double amount = atof(row.at(1).c_str());
 	double factor = atof(row.at(3).c_str());
 	CURRENCY currency = static_cast<CURRENCY>(atoi(row.at(2).c_str()));
 
-	Account *from = from;
-	Account *to = to;
-	Customer *disposer = disposer;
 	Transaction *transaction = new Transaction(amount, factor, currency, from, to, disposer);
 
 	return transaction;
@@ -284,58 +281,60 @@ string Persistence::getDbName(){
 	return this->dbName;
 }
 
-Persistence Persistence::setDbName(string dbName){
+Persistence *Persistence::setDbName(string dbName){
 	this->dbName = dbName;
+	return this;
 }
 
-int Persistence::createTables() {
-#pragma region create-statements
-	stringstream sqlCreateQuery;
+void Persistence::createTables() {
+
 	//CREATE-Statement for Customer
-	sqlCreateQuery << "CREATE TABLE IF NOT EXISTS CUSTOMER("
-		"ID				INTEGER PRIMARY KEY	NOT NULL,"//if not set it will be done automatically by a simple increment 
-		"FIRST_NAME		TEXT				NOT NULL,"
-		"LAST_NAME		TEXT				NOT NULL,"
-		"STREET			TEXT				NOT NULL,"
-		"ZIP			INTEGER				NOT NULL,"
-		"ACTIVE			BOOLEAN				NOT NULL;"
-		") ";
+	createHelper(this->CREATE_CUSTOMER);
 	//CREATE-Statement for Account
-	sqlCreateQuery << "CREATE TABLE IF NOT EXISTS ACCOUNT("
-		//"ID				INTEGER PRIMARY KEY	NOT NULL,"
-		"ACCOUNT_NUMBER	INTEGER	PRIMARY KEY	NOT NULL,"
-		"NAME			TEXT				NOT NULL,"
-		"TYPE			INTEGER				NOT NULL,"
-		"ACTIVE			BOOLEAN				NOT NULL DEFAULT 1;"
-		") ";
+	createHelper(this->CREATE_ACCOUNT);
 	//CREATE-Statement for m-to-n relation between customer and account
-	sqlCreateQuery << "CREATE TABLE IF NOT EXISTS CUSTOMER_TO_ACCOUNT("
-		"CUSTOMER_ID	REFERENCES CUSTOMER (ID),"
-		"ACCOUNT_ID		REFERENCES ACCOUNT (ACCOUNT_NUMBER),"
-		"PRIMARY KEY (CUSTOMER_ID, ACCOUNT_ID);"
-		") ";
+	createHelper(this->CREATE_CUSTOMER_TO_ACCOUNT);
 	//CREATE-Statement for Transaction
-	sqlCreateQuery << "CREATE TABLE IF NOT EXISTS TRANSACTION("
-		"ID				INTEGER PRIMARY KEY	NOT NULL,"
-		"CURRENCY		INTEGER				NOT NULL,"	
-		"FACTOR			REAL				NOT NULL CHECK(FACTOR > 0),"
-		"AMOUNT			REAL				NOT NULL CHECK(CURRENCY > 0),"
-		"SOURCE_ACCOUNT	REFERENCES CUSTOMER_TO_ACCOUNT (ACCOUNT_ID),"
-		"TARGET_ACCOUNT	REFERENCES ACCOUNT (ACCOUNT_NUMBER),"
-		"DISPOSER		REFERENCES CUSTOMER_TO_ACCOUNT (CUSTOMER_ID);"
-		") ";
-#pragma endregion create-statements
-	string str = sqlCreateQuery.str();
+	createHelper(this->CREATE_TRANSACTION);
+}
+
+int Persistence::createHelper(string str) {
 	char* dest = new char[str.length() + 1]; std::copy(str.begin(), str.end(), dest);
-	sqlCreateQuery.clear();
 	if (this->dbHandle != nullptr) {
-		this ->sqliteResultCode = sqlite3_prepare_v2(this->dbHandle, /*sqlCreateQuery.str().c_str()*/dest, str.length(), &this->statement, 0);
-		if ( this->sqliteResultCode == SQLITE_OK) {
+		this->sqliteResultCode = sqlite3_prepare_v2(this->dbHandle, /*sqlCreateQuery.str().c_str()*/dest, str.length(), &this->statement, 0);
+		if (this->sqliteResultCode == SQLITE_OK) {
 			this->sqliteResultCode = sqlite3_step(statement);
 			this->sqliteResultCode = sqlite3_finalize(statement);
 		}
 	}
 	return this->sqliteResultCode;
+}
+
+sqlite3 *Persistence::getDbHandle() {
+	return this->dbHandle;
+}
+
+int Persistence::count(DataModule table) {
+	string str = "";
+	switch (table)
+	{
+	case DataModule::ACCOUNT_TABLE:
+		str = "SELECT * FROM ACCOUNT;";
+	case DataModule::CUSTOMER_TABLE:
+		str = "SELECT * FROM CUSTOMER;";
+	case DataModule::TRANSACTION_TABLE:
+		str = "SELECT * FROM TRANSFER;";
+	case DataModule::CURRENCY_TABLE:
+		str = "SELECT * FROM CURRENCY;";
+	}
+	int resultcode = 0;
+	int result = 0;
+	if (sqlite3_prepare_v2(Persistence::getInstance()->getDbHandle(), str.c_str(), str.length(), &(this->statement), 0) == SQLITE_OK) {
+		resultcode = sqlite3_step(this->statement);
+		resultcode = sqlite3_finalize(this->statement);
+		result = sqlite3_column_count(this->statement);
+	}
+	return result;
 }
 
 vector<vector<string>> Persistence::query(const char* query){

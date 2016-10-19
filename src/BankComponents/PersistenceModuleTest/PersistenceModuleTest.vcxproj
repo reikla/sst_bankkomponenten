@@ -163,11 +163,20 @@
     <ClCompile Include="PersistenceModuleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AccountModule\AccountModule.vcxproj">
+      <Project>{6160cc62-38cd-4fed-87f7-6e0ba77d2065}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomerModule\CustomerModule.vcxproj">
+      <Project>{e5e87c69-6b4f-4d68-b655-2bfff894de61}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\PersistenceModule\PersistenceModule.vcxproj">
       <Project>{63e421a1-e3c5-4a75-9117-b34d478f2904}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.vcxproj">
       <Project>{fb5709e2-339e-4e22-b54b-7621537122d8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TransactionModule\TransactionModule.vcxproj">
+      <Project>{36029787-a6cd-4601-9ea1-af29c31db703}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

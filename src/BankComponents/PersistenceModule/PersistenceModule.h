@@ -10,6 +10,8 @@
 #define PERSISTENCEMODULE_API __declspec(dllimport)
 #endif
 
+#include "Persistence.h"
+
 extern "C" {
 	PERSISTENCEMODULE_API int Load();
 	PERSISTENCEMODULE_API int Store();

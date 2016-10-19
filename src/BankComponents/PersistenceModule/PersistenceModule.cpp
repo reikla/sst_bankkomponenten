@@ -44,7 +44,7 @@ PERSISTENCEMODULE_API int Store()
 	persistence->insertOrReplace(storage->GetTransactions());
 
 	int resultCode = persistence->getSqLiteResultCode();
-	if (resultCode != SQLITE_OK || resultCode != SQLITE_DONE) {
+	if (resultCode != SQLITE_OK | resultCode != SQLITE_DONE) {
 		return resultCode;
 	}
 	else {
