@@ -122,5 +122,20 @@ namespace CurrencyTranslationModuleTest
 			Assert::IsTrue(diffOk);
 		}
 
+		TEST_METHOD(CurrencyTranslation_StoreSameCurrencyTwice_OK)
+		{
+			SharedStorage::GetInstance()->clear();
+			SetCurrencyToEuroFactor(USD, 0.911);
+			SetCurrencyToEuroFactor(USD, 17);
+
+			double factor = 1;
+			auto returnValue = TranslateFromEuro(USD, factor, factor);
+
+			GetCurrencyToEuroFactor(USD, factor);
+
+			Assert::AreEqual(17.0, factor);
+
+		}
+
 	};
 }
