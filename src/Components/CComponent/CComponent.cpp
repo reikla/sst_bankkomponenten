@@ -18,7 +18,7 @@ CCOMPONENT_API int GetNumber(void)
 
 CCOMPONENT_API int ManipulateStruct(MYSTRUCT* myStruct) {
 	if (myStruct != NULL) {
-		myStruct->mystr = "Hallo";
+		//myStruct->mystr = "Hallo";
 		return 0;
 	}
 	return -1;

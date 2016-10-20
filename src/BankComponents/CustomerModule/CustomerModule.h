@@ -12,7 +12,7 @@
 class Customer;
 
 extern "C" {
-	CUSTOMERMODULE_API int CreateCustomer(char* firstName, char* lastName, char* street, int zip, int& id);
+	CUSTOMERMODULE_API int CreateCustomer(const char* firstName, const char* lastName, const char* street, int zip, int& id);
 
 	CUSTOMERMODULE_API int DeleteCustomer(int id);
 

@@ -14,7 +14,7 @@ class Customer;
 class Account;
 
 extern "C" {
-	ACCOUNTMODULE_API int CreateAccount(int disposerId, char* accountName, ACCOUNT_TYPE accountType, int& accountNumber);
+	ACCOUNTMODULE_API int CreateAccount(int disposerId, const char* accountName, ACCOUNT_TYPE accountType, int& accountNumber);
 
 	ACCOUNTMODULE_API int CloseAccount(int disposerId, int accountNumber);
 

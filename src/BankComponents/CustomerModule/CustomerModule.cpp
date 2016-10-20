@@ -7,7 +7,7 @@
 #include "../Shared/Customer.h"
 
 
-CUSTOMERMODULE_API int CreateCustomer(char* firstName, char* lastName, char* street, int zip, int& id)
+CUSTOMERMODULE_API int CreateCustomer(const char* firstName, const char* lastName, const char* street, int zip, int& id)
 {
 	if (!(CheckString(firstName) && CheckString(lastName) && CheckString(street) && CheckZip(zip)))
 	{

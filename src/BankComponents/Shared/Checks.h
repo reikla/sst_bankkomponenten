@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-inline bool CheckString(char * string) 
+inline bool CheckString(const char * string) 
 {
 	if (string == __nullptr) {
 		return false;
@@ -27,7 +27,7 @@ inline bool CheckCurrencyFactor(double factor)
 	return factor > 0;
 }
 
-inline bool CheckPointer(void* ptr)
+inline bool CheckPointer(const void* ptr)
 {
 	return ptr != __nullptr;
 }
