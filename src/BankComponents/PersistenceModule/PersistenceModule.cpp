@@ -16,18 +16,17 @@ PERSISTENCEMODULE_API int Load()
 		if (!persistence->connect()) {
 			return persistence->getSqLiteResultCode();
 		}
-		
+	
 	storage->GetCustomers()->splice(storage->GetCustomers()->end(), *(persistence->getAllCustomers()));
 	storage->GetAccounts()->splice(storage->GetAccounts()->end(), *(persistence->getAllAccounts()));
 	storage->GetTransactions()->splice(storage->GetTransactions()->end(), *(persistence->getAllTransactions()));
 	
 	int resultCode = persistence->getSqLiteResultCode();
-	if (resultCode != SQLITE_OK || resultCode != SQLITE_DONE) {
-		return resultCode;
+	if (resultCode != SQLITE_OK) {
+		if (resultCode != SQLITE_DONE)
+			return resultCode;
 	}
-	else {
 		return E_OK;
-	}
 }
 
 PERSISTENCEMODULE_API int Store()
@@ -39,15 +38,20 @@ PERSISTENCEMODULE_API int Store()
 			return persistence->getSqLiteResultCode();
 		}
 
+	//delete all tables causes a locked db, blocks for example running all tests and does not go away for a while 
+	/*persistence->deleteAll();
+	if(persistence->getSqLiteResultCode() != SQLITE_DONE)
+		return persistence->getSqLiteResultCode();*/
+	
+
 	persistence->insertOrReplace(storage->GetCustomers());
 	persistence->insertOrReplace(storage->GetAccounts());
 	persistence->insertOrReplace(storage->GetTransactions());
 
 	int resultCode = persistence->getSqLiteResultCode();
-	if (resultCode != SQLITE_OK | resultCode != SQLITE_DONE) {
-		return resultCode;
+	if (resultCode != SQLITE_OK) {
+		if (resultCode != SQLITE_DONE)
+			return resultCode;
 	}
-	else {
 		return E_OK;
-	}
 }

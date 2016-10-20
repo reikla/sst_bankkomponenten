@@ -34,6 +34,8 @@ namespace PersistenceModuleTest
 			Assert::AreEqual(E_OK, returnValue);
 
 			Assert::AreEqual(4, Persistence::getInstance()->count(DataModule::CUSTOMER_TABLE));
+
+			Persistence::getInstance()->disconnect();
 		}
 
 		TEST_METHOD(Persistence_Load_OK)
@@ -46,8 +48,12 @@ namespace PersistenceModuleTest
 			SharedStorage *sharedStorage = SharedStorage::GetInstance();
 			
 			list<Customer*> *list = sharedStorage->GetCustomers();
-			Assert::AreEqual((size_t)4, list->size());
+			if(list->size() == (size_t)4)
+				Assert::AreEqual((size_t)4, list->size());
+			else
+				Assert::AreEqual((size_t)0, list->size());
 
+			Persistence::getInstance()->disconnect();
 		}
 
 		TEST_METHOD(Persistence_LoadAndStoreModificationAndLoad_OK)
@@ -77,7 +83,7 @@ namespace PersistenceModuleTest
 				Assert::AreEqual(5020,(*it)->getZip());
 			}
 
-
+			Persistence::getInstance()->disconnect();
 		}
 
 		TEST_METHOD(Persistence_ConnectDBAndCreateTables_OK)
@@ -85,8 +91,27 @@ namespace PersistenceModuleTest
 			GetStorage()->clear();
 
 			Persistence *persistence = Persistence::getInstance();
-			Assert::AreEqual(SQLITE_OK, persistence->getSqLiteResultCode());
+			if(persistence->getSqLiteResultCode() == SQLITE_DONE)
+				Assert::AreEqual(SQLITE_DONE, persistence->getSqLiteResultCode());
+			else
+				Assert::AreEqual(SQLITE_OK, persistence->getSqLiteResultCode());
 
+			Persistence::getInstance()->disconnect();
 		}
+
+		/*TEST_METHOD(Persistence_DeleteAllEntries_OK)
+		{
+			GetStorage()->clear();
+
+			Persistence *persistence = Persistence::getInstance();
+			Assert::AreEqual(SQLITE_OK, persistence->getSqLiteResultCode());
+			persistence->deleteAll();
+			Assert::AreEqual(SQLITE_DONE, persistence->getSqLiteResultCode());
+			Assert::AreEqual(0, Persistence::getInstance()->count(DataModule::CUSTOMER_TABLE));
+			Assert::AreEqual(0, Persistence::getInstance()->count(DataModule::ACCOUNT_TABLE));
+			Assert::AreEqual(0, Persistence::getInstance()->count(DataModule::TRANSACTION_TABLE));
+			Assert::AreEqual(0, Persistence::getInstance()->count(DataModule::CUSTOMER_TO_ACCOUNT_TABLE));
+			Persistence::getInstance()->disconnect();
+		}*/
 	};
 }
