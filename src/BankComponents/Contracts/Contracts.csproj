@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
     <Compile Include="Services\IAccountService.cs" />
     <Compile Include="Services\ICurrencyTranslationService.cs" />
     <Compile Include="Services\ICustomerService.cs" />

@@ -1,6 +1,6 @@
 ﻿using Components.Contracts.Services;
 
-namespace Components.Service.CustomerService
+namespace Components.Service.Own
 {
     public class CustomerService : ICustomerService
     {

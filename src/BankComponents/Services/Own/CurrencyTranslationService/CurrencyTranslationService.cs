@@ -2,7 +2,7 @@
 
 namespace Components.Service.Own
 {
-    public class TransactionService : ITransactionService
+    public class CurrencyTranslationService : ICurrencyTranslationService
     {
     }
 }
