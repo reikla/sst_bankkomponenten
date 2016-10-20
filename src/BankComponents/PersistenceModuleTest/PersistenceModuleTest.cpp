@@ -1,10 +1,13 @@
 #include "stdafx.h"
+
+#define TESTING
+
 #include "CppUnitTest.h"
 #include "../PersistenceModule/PersistenceModule.h"
 #include "../Shared/ErrorCodes.h"
 #include "../Shared/SharedFunctions.h"
 
-#include "../PersistenceModule/Persistence.h"
+#include "../Shared/Persistence.h"
 
 #include "../CustomerModule/CustomerModule.h"
 #include "../CurrencyTranslationModule/CurrencyTranslationModule.h"
@@ -107,7 +110,7 @@ namespace PersistenceModuleTest
 			GetStorage()->clear();
 
 			Persistence *persistence = Persistence::getInstance();
-			Assert::AreEqual(SQLITE_OK, persistence->getSqLiteResultCode());
+			Assert::AreEqual(SQLITE_DONE, persistence->getSqLiteResultCode());
 			persistence->deleteAll();
 			Assert::AreEqual(SQLITE_DONE, persistence->getSqLiteResultCode());
 			Assert::AreEqual(0, Persistence::getInstance()->count(DataModule::CUSTOMER_TABLE));

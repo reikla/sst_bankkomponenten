@@ -5,12 +5,13 @@
 #include <vector>
 #include <iostream>
 #include <list>
-#include "../Shared/Customer.h"
-#include "../Shared/Account.h"
-#include "../Shared/Transaction.h"
-#include "../Shared/CurrencyRate.h"
+#include "Customer.h"
+#include "Account.h"
+#include "Transaction.h"
+#include "CurrencyRate.h"
+#include "Shared.h"
+
 #include <stdlib.h>
-#include "PersistenceModule.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ typedef enum DataModule
 	CUSTOMER_TABLE,ACCOUNT_TABLE,TRANSACTION_TABLE, CUSTOMER_TO_ACCOUNT_TABLE,CURRENCY_RATE_TABLE
 }DataModule;
 
-class PERSISTENCEMODULE_API Persistence
+class SHARED_API Persistence
 {
 public:
 	virtual ~Persistence();

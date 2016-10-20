@@ -5,7 +5,15 @@
 #include "PersistenceModule.h"
 #include "../Shared/ErrorCodes.h"
 #include "../Shared/SharedFunctions.h"
-#include "Persistence.h"
+#include "../Shared/Persistence.h"
+
+#ifdef TESTING
+#define DISCONNECT persistence->disconnect();
+#endif
+#ifndef TESTING
+#define DISCONNECT
+#endif // !TESTING
+
 
 PERSISTENCEMODULE_API int Load()
 {
@@ -23,6 +31,7 @@ PERSISTENCEMODULE_API int Load()
 	storage->GetTransactions()->splice(storage->GetTransactions()->end(), *(persistence->getAllTransactions()));
 	
 	int resultCode = persistence->getSqLiteResultCode();
+	DISCONNECT
 	if (resultCode != SQLITE_OK) {
 		if (resultCode != SQLITE_DONE)
 			return E_PERSISTENCE_ERROR;//resultCode;
@@ -52,6 +61,7 @@ PERSISTENCEMODULE_API int Store()
 	persistence->insertOrReplace(storage->GetTransactions());
 
 	resultCode = persistence->getSqLiteResultCode();
+	DISCONNECT
 	if (resultCode != SQLITE_OK) {
 		if (resultCode != SQLITE_DONE)
 			return E_PERSISTENCE_ERROR;//resultCode;

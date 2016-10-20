@@ -158,9 +158,11 @@
     <ClInclude Include="Customer.h" />
     <ClInclude Include="ErrorCodes.h" />
     <ClInclude Include="ForUnitTests.h" />
+    <ClInclude Include="Persistence.h" />
     <ClInclude Include="SharedFunctions.h" />
     <ClInclude Include="SharedStorage.h" />
     <ClInclude Include="Shared.h" />
+    <ClInclude Include="sqlite3.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Transaction.h" />
@@ -185,8 +187,10 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ForUnitTests.cpp" />
+    <ClCompile Include="Persistence.cpp" />
     <ClCompile Include="SharedStorage.cpp" />
     <ClCompile Include="Shared.cpp" />
+    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
