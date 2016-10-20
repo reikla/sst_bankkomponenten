@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83B820A2-4E89-4697-B1A4-1591B9E5AEA9}</ProjectGuid>
+    <ProjectGuid>{880BA33B-1E33-421E-B2A7-99FB0FBD139F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Components.Service.Own</RootNamespace>
-    <AssemblyName>Components.Service.Own.CurrencyTranslationService</AssemblyName>
+    <AssemblyName>Components.Service.Own.PersistenceService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,14 +44,8 @@
     <Compile Include="..\..\..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
-    <Compile Include="CurrencyTranslationService.cs" />
+    <Compile Include="PersistenceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Contracts\Contracts.csproj">
-      <Project>{6f52a3fc-db4b-45ef-a610-85fc733a9388}</Project>
-      <Name>Contracts</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
