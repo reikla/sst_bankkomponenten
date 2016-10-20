@@ -14,7 +14,7 @@ PERSISTENCEMODULE_API int Load()
 	Persistence *persistence = Persistence::getInstance();
 	if (!persistence->getIsConnected())
 		if (!persistence->connect()) {
-			return persistence->getSqLiteResultCode();
+			return E_PERSISTENCE_ERROR;//persistence->getSqLiteResultCode();
 		}
 	
 	storage->GetCurrencyRates()->splice(storage->GetCurrencyRates()->end(), *(persistence->getAllCurrencyRates()));
@@ -25,7 +25,7 @@ PERSISTENCEMODULE_API int Load()
 	int resultCode = persistence->getSqLiteResultCode();
 	if (resultCode != SQLITE_OK) {
 		if (resultCode != SQLITE_DONE)
-			return resultCode;
+			return E_PERSISTENCE_ERROR;//resultCode;
 	}
 		return E_OK;
 }
@@ -36,14 +36,14 @@ PERSISTENCEMODULE_API int Store()
 	Persistence *persistence = Persistence::getInstance();
 	if (!persistence->getIsConnected())
 		if (!persistence->connect()) {
-			return persistence->getSqLiteResultCode();
+			return E_PERSISTENCE_ERROR;//persistence->getSqLiteResultCode();
 		}
 
 	persistence->deleteAll();
 	int resultCode = persistence->getSqLiteResultCode();
 	if (resultCode != SQLITE_OK) {
 		if (resultCode != SQLITE_DONE)
-			return resultCode;
+			return E_PERSISTENCE_ERROR;//resultCode;
 	}
 
 	persistence->insertOrReplace(storage->GetCurrencyRates());
@@ -54,7 +54,7 @@ PERSISTENCEMODULE_API int Store()
 	resultCode = persistence->getSqLiteResultCode();
 	if (resultCode != SQLITE_OK) {
 		if (resultCode != SQLITE_DONE)
-			return resultCode;
+			return E_PERSISTENCE_ERROR;//resultCode;
 	}
 		return E_OK;
 }

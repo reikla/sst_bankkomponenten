@@ -8,6 +8,10 @@
 #define E_NOT_EXPECTED -1
 #pragma endregion Unexpected
 
+#pragma region Persistence
+#define E_PERSISTENCE_ERROR -2
+#pragma endregion Persistence
+
 #pragma region Authorization
 #define E_UNAUTHORIZED -10
 #pragma endregion Unauthorized
