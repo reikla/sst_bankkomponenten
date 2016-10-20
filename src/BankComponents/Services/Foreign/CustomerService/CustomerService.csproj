@@ -7,8 +7,8 @@
     <ProjectGuid>{DAF690F8-FCF0-4A67-83BB-03BC8B19472F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Components.Service.Own</RootNamespace>
-    <AssemblyName>Components.Service.Own.CustomerService</AssemblyName>
+    <RootNamespace>Components.Service.Foreign</RootNamespace>
+    <AssemblyName>Components.Service.Foreign.CustomerService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

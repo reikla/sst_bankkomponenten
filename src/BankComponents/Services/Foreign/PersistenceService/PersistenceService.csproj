@@ -7,8 +7,8 @@
     <ProjectGuid>{880BA33B-1E33-421E-B2A7-99FB0FBD139F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Components.Service.Own</RootNamespace>
-    <AssemblyName>Components.Service.Own.PersistenceService</AssemblyName>
+    <RootNamespace>Components.Service.Foreign</RootNamespace>
+    <AssemblyName>Components.Service.Foreign.PersistenceService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,6 +46,12 @@
     </Compile>
     <Compile Include="PersistenceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Contracts\Contracts.csproj">
+      <Project>{6f52a3fc-db4b-45ef-a610-85fc733a9388}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

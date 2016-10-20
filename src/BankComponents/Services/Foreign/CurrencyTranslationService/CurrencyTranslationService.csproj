@@ -7,8 +7,8 @@
     <ProjectGuid>{33C258CD-341F-4A77-805E-EF6B17C4D09F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Components.Service.Own</RootNamespace>
-    <AssemblyName>Components.Service.Own.CurrencyTranslationService</AssemblyName>
+    <RootNamespace>Components.Service.Foreign</RootNamespace>
+    <AssemblyName>Components.Service.Foreign.CurrencyTranslationService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,6 +46,12 @@
     </Compile>
     <Compile Include="CurrencyTranslationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Contracts\Contracts.csproj">
+      <Project>{6f52a3fc-db4b-45ef-a610-85fc733a9388}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
