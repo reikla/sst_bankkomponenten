@@ -34,24 +34,22 @@ void Persistence::disconnect() {
 }
 
 void Persistence::deleteAll() {
-	/*this->query(DELETE_ALL_CUSTOMER_TO_ACCOUNT.c_str());
-	this->query(DELETE_ALL_CUSTOMER.c_str());
-	this->query(DELETE_ALL_ACCOUNT.c_str());
-	this->query(DELETE_ALL_TRANSACTION.c_str());*/
-	//delete all in a single transaction (to be ACID) 
-	//causes that the db is locked for a certain time, which blocks running all tests.
-	//As this is a performance issue the tables will be deleted in multiple transactions instead.
 	query(BEGIN_TRANSACTION.c_str());
-	query(DELETE_ALL_CUSTOMER_TO_ACCOUNT.c_str());
+	query(DELETE_ALL_CURRENCY_RATE.c_str());
 	if (this->sqliteResultCode == SQLITE_DONE) {
-		query(DELETE_ALL_CUSTOMER.c_str());
+		query(DELETE_ALL_CUSTOMER_TO_ACCOUNT.c_str());
 		if (this->sqliteResultCode == SQLITE_DONE) {
-			query(DELETE_ALL_ACCOUNT.c_str());
+			query(DELETE_ALL_CUSTOMER.c_str());
 			if (this->sqliteResultCode == SQLITE_DONE) {
-				query(DELETE_ALL_TRANSACTION.c_str());
+				query(DELETE_ALL_ACCOUNT.c_str());
 				if (this->sqliteResultCode == SQLITE_DONE) {
-					query(COMMIT.c_str());
-					//return true;
+					query(DELETE_ALL_TRANSACTION.c_str());
+					if (this->sqliteResultCode == SQLITE_DONE) {
+						query(COMMIT.c_str());
+					}
+					else {
+						query(ROLLBACK.c_str());
+					}
 				}
 				else {
 					query(ROLLBACK.c_str());
@@ -68,7 +66,6 @@ void Persistence::deleteAll() {
 	else {
 		query(ROLLBACK.c_str());
 	}
-	//return false;
 }
 
 bool Persistence::getIsConnected() {
@@ -77,6 +74,19 @@ bool Persistence::getIsConnected() {
 
 string Persistence::quote(string value) {
 	return "'" + value + "'";
+}
+
+void Persistence::insertOrReplace(list<CurrencyRate*>* currencyRateList) {
+	ostringstream insertQuery;
+	for (list<CurrencyRate*>::const_iterator it = currencyRateList->begin(); it != currencyRateList->end(); ++it) {
+		insertQuery <<
+			"REPLACE INTO CURRENCY_RATE(CURRENCY, FACTOR) "
+			<< "VALUES ( "
+			<< (*it)->GetCurrency() << ", "
+			<< (*it)->GetFactor() << " );";
+		query(insertQuery.str().c_str());
+		insertQuery.str(string());//clears the stream
+	}
 }
 
 void Persistence::insertOrReplace(list<Customer*>* customerList){
@@ -147,6 +157,18 @@ void Persistence::insertOrReplace(list<Transaction*>* transactionList) {
 	}
 }
 
+list<CurrencyRate*>* Persistence::getAllCurrencyRates() {
+	list<CurrencyRate*>* entityList = new list<CurrencyRate*>();
+	vector<vector<string>> resultVector = this->query((CURRENCY_RATE_SELECT + string(";")).c_str());
+
+	for (vector<vector<string>>::iterator it = resultVector.begin(); it != resultVector.end(); ++it) {
+		vector<string> row = *it;
+		CurrencyRate *currencyRate = unmarshallingCurrencyRate(row);
+		entityList->push_back(currencyRate);
+	}
+
+	return entityList;
+}
 
 list<Customer*>* Persistence::getAllCustomers() {
 	list<Customer*>* entityList = new list<Customer*>();
@@ -162,7 +184,7 @@ list<Customer*>* Persistence::getAllCustomers() {
 		ostringstream getAccountsToCustomerQuery;
 		getAccountsToCustomerQuery << ACCOUNT_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = ACCOUNT.ACCOUNT_NUMBER WHERE CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = '" << customer->getId() << "';";
 		vector<vector<string>> AccountsToThisCustomerVector = this->query(getAccountsToCustomerQuery.str().c_str());
-		for (vector<vector<string> >::iterator it = AccountsToThisCustomerVector.begin(); it < AccountsToThisCustomerVector.end(); ++it) {
+		for (vector<vector<string> >::iterator it = AccountsToThisCustomerVector.begin(); it != AccountsToThisCustomerVector.end(); ++it) {
 			vector<string> row = *it;
 			Account *account = unmarshallingAccount(row);
 			customer->getAccounts()->push_back(account);
@@ -188,7 +210,7 @@ list<Account*>* Persistence::getAllAccounts() {
 		ostringstream getCustomersToAccountQuery;
 		getCustomersToAccountQuery << CUSTOMER_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = CUSTOMER.ID WHERE CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = '" << account->GetAccountNumber() << "';";
 		vector<vector<string>> CustomerToThisAccountVector = this->query(getCustomersToAccountQuery.str().c_str());
-		for (vector<vector<string> >::iterator it = CustomerToThisAccountVector.begin(); it != resultVector.end(); ++it) {
+		for (vector<vector<string> >::iterator it = CustomerToThisAccountVector.begin(); it != CustomerToThisAccountVector.end(); ++it) {
 			vector<string> row = *it;
 			Customer *customer = unmarshallingCustomer(row);
 			account->GetDisposers()->push_back(customer);
@@ -277,6 +299,13 @@ Transaction* Persistence::unmarshallingTransaction(vector<string> row, Account *
 	return transaction;
 }
 
+CurrencyRate* Persistence::unmarshallingCurrencyRate(vector<string> row) {
+	CURRENCY currency = static_cast<CURRENCY>(atoi(row.at(0).c_str()));
+	double factor = atof(row.at(1).c_str());
+	CurrencyRate *currencyRate = new CurrencyRate(currency,factor);
+	return currencyRate;
+}
+
 list<Transaction*>* Persistence::getAllTransactions() {
 	list<Transaction*>* entityList = new list<Transaction*>();
 	vector<vector<string>> resultVector = this->query((TRANSACTION_SELECT+string(";")).c_str());
@@ -332,7 +361,8 @@ Persistence *Persistence::setDbName(string dbName){
 }
 
 void Persistence::createTables() {
-
+	//CREATE-Statement for Currency Rate
+	createHelper(this->CREATE_CURRENCY_RATE);
 	//CREATE-Statement for Customer
 	createHelper(this->CREATE_CUSTOMER);
 	//CREATE-Statement for Account
@@ -375,16 +405,16 @@ int Persistence::count(DataModule table) {
 	case DataModule::TRANSACTION_TABLE:
 		str = "SELECT COUNT(*) FROM TRANSFER;";
 		break;
-	case DataModule::CURRENCY_TABLE:
-		str = "SELECT COUNT(*) FROM CURRENCY;";
+	case DataModule::CURRENCY_RATE_TABLE:
+		str = "SELECT COUNT(*) FROM CURRENCY_RATE;";
 		break;
 	}
 	int resultcode = 0;
 	int result = 0;
 	if (sqlite3_prepare_v2(getDbHandle(), str.c_str(), str.length(), &(this->statement), 0) == SQLITE_OK) {
 		resultcode = sqlite3_step(this->statement);
-		//resultcode = sqlite3_finalize(this->statement);
 		result = sqlite3_column_int(this->statement,0);
+		resultcode = sqlite3_finalize(this->statement);
 	}
 	return result;
 }
