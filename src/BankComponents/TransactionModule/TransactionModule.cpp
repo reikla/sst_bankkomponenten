@@ -147,9 +147,9 @@ TRANSACTIONMODULE_API int Transfer(int disposerId, int fromAccountNumber, int to
 }
 
 
-TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_TRANSACTION *** data, int & numberOfEntries)
+TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_TRANSACTION * data, int & numberOfEntries)
 {
-	if (!(CheckId(disposerId) && CheckId(accountNumber) && CheckPointer(data)))
+	if (!(CheckId(disposerId) && CheckId(accountNumber)))
 	{
 		return E_INVALID_PARAMETER;
 	}
@@ -165,8 +165,14 @@ TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_
 	}
 
 	auto transactions = TransactionHelper::GetAccountsTransactions(acc);
-
 	numberOfEntries = transactions->size();
+
+	if (data == __nullptr)
+	{
+		//möglicher Fehler weil sizeof uint liefert, wir aber nicht. Ist in der Praxis kein Problem weil unsere sizeof Transaction nicht sonderlich groß ist.
+		return numberOfEntries * sizeof(S_TRANSACTION);
+	}
+
 
 	if (numberOfEntries == 0) // Keine Transaktionen gefunden -> kein Fehler
 	{
@@ -180,29 +186,28 @@ TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_
 	for (int i = 0; i < numberOfEntries; ++i, ++it)
 	{
 		auto transaction = *it;
-		auto s_transaction = new S_TRANSACTION;
-		s_transaction->amount = transaction->getAmount();
-		s_transaction->factor = transaction->getFactor();
-		s_transaction->currency = transaction->getCurrency();
+
+		(*data).amount = transaction->getAmount();
+		(*data).factor = transaction->getFactor();
+		(*data).currency = transaction->getCurrency();
 
 		//Transaktion kann auch eine Bar Einzahlung from = BAR_TRANSACTION oder Bar Auszahlung to = BAR_TRANSACTION sein.
-		s_transaction->fromAccount = BAR_TRANSACTION;
-		s_transaction->toAccount = BAR_TRANSACTION;
+		(*data).fromAccount = BAR_TRANSACTION;
+		(*data).toAccount = BAR_TRANSACTION;
 
 		if (transaction->getFrom() != __nullptr)
 		{
-			s_transaction->fromAccount = transaction->getFrom()->GetAccountNumber();
+			(*data).fromAccount = transaction->getFrom()->GetAccountNumber();
 		}
 
 		if (transaction->getTo() != __nullptr)
 		{
-			s_transaction->toAccount = transaction->getTo()->GetAccountNumber();
+			(*data).toAccount = transaction->getTo()->GetAccountNumber();
 		}
 
-		s_transaction->disposer = transaction->getDisposer()->getId();
-		tr[i] = s_transaction;
+		(*data).disposer = transaction->getDisposer()->getId();
+		data++;
 	}
-	*data = tr;
 
 	return E_OK;
 }

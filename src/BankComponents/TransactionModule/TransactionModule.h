@@ -20,7 +20,7 @@ extern "C" {
 
 	TRANSACTIONMODULE_API int Transfer(int disposerId, int fromAccountNumber, int toAccountNumber, double amount, CURRENCY currency);
 
-	TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_TRANSACTION*** data, int& numberOfEntries);
+	TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_TRANSACTION* data, int& numberOfEntries);
 
 	TRANSACTIONMODULE_API int AccountBalancing(int disposerId, int accountNumber, CURRENCY currency, double& balance);
 }
