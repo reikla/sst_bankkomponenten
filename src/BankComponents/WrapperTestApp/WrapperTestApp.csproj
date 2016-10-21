@@ -54,13 +54,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Components.Common\Components.Common.csproj">
+      <Project>{5D7E5B8C-BF19-4A32-87CC-E8571AB48683}</Project>
+      <Name>Components.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wrapper\Own\AccountWrapper\AccountWrapper.csproj">
       <Project>{91529214-4d38-4f1b-afd9-a9d3535b5d3e}</Project>
       <Name>AccountWrapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wrapper\Own\CurrencyTranslationWrapper\CurrencyTranslationWrapper.csproj">
+      <Project>{714b8c6d-adad-4586-bc04-796152c44fff}</Project>
+      <Name>CurrencyTranslationWrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wrapper\Own\CustomerWrapper\CustomerWrapper.csproj">
       <Project>{b999f7f1-489b-4471-9fbd-99756d824e38}</Project>
       <Name>CustomerWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wrapper\Own\PersistenceWrapper\PersistenceWrapper.csproj">
+      <Project>{da2192af-502e-481b-be5d-ad9690f75e8d}</Project>
+      <Name>PersistenceWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wrapper\Own\TransactionWrapper\TransactionWrapper.csproj">
+      <Project>{1def782b-d799-4d5d-b13c-e37521eabb22}</Project>
+      <Name>TransactionWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
