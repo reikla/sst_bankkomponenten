@@ -50,6 +50,11 @@
     <Compile Include="..\..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
+    <Compile Include="ForeignAccountStruct.cs" />
+    <Compile Include="ForeignCurrency.cs" />
+    <Compile Include="ForeignCustomerStruct.cs" />
+    <Compile Include="ForeignAccountType.cs" />
+    <Compile Include="ForeignTransactionStruct.cs" />
     <Compile Include="OwnCurrency.cs" />
     <Compile Include="DllNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

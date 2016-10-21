@@ -47,6 +47,12 @@
     <Compile Include="TransactionWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Components.Common\Components.Common.csproj">
+      <Project>{5D7E5B8C-BF19-4A32-87CC-E8571AB48683}</Project>
+      <Name>Components.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
