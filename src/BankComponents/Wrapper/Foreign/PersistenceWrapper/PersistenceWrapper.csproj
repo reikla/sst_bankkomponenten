@@ -61,4 +61,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="BeforeBuild">
+    <Exec Command="xcopy.exe /R /Y &quot;$(SolutionDir)libs\$(PROCESSOR_ARCHITECTURE)\DataAccessLayer.dll&quot; &quot;$(OutputPath)&quot;" />
+  </Target>
 </Project>

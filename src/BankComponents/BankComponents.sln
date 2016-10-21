@@ -38,14 +38,29 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{E4E1C1C6-DEB8-49A4-A999-5F20064F17BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountWrapper", "Wrapper\Own\AccountWrapper\AccountWrapper.csproj", "{91529214-4D38-4F1B-AFD9-A9D3535B5D3E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6160CC62-38CD-4FED-87F7-6E0BA77D2065} = {6160CC62-38CD-4FED-87F7-6E0BA77D2065}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyTranslationWrapper", "Wrapper\Own\CurrencyTranslationWrapper\CurrencyTranslationWrapper.csproj", "{714B8C6D-ADAD-4586-BC04-796152C44FFF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{145A24D8-C7A0-4CEF-B36F-3FE305647C41} = {145A24D8-C7A0-4CEF-B36F-3FE305647C41}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerWrapper", "Wrapper\Own\CustomerWrapper\CustomerWrapper.csproj", "{B999F7F1-489B-4471-9FBD-99756D824E38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E5E87C69-6B4F-4D68-B655-2BFFF894DE61} = {E5E87C69-6B4F-4D68-B655-2BFFF894DE61}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceWrapper", "Wrapper\Own\PersistenceWrapper\PersistenceWrapper.csproj", "{DA2192AF-502E-481B-BE5D-AD9690F75E8D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{63E421A1-E3C5-4A75-9117-B34D478F2904} = {63E421A1-E3C5-4A75-9117-B34D478F2904}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionWrapper", "Wrapper\Own\TransactionWrapper\TransactionWrapper.csproj", "{1DEF782B-D799-4D5D-B13C-E37521EABB22}"
+	ProjectSection(ProjectDependencies) = postProject
+		{36029787-A6CD-4601-9EA1-AF29C31DB703} = {36029787-A6CD-4601-9EA1-AF29C31DB703}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerWrapper", "Wrapper\Foreign\CustomerWrapper\CustomerWrapper.csproj", "{1F0F06B5-1492-446F-9B1A-91E57480047F}"
 EndProject
