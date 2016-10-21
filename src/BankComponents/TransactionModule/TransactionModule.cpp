@@ -115,7 +115,7 @@ TRANSACTIONMODULE_API int Transfer(int disposerId, int fromAccountNumber, int to
 
 	double balance = 0;
 
-	returnValue = AccountBalancing(fromAccountNumber, disposerId, EUR, balance);
+	returnValue = AccountBalancing(disposerId, fromAccountNumber, EUR, balance);
 
 	if (returnValue != E_OK)
 	{
