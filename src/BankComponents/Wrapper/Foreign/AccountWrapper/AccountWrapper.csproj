@@ -54,5 +54,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
+	
+  </Target>
   -->
+  <Target Name="BeforeBuild">
+    <Exec Command="xcopy.exe /R /Y &quot;$(SolutionDir)libs\$(PROCESSOR_ARCHITECTURE)\AccountManagement.dll&quot; &quot;$(OutputPath)&quot;" />
+  </Target>
 </Project>
