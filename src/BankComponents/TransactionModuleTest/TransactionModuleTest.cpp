@@ -123,19 +123,27 @@ namespace TransactionModuleTest
 
 			PayIn(0, 0, 150, EUR);
 
-			S_TRANSACTION ** transactions = __nullptr;
+			S_TRANSACTION* transactions = __nullptr;
+
 			int numOfEntries = 0;
 
-			auto returnValue = AccountStatement(0, 0, &transactions, numOfEntries);
+			auto sizeForStruct = (size_t) AccountStatement(0, 0, transactions, numOfEntries);
 
-			Assert::AreEqual(E_OK, returnValue);
+			if (sizeForStruct > 0) // ansonsten fehler
+			{
+				transactions = (S_TRANSACTION*) malloc(sizeForStruct);
+				auto returnValue = AccountStatement(0, 0, transactions, numOfEntries);
 
-			Assert::AreEqual(transactions[0]->amount, 150.0);
-			Assert::AreEqual(transactions[0]->factor, 1.0);
-			Assert::AreEqual(transactions[0]->disposer, 0);
-			Assert::IsTrue(transactions[0]->currency == EUR);
-			Assert::AreEqual(transactions[0]->fromAccount, BAR_TRANSACTION);
-			Assert::AreEqual(transactions[0]->toAccount, 0);
+				Assert::AreEqual(E_OK, returnValue);
+
+				Assert::AreEqual(transactions[0].amount, 150.0);
+				Assert::AreEqual(transactions[0].factor, 1.0);
+				Assert::AreEqual(transactions[0].disposer, 0);
+				Assert::IsTrue(transactions[0].currency == EUR);
+				Assert::AreEqual(transactions[0].fromAccount, BAR_TRANSACTION);
+				Assert::AreEqual(transactions[0].toAccount, 0);
+				free(transactions);
+			}
 		}
 
 		TEST_METHOD(Transaction_GetAccountStatementNoTransaction_OK)
@@ -147,10 +155,10 @@ namespace TransactionModuleTest
 			CreateCustomer("", "", "", 1000, id);
 			CreateAccount(0, "", SavingsAccount, id);
 
-			S_TRANSACTION ** transactions = __nullptr;
+			S_TRANSACTION * transactions = __nullptr;
 			int numOfEntries = 0;
 
-			auto returnValue = AccountStatement(0, 0, &transactions, numOfEntries);
+			auto returnValue = AccountStatement(0, 0, transactions, numOfEntries);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(0, numOfEntries);
@@ -258,28 +266,34 @@ namespace TransactionModuleTest
 			PayIn(0, 0, 150, EUR);
 			PayOut(0, 0, 150, USD);
 
-			S_TRANSACTION ** transactions = __nullptr;
+			S_TRANSACTION * transactions = __nullptr;
 			int numOfEntries = 0;
 
-			auto returnValue = AccountStatement(0, 0, &transactions, numOfEntries);
+			auto returnValue = AccountStatement(0, 0, transactions, numOfEntries);
+
+			transactions = (S_TRANSACTION*) malloc(returnValue);
+
+			returnValue = AccountStatement(0, 0, transactions, numOfEntries);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(2, numOfEntries);
 
 
-			Assert::AreEqual((transactions[0])->amount, 150.0);
-			Assert::AreEqual(transactions[0]->factor, 1.0);
-			Assert::AreEqual(transactions[0]->disposer, 0);
-			Assert::IsTrue(transactions[0]->currency == EUR);
-			Assert::AreEqual(transactions[0]->fromAccount, BAR_TRANSACTION);
-			Assert::AreEqual(transactions[0]->toAccount, 0);
+			Assert::AreEqual(transactions[0].amount, 150.0);
+			Assert::AreEqual(transactions[0].factor, 1.0);
+			Assert::AreEqual(transactions[0].disposer, 0);
+			Assert::IsTrue(  transactions[0].currency == EUR);
+			Assert::AreEqual(transactions[0].fromAccount, BAR_TRANSACTION);
+			Assert::AreEqual(transactions[0].toAccount, 0);
 
-			Assert::AreEqual(transactions[1]->amount, 150.0);
-			Assert::AreEqual(transactions[1]->factor, 0.5);
-			Assert::AreEqual(transactions[1]->disposer, 0);
-			Assert::IsTrue( transactions[1]->currency == USD);
-			Assert::AreEqual(transactions[1]->fromAccount, 0);
-			Assert::AreEqual(transactions[1]->toAccount, BAR_TRANSACTION);
+			Assert::AreEqual(transactions[1].amount, 150.0);
+			Assert::AreEqual(transactions[1].factor, 0.5);
+			Assert::AreEqual(transactions[1].disposer, 0);
+			Assert::IsTrue(  transactions[1].currency == USD);
+			Assert::AreEqual(transactions[1].fromAccount, 0);
+			Assert::AreEqual(transactions[1].toAccount, BAR_TRANSACTION);
+
+			free(transactions);
 		}
 	};
 }
