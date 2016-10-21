@@ -19,7 +19,6 @@ typedef enum DataModule
 {
 	CUSTOMER_TABLE,ACCOUNT_TABLE,TRANSACTION_TABLE, CUSTOMER_TO_ACCOUNT_TABLE,CURRENCY_RATE_TABLE
 }DataModule;
-
 class SHARED_API Persistence
 {
 public:
@@ -82,3 +81,4 @@ private:
 	vector<vector<string>> query(const char* query);
 	void insertOrReplaceRelationCustomerToAccount(list<Account *>::const_iterator disposerIterator);
 };
+

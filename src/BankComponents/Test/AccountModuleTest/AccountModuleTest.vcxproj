@@ -163,13 +163,13 @@
     <ClCompile Include="AccountModuleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AccountModule\AccountModule.vcxproj">
+    <ProjectReference Include="..\..\AccountModule\AccountModule.vcxproj">
       <Project>{6160cc62-38cd-4fed-87f7-6e0ba77d2065}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\CustomerModule\CustomerModule.vcxproj">
+    <ProjectReference Include="..\..\CustomerModule\CustomerModule.vcxproj">
       <Project>{e5e87c69-6b4f-4d68-b655-2bfff894de61}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Shared\Shared.vcxproj">
+    <ProjectReference Include="..\..\Shared\Shared.vcxproj">
       <Project>{fb5709e2-339e-4e22-b54b-7621537122d8}</Project>
     </ProjectReference>
   </ItemGroup>

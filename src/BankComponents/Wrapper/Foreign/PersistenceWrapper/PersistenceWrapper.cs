@@ -1,4 +1,5 @@
-﻿using Components.Common;
+﻿using System;
+using Components.Common;
 using System.Runtime.InteropServices;
 
 namespace Components.Wrapper.Foreign
@@ -15,34 +16,34 @@ namespace Components.Wrapper.Foreign
         public static extern int RollbackDataAccessLayer();
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern ForeignCustomerStruct SelectCustomerById(int id, [Out] out int errorCode);
+        public static extern IntPtr SelectCustomerById(int id, [Out] out int errorCode);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int InsertCustomer([In, Out] ForeignCustomerStruct customer);
+        public static extern int InsertCustomer(ref ForeignCustomerStruct customer);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
         public static extern int DeleteCustomer(int id);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UpdateCustomer([In, Out] ForeignCustomerStruct customer);
+        public static extern int UpdateCustomer(ref ForeignCustomerStruct customer);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
         public static extern ForeignAccountStruct SelectAccountById(int id, [Out] out int errorCode);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern ForeignAccountStruct[] GetAccountsByCustomerId(int id, [Out] out int accountCount, out int errorCode);
+        public static extern IntPtr GetAccountsByCustomerId(int id, [Out] out int accountCount, out int errorCode);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int InsertAccount([In, Out] ForeignAccountStruct account);
+        public static extern int InsertAccount(ref ForeignAccountStruct account);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
         public static extern int DeleteAccount(int id);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UpdateAccount([In, Out] ForeignAccountStruct account);
+        public static extern int UpdateAccount(ref ForeignAccountStruct account);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int InsertTransaction([In, Out] ForeignTransactionStruct transaction);
+        public static extern int InsertTransaction(ref ForeignTransactionStruct transaction);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
         public static extern ForeignTransactionStruct[] GetTransactionsForSourceAccountId(int accountId, [Out] out int resultLength, out int errorCode);

@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "../Shared/Currency.h"
-#include "../Shared/ErrorCodes.h"
-#include "../Shared/SharedStorage.h"
-#include "../TransactionModule/TransactionModule.h"
+#include "../../Shared/Currency.h"
+#include "../../Shared/ErrorCodes.h"
+#include "../../Shared/SharedStorage.h"
+#include "../../TransactionModule/TransactionModule.h"
 
-#include "../AccountModule/AccountModule.h"
+#include "../../AccountModule/AccountModule.h"
 
-#include "../CustomerModule/CustomerModule.h"
+#include "../../CustomerModule/CustomerModule.h"
 
-#include "../CurrencyTranslationModule/CurrencyTranslationModule.h"
+#include "../../CurrencyTranslationModule/CurrencyTranslationModule.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

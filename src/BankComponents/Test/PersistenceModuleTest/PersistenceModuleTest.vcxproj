@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CEBB70B3-21AC-4C14-833F-FB15C04D187C}</ProjectGuid>
+    <ProjectGuid>{E60DC350-AE24-4834-864B-754D6B1C7748}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TransactionModuleTest</RootNamespace>
+    <RootNamespace>PersistenceModuleTest</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -160,22 +160,25 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TransactionModuleTest.cpp" />
+    <ClCompile Include="PersistenceModuleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AccountModule\AccountModule.vcxproj">
+    <ProjectReference Include="..\..\AccountModule\AccountModule.vcxproj">
       <Project>{6160cc62-38cd-4fed-87f7-6e0ba77d2065}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\CurrencyTranslationModule\CurrencyTranslationModule.vcxproj">
+    <ProjectReference Include="..\..\CurrencyTranslationModule\CurrencyTranslationModule.vcxproj">
       <Project>{145a24d8-c7a0-4cef-b36f-3fe305647c41}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\CustomerModule\CustomerModule.vcxproj">
+    <ProjectReference Include="..\..\CustomerModule\CustomerModule.vcxproj">
       <Project>{e5e87c69-6b4f-4d68-b655-2bfff894de61}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Shared\Shared.vcxproj">
+    <ProjectReference Include="..\..\PersistenceModule\PersistenceModule.vcxproj">
+      <Project>{63e421a1-e3c5-4a75-9117-b34d478f2904}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Shared.vcxproj">
       <Project>{fb5709e2-339e-4e22-b54b-7621537122d8}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\TransactionModule\TransactionModule.vcxproj">
+    <ProjectReference Include="..\..\TransactionModule\TransactionModule.vcxproj">
       <Project>{36029787-a6cd-4601-9ea1-af29c31db703}</Project>
     </ProjectReference>
   </ItemGroup>

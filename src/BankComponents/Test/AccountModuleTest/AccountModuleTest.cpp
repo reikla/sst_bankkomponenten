@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../AccountModule/AccountModule.h"
-#include "../CustomerModule/CustomerModule.h"
-#include "../Shared/ErrorCodes.h"
-#include "../Shared/SharedStorage.h"
+#include "../../AccountModule/AccountModule.h"
+#include "../../CustomerModule/CustomerModule.h"
+#include "../../Shared/ErrorCodes.h"
+#include "../../Shared/SharedStorage.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

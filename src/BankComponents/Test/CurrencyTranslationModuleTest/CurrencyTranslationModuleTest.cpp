@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../CurrencyTranslationModule/CurrencyTranslationModule.h"
-#include "../Shared/Currency.h"
-#include "../Shared/ErrorCodes.h"
-#include "../Shared/SharedStorage.h"
+#include "../../CurrencyTranslationModule/CurrencyTranslationModule.h"
+#include "../../Shared/Currency.h"
+#include "../../Shared/ErrorCodes.h"
+#include "../../Shared/SharedStorage.h"
 #include <cmath>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

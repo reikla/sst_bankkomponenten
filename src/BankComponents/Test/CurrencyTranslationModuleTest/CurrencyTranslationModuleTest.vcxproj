@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{370EDC86-C411-4DF3-B239-F8707F0378EB}</ProjectGuid>
+    <ProjectGuid>{EF8D33E9-1E54-4659-9431-BAFE865778BF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CustomerModuleTest</RootNamespace>
+    <RootNamespace>CurrencyTranslationModuleTest</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -160,13 +160,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="CustomerModuleTest.cpp" />
+    <ClCompile Include="CurrencyTranslationModuleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomerModule\CustomerModule.vcxproj">
-      <Project>{e5e87c69-6b4f-4d68-b655-2bfff894de61}</Project>
+    <ProjectReference Include="..\..\CurrencyTranslationModule\CurrencyTranslationModule.vcxproj">
+      <Project>{145a24d8-c7a0-4cef-b36f-3fe305647c41}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Shared\Shared.vcxproj">
+    <ProjectReference Include="..\..\Shared\Shared.vcxproj">
       <Project>{fb5709e2-339e-4e22-b54b-7621537122d8}</Project>
     </ProjectReference>
   </ItemGroup>

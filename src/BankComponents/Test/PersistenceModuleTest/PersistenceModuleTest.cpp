@@ -3,16 +3,16 @@
 #define TESTING
 
 #include "CppUnitTest.h"
-#include "../PersistenceModule/PersistenceModule.h"
-#include "../Shared/ErrorCodes.h"
-#include "../Shared/SharedFunctions.h"
-
-#include "../Shared/Persistence.h"
-
-#include "../CustomerModule/CustomerModule.h"
-#include "../CurrencyTranslationModule/CurrencyTranslationModule.h"
-#include "../TransactionModule/TransactionModule.h"
-#include "../AccountModule/AccountModule.h"
+#include "../../PersistenceModule/PersistenceModule.h"
+#include "../../Shared/ErrorCodes.h"
+#include "../../Shared/SharedFunctions.h"
+		  
+#include "../../Shared/Persistence.h"
+		  
+#include "../../CustomerModule/CustomerModule.h"
+#include "../../CurrencyTranslationModule/CurrencyTranslationModule.h"
+#include "../../TransactionModule/TransactionModule.h"
+#include "../../AccountModule/AccountModule.h"
 #include <algorithm>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
