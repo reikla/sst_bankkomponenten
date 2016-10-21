@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91529214-4D38-4F1B-AFD9-A9D3535B5D3E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{7FED6267-FA98-4F56-AF7A-05F8A1554623}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Components.Wrapper.Own</RootNamespace>
-    <AssemblyName>Components.Wrapper.Own.AccountWrapper</AssemblyName>
+    <RootNamespace>Components.App.WrapperTestApp</RootNamespace>
+    <AssemblyName>Components.App.WrapperTestApp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
@@ -41,17 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\Version.cs">
+    <Compile Include="..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
-    <Compile Include="AccountType.cs" />
-    <Compile Include="AccountWrapper.cs" />
+    <Compile Include="WrapperTestApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Components.Common\Components.Common.csproj">
-      <Project>{5d7e5b8c-bf19-4a32-87cc-e8571ab48683}</Project>
-      <Name>Components.Common</Name>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wrapper\Own\AccountWrapper\AccountWrapper.csproj">
+      <Project>{91529214-4d38-4f1b-afd9-a9d3535b5d3e}</Project>
+      <Name>AccountWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wrapper\Own\CustomerWrapper\CustomerWrapper.csproj">
+      <Project>{b999f7f1-489b-4471-9fbd-99756d824e38}</Project>
+      <Name>CustomerWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

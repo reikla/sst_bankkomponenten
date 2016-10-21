@@ -4,9 +4,9 @@ using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
 using Components.Contracts.Services;
 
-namespace SimpleConsoleApplication
+namespace Components.App.MEFDemo
 {
-    class Program
+    class MefDemo
     {
         static void Main(string[] args)
         {
