@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using Components.Common;
 
 namespace Components.Wrapper.Foreign
 {
