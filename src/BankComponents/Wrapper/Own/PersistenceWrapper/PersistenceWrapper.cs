@@ -1,13 +1,19 @@
-﻿using System.Runtime.InteropServices;
+﻿using Components.Common;
+
+using pw = Components.Wrapper.Own.InternalPersistenceWrapper;
 
 namespace Components.Wrapper.Own
 {
     public static class PersistenceWrapper
     {
-        [DllImport(Common.DllNames.OwnPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Load();
+        public static void Load()
+        {
+            SaveApiCaller.ExecuteCall(pw.Store);
+        }
 
-        [DllImport(Common.DllNames.OwnPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Store();
+        public static void Store()
+        {
+            SaveApiCaller.ExecuteCall(pw.Store);
+        }
     }
 }

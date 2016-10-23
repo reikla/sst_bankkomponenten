@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using Components.Common;
+﻿using Components.Common;
 using Components.Wrapper.Foreign;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -37,7 +35,7 @@ namespace TestForeignWrapper
                
 
 
-var d =         (ForeignCustomerStruct)    Marshal.PtrToStructure(ptr, typeof(ForeignCustomerStruct));
+            //var d =         (ForeignCustomerStruct)    Marshal.PtrToStructure(ptr, typeof(ForeignCustomerStruct));
 
 
 

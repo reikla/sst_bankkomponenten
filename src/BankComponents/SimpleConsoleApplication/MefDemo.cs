@@ -33,13 +33,13 @@ namespace Components.App.MEFDemo
             while (true)
             {
                 Console.WriteLine("What assembly do you want to load? 1=foreign 2=own?");
-                var answer = Console.ReadKey();
+                var answer = Console.ReadLine();
 
-                switch (answer.KeyChar)
+                switch (answer)
                 {
-                    case '1':
+                    case "1":
                         return "Components.Service.Foreign.AccountService.dll";
-                    case '2':
+                    case "2":
                         return "Components.Service.Own.AccountService.dll";
                     default:
                         continue;

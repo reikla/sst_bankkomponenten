@@ -45,6 +45,7 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="CurrencyTranslationWrapper.cs" />
+    <Compile Include="InternalCurrencyTranslationWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
