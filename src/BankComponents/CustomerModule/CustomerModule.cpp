@@ -37,7 +37,7 @@ CUSTOMERMODULE_API int DeleteCustomer(int id)
 	return E_OK;
 }
 
-CUSTOMERMODULE_API int ModifyCustomer(int id, char * firstName, char * lastName, char * street, int * zip)
+CUSTOMERMODULE_API int ModifyCustomer(int id, char * firstName, char * lastName, char * street, int zip)
 {
 	if (!CheckId(id))
 	{
@@ -49,10 +49,6 @@ CUSTOMERMODULE_API int ModifyCustomer(int id, char * firstName, char * lastName,
 		return E_CUSTOMER_NOT_FOUND;
 	}
 
-	if (zip != nullptr && !CheckZip(*zip))
-	{
-		return E_INVALID_PARAMETER;
-	}
 
 	if (firstName != __nullptr) 
 	{
@@ -66,9 +62,9 @@ CUSTOMERMODULE_API int ModifyCustomer(int id, char * firstName, char * lastName,
 	{
 		customer->setStreet(street);
 	}
-	if (zip != __nullptr)
+	if (CheckZip(zip))
 	{
-		customer->setZip(*zip);
+		customer->setZip(zip);
 	}
 	return E_OK;
 }

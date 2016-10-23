@@ -69,7 +69,7 @@ namespace PersistenceModuleTest
 			Assert::AreEqual(E_OK, returnLoadValue);
 			
 			int newZip = 5020;
-			ModifyCustomer(2, "Hans", "Meier", "Daheim", &newZip);
+			ModifyCustomer(2, "Hans", "Meier", "Daheim", newZip);
 			auto returnSaveValue = Store();
 			Assert::AreEqual(E_OK, returnSaveValue);
 
