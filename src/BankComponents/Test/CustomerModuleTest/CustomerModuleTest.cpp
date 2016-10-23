@@ -58,7 +58,7 @@ namespace CustomerModuleTest
 			int id = -1;
 			CreateCustomer("Franz", "Müller", "Hintertupfing", 1000, id);
 			int newZip = 5020;
-			auto returnValue = ModifyCustomer(0,"Hans", "Meier", "Daheim", &newZip);
+			auto returnValue = ModifyCustomer(0,"Hans", "Meier", "Daheim", newZip);
 
 			Assert::AreEqual(E_OK, returnValue);
 			auto customer = *(GetStorage()->GetCustomers()->begin());
@@ -75,9 +75,13 @@ namespace CustomerModuleTest
 			int id = -1;
 			CreateCustomer("Franz", "Müller", "Hintertupfing", 1000, id);
 			int newZip = 50120;
-			auto returnValue = ModifyCustomer(0, "Hans", "Meier", "Daheim", &newZip);
+			auto returnValue = ModifyCustomer(0, "Hans", "Meier", "Daheim", newZip);
+			auto customer = *(GetStorage()->GetCustomers()->begin());
 
-			Assert::AreEqual(E_INVALID_PARAMETER, returnValue);
+			Assert::AreEqual(E_OK, returnValue);
+			Assert::AreEqual(1000, customer->getZip());
+
+
 		}
 
 		TEST_METHOD(Customer_ModifyCustomerOnlyOneParam_OK)
