@@ -44,10 +44,15 @@ namespace BankingApplication
                 new CommandMenuEntry("Translate to Euro", new TranslateToEuroCommand()),
                 new CommandMenuEntry("Translate from Euro", new TranslateFromEuroCommand()),
                 new DividerMenuEntry(),
+                new CommandMenuEntry("Pay out", new PayOutCommand()),
+                new CommandMenuEntry("Pay in", new PayInCommand()),
+                new CommandMenuEntry("Transfer money", new TransferCommand()),
+                new CommandMenuEntry("Account statement", new AccountStatementCommand()),
+                new CommandMenuEntry("Account balance", new AccountBalanceCommand()),
+                new DividerMenuEntry(),
                 new CommandMenuEntry("Load Data", new LoadCommand()),
                 new CommandMenuEntry("Save Data", new SaveCommand()),
-
-                //Macht sinn dass das der letzte Eintrag ist
+                new DividerMenuEntry(),
                 new CommandMenuEntry("Exit", new ExitCommand())
             };
 

@@ -46,6 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyLocator.cs" />
+    <Compile Include="Commands\AccountBalanceCommand.cs" />
+    <Compile Include="Commands\AccountStatementCommand.cs" />
+    <Compile Include="Commands\TransferCommand.cs" />
+    <Compile Include="Commands\PayInCommand.cs" />
+    <Compile Include="Commands\PayOutCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\LoadCommand.cs" />
     <Compile Include="Commands\TranslateToEuroCommand.cs" />
