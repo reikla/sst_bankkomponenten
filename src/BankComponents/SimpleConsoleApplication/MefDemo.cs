@@ -23,7 +23,6 @@ namespace Components.App.MEFDemo
 
             var accountService = c.GetExportedValue<IAccountService>();
 
-            accountService.Foo();
 
             Console.ReadKey();
         }

@@ -7,9 +7,24 @@ namespace Components.Service.Foreign
     [Export(typeof(IAccountService))]
     public class AccountService : IAccountService
     {
-        public void Foo()
+        public void CreateAccount()
         {
-            Console.WriteLine($"Foo from {GetType().FullName}!");
+            throw new NotImplementedException();
+        }
+
+        public void CloseAccount()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddDisposer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveDisposer()
+        {
+            throw new NotImplementedException();
         }
     }
 }

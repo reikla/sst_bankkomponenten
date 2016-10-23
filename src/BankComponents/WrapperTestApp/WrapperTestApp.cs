@@ -62,16 +62,16 @@ namespace Components.App.WrapperTestApp
 //             Console.WriteLine($"Created Customer with id {id}");
 
 
-            var customerService = new CustomerService();
-            try
-            {
-                customerService.CreateCustomer("Reimar", "Klammer", "Werkstaettenstrasse 8", 5020);
-                customerService.DeleteCustomer(1);
-            }
-            catch (ComponentException e)
-            {
-                Console.WriteLine($"Something went wrong. Exception: '{e.GetType().Name}' Message '{e.Message}.");
-            }
+//             var customerService = new CustomerService();
+//             try
+//             {
+//                 customerService.CreateCustomer("Reimar", "Klammer", "Werkstaettenstrasse 8", 5020);
+//                 customerService.DeleteCustomer(1);
+//             }
+//             catch (ComponentException e)
+//             {
+//                 Console.WriteLine($"Something went wrong. Exception: '{e.GetType().Name}' Message '{e.Message}.");
+//             }
 
         }
     }

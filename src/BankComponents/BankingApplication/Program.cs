@@ -28,14 +28,17 @@ namespace BankingApplication
 
             ServiceLocator.Instance().Init(container);
 
-            var menuEntries = new List<MenuEntry>
+            var menuEntries = new List<IMenuEntry>
             {
-                new MenuEntry("Create Customer", new CreateCustomerCommand()),
+                new CommandMenuEntry("Create Customer", new CreateCustomerCommand()),
+                new CommandMenuEntry("Modify Customer", new ModifyCustomerCommand()),
+                new CommandMenuEntry("Delete Customer", new DeleteCustomerCommand()),
+                new DividerMenuEntry(),
 
 
 
                 //Macht sinn dass das der letzte Eintrag ist
-                new MenuEntry("\nExit", new ExitCommand())
+                new CommandMenuEntry("Exit", new ExitCommand())
             };
 
 
@@ -65,9 +68,9 @@ namespace BankingApplication
                 }
                 catch (ComponentException e)
                 {
-                    Console.WriteLine($"Command '{selectedEntry.Title}' resulted in an error: {e.Message}");
+                    Console.WriteLine($"Command '{selectedEntry.Title}' resulted in an error: '{e.Message}'");
                 }
-                catch (ExitException e)
+                catch (ExitException)
                 {
                     Environment.Exit(0);
                 }

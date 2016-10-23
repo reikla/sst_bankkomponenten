@@ -3,7 +3,7 @@ using BankingApplication.Commands;
 
 namespace BankingApplication.Menu
 {
-    class MenuEntry
+    class CommandMenuEntry : IMenuEntry
     {
 
         private static int IdStore = 0;
@@ -11,7 +11,7 @@ namespace BankingApplication.Menu
         private string _title;
 
 
-        public MenuEntry(string title, ICommand command)
+        public CommandMenuEntry(string title, ICommand command)
         {
             _title = title;
             Command = command;
@@ -23,7 +23,7 @@ namespace BankingApplication.Menu
             return Id.StartsWith(selection);
         }
 
-        public string Id { get; }
+        private string Id { get; }
         public string Title => $"{Id}. {_title}.";
         public ICommand Command { get; }
 

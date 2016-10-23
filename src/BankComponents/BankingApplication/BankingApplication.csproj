@@ -47,10 +47,15 @@
   <ItemGroup>
     <Compile Include="AssemblyLocator.cs" />
     <Compile Include="Commands\CreateCustomerCommand.cs" />
+    <Compile Include="Commands\DeleteCustomerCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Menu\MenuEntry.cs" />
+    <Compile Include="Commands\ModifyCustomerCommand.cs" />
+    <Compile Include="Menu\DividerMenuEntry.cs" />
+    <Compile Include="Menu\IMenuEntry.cs" />
+    <Compile Include="Menu\CommandMenuEntry.cs" />
     <Compile Include="Menu\ExitException.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />

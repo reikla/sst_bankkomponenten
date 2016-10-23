@@ -6,17 +6,17 @@ namespace Components.Service.Foreign
     [Export(typeof(ICustomerService))]
     public class CustomerService : ICustomerService
     {
-        public int CreateCustomer(string firstName, string lastName, string street, int zip)
+        public void CreateCustomer()
         {
             throw new System.NotImplementedException();
         }
 
-        public void DeleteCustomer(int customerId)
+        public void DeleteCustomer()
         {
             throw new System.NotImplementedException();
         }
 
-        public void ModifyCustomer(int customerId, string firstName, string lastName, string street, int zip)
+        public void ModifyCustomer()
         {
             throw new System.NotImplementedException();
         }

@@ -2,6 +2,9 @@
 {
     public interface IAccountService
     {
-        void Foo();
+        void CreateAccount();
+        void CloseAccount();
+        void AddDisposer();
+        void RemoveDisposer();
     }
 }
