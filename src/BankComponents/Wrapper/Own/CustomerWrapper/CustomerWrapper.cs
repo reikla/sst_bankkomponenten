@@ -20,10 +20,10 @@ namespace Components.Wrapper.Own
             SaveApiCaller.ExecuteCall(() => cw.DeleteCustomer(id));
         }
 
-        public static void ModifyCustomer(int id, string firstName, string lastName, string street, ref int zip)
+        public static void ModifyCustomer(int id, string firstName, string lastName, string street, int zip)
         {
             int thezip = zip;
-            SaveApiCaller.ExecuteCall(() => cw.ModifyCustomer(id,firstName,lastName,street, ref thezip));
+            SaveApiCaller.ExecuteCall(() => cw.ModifyCustomer(id,firstName,lastName,street, thezip));
         }
     }
 }

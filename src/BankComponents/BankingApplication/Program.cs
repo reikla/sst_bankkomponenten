@@ -30,12 +30,15 @@ namespace BankingApplication
 
             var menuEntries = new List<IMenuEntry>
             {
-                new CommandMenuEntry("Create Customer", new CreateCustomerCommand()),
-                new CommandMenuEntry("Modify Customer", new ModifyCustomerCommand()),
-                new CommandMenuEntry("Delete Customer", new DeleteCustomerCommand()),
+                new CommandMenuEntry("Create customer", new CreateCustomerCommand()),
+                new CommandMenuEntry("Modify customer", new ModifyCustomerCommand()),
+                new CommandMenuEntry("Delete customer", new DeleteCustomerCommand()),
                 new DividerMenuEntry(),
-
-
+                new CommandMenuEntry("Create account", new CreateAccountCommand()),
+                new CommandMenuEntry("Delete account", new DeleteAccountCommand()),
+                new CommandMenuEntry("Add disposer from account", new AddDisposerCommand()),
+                new CommandMenuEntry("Remove disposer from account", new RemoveDisposerCommand()),
+                new DividerMenuEntry(),
 
                 //Macht sinn dass das der letzte Eintrag ist
                 new CommandMenuEntry("Exit", new ExitCommand())

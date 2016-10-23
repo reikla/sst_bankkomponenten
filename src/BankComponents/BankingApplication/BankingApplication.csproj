@@ -46,6 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyLocator.cs" />
+    <Compile Include="Commands\RemoveDisposerCommand.cs" />
+    <Compile Include="Commands\AddDisposerCommand.cs" />
+    <Compile Include="Commands\DeleteAccountCommand.cs" />
+    <Compile Include="Commands\CreateAccountCommand.cs" />
     <Compile Include="Commands\CreateCustomerCommand.cs" />
     <Compile Include="Commands\DeleteCustomerCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />

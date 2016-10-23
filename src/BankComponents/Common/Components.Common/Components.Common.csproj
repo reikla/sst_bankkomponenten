@@ -50,11 +50,13 @@
     <Compile Include="..\..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
+    <Compile Include="Exceptions\InvalidInputException.cs" />
     <Compile Include="Exceptions\TransactionException.cs" />
     <Compile Include="Exceptions\CurrencytranslationException.cs" />
     <Compile Include="Exceptions\CustomerException.cs" />
     <Compile Include="Exceptions\InvalidParameterException.cs" />
     <Compile Include="Exceptions\InitializationException.cs" />
+    <Compile Include="InputParser.cs" />
     <Compile Include="SaveApiCaller.cs" />
     <Compile Include="ExceptionFactory.cs" />
     <Compile Include="Exceptions\AuthorizationException.cs" />
@@ -72,6 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contracts\Contracts.csproj">
+      <Project>{6F52A3FC-DB4B-45EF-A610-85FC733A9388}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
