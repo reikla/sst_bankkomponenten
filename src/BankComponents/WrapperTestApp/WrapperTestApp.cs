@@ -1,8 +1,4 @@
-﻿using System;
-using Components.Common.Exceptions;
-using Components.Service.Own;
-
-namespace Components.App.WrapperTestApp
+﻿namespace Components.App.WrapperTestApp
 {
     class WrapperTestApp
     {

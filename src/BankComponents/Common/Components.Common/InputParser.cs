@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Components.Common.Exceptions;
 using Components.Contracts;
 

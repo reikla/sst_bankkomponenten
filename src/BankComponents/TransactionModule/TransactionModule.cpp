@@ -28,7 +28,7 @@ TRANSACTIONMODULE_API int PayOut(int disposerId, int accountNumber, double amoun
 
 	double balance = 0;
 
-	returnValue = AccountBalancing(accountNumber, disposerId, EUR, balance);
+	returnValue = AccountBalancing(disposerId, accountNumber, EUR, balance);
 
 	if (returnValue != E_OK)
 	{
