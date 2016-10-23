@@ -2,6 +2,7 @@
 {
     public interface IPersistenceService
     {
-        
+        void Save();
+        void Load();
     }
 }

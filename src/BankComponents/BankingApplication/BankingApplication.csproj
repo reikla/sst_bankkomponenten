@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyLocator.cs" />
+    <Compile Include="Commands\SaveCommand.cs" />
+    <Compile Include="Commands\LoadCommand.cs" />
     <Compile Include="Commands\TranslateToEuroCommand.cs" />
     <Compile Include="Commands\TranslateFromEuroCommand.cs" />
     <Compile Include="Commands\GetCurrencyToEuroFactorCommand.cs" />

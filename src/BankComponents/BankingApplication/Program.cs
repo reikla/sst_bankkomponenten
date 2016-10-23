@@ -44,6 +44,8 @@ namespace BankingApplication
                 new CommandMenuEntry("Translate to Euro", new TranslateToEuroCommand()),
                 new CommandMenuEntry("Translate from Euro", new TranslateFromEuroCommand()),
                 new DividerMenuEntry(),
+                new CommandMenuEntry("Load Data", new LoadCommand()),
+                new CommandMenuEntry("Save Data", new SaveCommand()),
 
                 //Macht sinn dass das der letzte Eintrag ist
                 new CommandMenuEntry("Exit", new ExitCommand())

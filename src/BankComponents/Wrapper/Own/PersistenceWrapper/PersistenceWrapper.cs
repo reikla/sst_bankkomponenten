@@ -8,7 +8,7 @@ namespace Components.Wrapper.Own
     {
         public static void Load()
         {
-            SaveApiCaller.ExecuteCall(pw.Store);
+            SaveApiCaller.ExecuteCall(pw.Load);
         }
 
         public static void Store()
