@@ -49,9 +49,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Components.Common\Components.Common.csproj">
+      <Project>{5D7E5B8C-BF19-4A32-87CC-E8571AB48683}</Project>
+      <Name>Components.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Contracts\Contracts.csproj">
       <Project>{6f52a3fc-db4b-45ef-a610-85fc733a9388}</Project>
       <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Wrapper\Own\CurrencyTranslationWrapper\CurrencyTranslationWrapper.csproj">
+      <Project>{714B8C6D-ADAD-4586-BC04-796152C44FFF}</Project>
+      <Name>CurrencyTranslationWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

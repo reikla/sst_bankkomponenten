@@ -108,5 +108,17 @@ namespace Components.Common
                     return AccountType.SavingsAccount;
             }
         }
+
+        public static OwnCurrency GetCurrency()
+        {
+            var currencyString = GetStringInput("Enter Currency: ", "Currency",
+                s => (!string.IsNullOrWhiteSpace(s) && s.Length == 3));
+            OwnCurrency currency;
+            if (!Enum.TryParse(currencyString, true, out currency))
+            {
+                throw new InvalidInputException($"Invalid currency. Enter e.g. EUR for Euro.");
+            }
+            return currency;
+        }
     }
 }

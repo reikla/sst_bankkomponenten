@@ -39,6 +39,11 @@ namespace BankingApplication
                 new CommandMenuEntry("Add disposer from account", new AddDisposerCommand()),
                 new CommandMenuEntry("Remove disposer from account", new RemoveDisposerCommand()),
                 new DividerMenuEntry(),
+                new CommandMenuEntry("Set currency to Euro factor", new SetCurrencyToEuroFactorCommand()),
+                new CommandMenuEntry("Get currency from Euro factor", new GetCurrencyToEuroFactorCommand()),
+                new CommandMenuEntry("Translate to Euro", new TranslateToEuroCommand()),
+                new CommandMenuEntry("Translate from Euro", new TranslateFromEuroCommand()),
+                new DividerMenuEntry(),
 
                 //Macht sinn dass das der letzte Eintrag ist
                 new CommandMenuEntry("Exit", new ExitCommand())
