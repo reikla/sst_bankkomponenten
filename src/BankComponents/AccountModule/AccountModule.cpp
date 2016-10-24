@@ -12,7 +12,7 @@ ACCOUNTMODULE_API int CreateAccount(int disposerId, const char* accountName, ACC
 		return E_INVALID_PARAMETER;
 	}
 	auto customer = GetCustomer(disposerId);
-	if (customer == __nullptr)
+	if (customer == __nullptr || !customer->isActive())
 	{
 		return E_CUSTOMER_NOT_FOUND;
 	}
