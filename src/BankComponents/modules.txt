@@ -1,0 +1,97 @@
+bin/Debug/AccountManagement.dll
+Die C/C++ Dll, der anderen Gruppe, zuständig für das Account Management
+
+bin/Debug/AccountModule.dll
+Die C/C++ Dll, zuständig für das Account Management
+
+bin/Debug/Components.Common.dll
+dotNet Assembly wo gemeinsam genutzte Funktionen enthalten sind.
+
+bin/Debug/Components.Contracts.dll
+dotNet Assembly welche die Interfaces zu den Services (eigene und Fremde) enthält
+
+bin/Debug/Components.Service.Foreign.AccountService.dll
+Service Implementierung des fremden AccountSerivce
+
+bin/Debug/Components.Service.Foreign.CurrencyTranslationService.dll
+Service Implementierung des fremden Währungsumrechners -> wurde von der anderen Gruppe nicht implementiert
+
+bin/Debug/Components.Service.Foreign.CustomerService.dll
+Service Implementierung des fremden Kundenmanagements
+
+bin/Debug/Components.Service.Foreign.PersistenceService.dll
+Service Implementierung der fremden Persistence
+
+bin/Debug/Components.Service.Foreign.TransactionService.dll
+Service Implementierung des fremden Überweisungsservices
+
+bin/Debug/Components.Service.Own.AccountService.dll
+Service Implementierung des eigenen AccountSerivce
+
+bin/Debug/Components.Service.Own.CurrencyTranslationService.dll
+Service Implementierung des eigenen Währungsumrechners
+
+bin/Debug/Components.Service.Own.CustomerService.dll
+Service Implementierung des Kundenmanagements
+
+bin/Debug/Components.Service.Own.PersistenceService.dll
+Service Implementierung der Persistence
+
+bin/Debug/Components.Service.Own.TransactionService.dll
+Service Implementierung des Überweisungsservices
+
+bin/Debug/Components.Wrapper.Foreign.AccountWrapper.dll
+dotNet Wrapper der fremden C/C++ Komponente
+
+bin/Debug/Components.Wrapper.Foreign.CustomerWrapper.dll
+dotNet Wrapper der fremden C/C++ Komponente
+
+bin/Debug/Components.Wrapper.Foreign.PersistenceWrapper.dll
+dotNet Wrapper der fremden C/C++ Komponente
+
+bin/Debug/Components.Wrapper.Foreign.TransactionWrapper.dll
+dotNet Wrapper der fremden C/C++ Komponente
+
+bin/Debug/Components.Wrapper.Own.AccountWrapper.dll
+dotNet Wrapper der eigenen C/C++ Komponente. Enthält einen internen Wrapper, der nur die Aufrufe enthält und eines Wrappers
+der den nativen aufruf in einem try/catch block umhüllt, und die Rückgabewerte in Exceptions umwandelt.
+
+bin/Debug/Components.Wrapper.Own.CurrencyTranslationWrapper.dll
+dotNet Wrapper der eigenen C/C++ Komponente. Enthält einen internen Wrapper, der nur die Aufrufe enthält und eines Wrappers
+der den nativen aufruf in einem try/catch block umhüllt, und die Rückgabewerte in Exceptions umwandelt.
+
+bin/Debug/Components.Wrapper.Own.CustomerWrapper.dll
+dotNet Wrapper der eigenen C/C++ Komponente. Enthält einen internen Wrapper, der nur die Aufrufe enthält und eines Wrappers
+der den nativen aufruf in einem try/catch block umhüllt, und die Rückgabewerte in Exceptions umwandelt.
+
+bin/Debug/Components.Wrapper.Own.PersistenceWrapper.dll
+dotNet Wrapper der eigenen C/C++ Komponente. Enthält einen internen Wrapper, der nur die Aufrufe enthält und eines Wrappers
+der den nativen aufruf in einem try/catch block umhüllt, und die Rückgabewerte in Exceptions umwandelt.
+
+bin/Debug/Components.Wrapper.Own.TransactionWrapper.dll
+dotNet Wrapper der eigenen C/C++ Komponente. Enthält einen internen Wrapper, der nur die Aufrufe enthält und eines Wrappers
+der den nativen aufruf in einem try/catch block umhüllt, und die Rückgabewerte in Exceptions umwandelt.
+
+bin/Debug/CurrencyTranslationModule.dll
+Die C/C++ Dll, zuständig für die Währungsumrechnung
+
+bin/Debug/CustomerManagement.dll
+Die C/C++ Dll, der anderen Gruppe, zuständig für das Kundenmanagement
+
+bin/Debug/CustomerModule.dll
+Die C/C++ Dll, zuständig für das Kundenmanagement
+
+bin/Debug/DataAccessLayer.dll
+Die C/C++ Dll, der anderen Gruppe, zuständig für die Persistence
+
+bin/Debug/PersistenceModule.dll
+Die C/C++ Dll, zuständig für die Persistence
+
+bin/Debug/Shared.dll
+Die C/C++ Komponente wo gemeinsam genutzte Funktionen implementiert sind.
+
+bin/Debug/TransactionManagement.dll
+Die C/C++ Dll, der anderen Gruppe, zuständig für die Überweisungen
+
+bin/Debug/TransactionModule.dll
+Die C/C++ Dll, zuständig für die Überweisungen
