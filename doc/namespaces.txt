@@ -1,0 +1,35 @@
+Components
+ Basisnamespace
+
+Components.Wrapper
+ Alle C/C++ Dll Wrapper
+
+Components.Wrapper.Own
+ Wrapper für eigene Dlls
+
+Components.Wrapper.Foreign
+ Wrapper für Fremde Dlls
+
+Components.Common
+ Gemeinsam genutzte Daten/Klassen/Enumerationen/Strings
+ Inputparser -> Statische Klasse genutzt um Benutzereingaben entgegen zu nehmen, und teilweise zu validieren
+ ExceptionFactory -> Statische Klasse die Fehlercodes aus den eigenen C/C++ Dlls in Exceptions umwandelt
+ SaveApiCaller -> Statische klasse, die die Aufrufe auf die Internen Wrapper in try/catch Blöcke umhüllt und aus Fehlercodes mithilfe der ExceptionFactory Exceptions generiert. 
+
+Components.Common.Exceptions
+ Gemeinsam genutzte Exceptions
+
+Components.Contracts
+ Allgemeine Interfaces
+
+Components.Contracts.Services
+ Interfaces der Services
+
+Components.Service
+ Basisnamespace für die Service Implementierungen
+
+Components.Service.Own
+ Implementierung der Services die die eigenen C/C++ Dlls verwenden
+
+Components.Service.Foreign
+ Implementierung der Services die die fremden C/C++ Dlls verwenden
