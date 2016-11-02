@@ -2,13 +2,15 @@
 
 namespace Components.Common
 {
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public struct ForeignCustomerStruct
     {
         public int id;
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPTStr)]
+        //[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 35)]
         public string firstName;
-        [MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPTStr)]
+        //[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 35)]
         public string lastName;
     }
 }

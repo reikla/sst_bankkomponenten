@@ -23,13 +23,13 @@ namespace TestForeignWrapper
 
             var isConnected = PersistenceWrapper.ConnectDataAccessLayer();
 
-            var retVal = CustomerWrapper.CreateCustomer(ref data);
+            //var retVal = CustomerWrapper.CreateCustomer(ref data);
 
 
+              //  Assert.IsTrue(1 == retVal);
 
 
-
-            var ptr = PersistenceWrapper.SelectCustomerById(data.id, out v1);
+            //var ptr = PersistenceWrapper.SelectCustomerById(data.id, out v1);
 
             //var d = new ForeignAccountStruct[v1];
                
@@ -40,8 +40,7 @@ namespace TestForeignWrapper
 
 
             }
-
-
         }
+ 
     }
 }

@@ -15,7 +15,8 @@ namespace Components.Wrapper.Foreign
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
         public static extern int RollbackDataAccessLayer();
 
-        [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
+        #region ownly by the dll internaly needed interfaces
+        /*[DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr SelectCustomerById(int id, [Out] out int errorCode);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
@@ -49,6 +50,8 @@ namespace Components.Wrapper.Foreign
         public static extern ForeignTransactionStruct[] GetTransactionsForSourceAccountId(int accountId, [Out] out int resultLength, out int errorCode);
 
         [DllImport(Common.DllNames.ForeignPersistenceModule, CallingConvention = CallingConvention.Cdecl)]
-        public static extern ForeignTransactionStruct[] GetTransactionsForDestinationAccountId(int accountId, [Out] out int resultLength, out int errorCode);
+        public static extern ForeignTransactionStruct[] GetTransactionsForDestinationAccountId(int accountId, [Out] out int resultLength, out int errorCode);*/
+
+        #endregion ownly by the dll internaly needed interfaces
     }
 }

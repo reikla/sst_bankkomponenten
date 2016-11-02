@@ -56,6 +56,9 @@
     <Compile Include="Exceptions\CustomerException.cs" />
     <Compile Include="Exceptions\InvalidParameterException.cs" />
     <Compile Include="Exceptions\InitializationException.cs" />
+    <Compile Include="ForeignAccount.cs" />
+    <Compile Include="ForeignCustomer.cs" />
+    <Compile Include="ForeignCustomerOut.cs" />
     <Compile Include="InputParser.cs" />
     <Compile Include="SaveApiCaller.cs" />
     <Compile Include="ExceptionFactory.cs" />

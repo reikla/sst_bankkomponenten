@@ -6,21 +6,21 @@ namespace Components.Wrapper.Foreign
     public static class AccountWrapper
     {
         [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int getAccountById(int id, [Out] out ForeignAccountStruct account);
+        public static extern int getAccountById(int id, out ForeignAccount account);
 
         [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int GetAccountsByCustomerId(int id, [Out] out int accountCount, out ForeignAccountStruct[] accounts);
+        public static extern int GetAccountsByCustomerId(int id, out int accountCount, out ForeignAccount[] accounts);
 
-        [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int createAccount(ref ForeignAccountStruct account);
+        [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Auto)]
+        public static extern int createAccount([In, Out] ForeignAccount account);
 
         [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
         public static extern int closeAccount(int id);
 
         [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int updateAccount(int id, ref ForeignAccountStruct account);
+        public static extern int updateAccount(int id, [In, Out] ForeignAccount account);
 
         [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int addAccessor(int id, ref ForeignAccountStruct account);
+        public static extern int addAccessor(int id, [In,Out] ForeignAccount account);
     }
 }
