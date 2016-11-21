@@ -7,7 +7,7 @@ namespace BankingApplication.Commands
         public void Execute()
         {
             var remoteBankingService = ServiceLocator.Instance().GetService<IRemoteBankService>();
-            remoteBankingService.ViewRemoteTransactions();
+            remoteBankingService.ViewOpenRemoteTransactions();
         }
     }
 }

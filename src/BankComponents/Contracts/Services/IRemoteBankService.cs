@@ -4,6 +4,7 @@
     {
         void Transfer();
         void Withdrawl();
-        void ViewRemoteTransactions();
+        void ViewOpenRemoteTransactions();
+        void RemoveOpenRemoteTransactions();
     }
 }

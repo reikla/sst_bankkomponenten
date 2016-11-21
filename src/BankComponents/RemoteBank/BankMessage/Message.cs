@@ -1,4 +1,9 @@
 ﻿//Sebastian Buchegger
+
+using System.Globalization;
+using System.Text;
+using System.Xml.Serialization;
+
 namespace BankMessage
 {
     using System;
@@ -10,7 +15,14 @@ namespace BankMessage
 
         public double Betrag { get; set; }
 
+        [XmlIgnore]
         public DateTimeOffset Ablaufdatum { get; set; }
+
+        [XmlElement("Ablaufdatum")]
+        public string AblaufdatumStr {
+            get { return Ablaufdatum.ToString("O"); }
+            set {Ablaufdatum = DateTimeOffset.Parse(value); }
+        }
 
         public string AbsenderBankId { get; set; }
 
@@ -48,6 +60,17 @@ namespace BankMessage
             this.TransaktionsTyp = transaktionsTyp;
             this.Verwendungszweck = verwendungszweck;
             this.MessageID = messageId;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(
+                $"Message: Id:'{MessageID}' Betrag: '{Betrag}' Währung: '{Waehrung}' Ablaufdatum: '{Ablaufdatum.ToString("R", new CultureInfo("de-DE"))}'");
+            sb.AppendLine(
+                $"AbsenderBank: '{AbsenderBankId}' AbsenderKonto: '{AbsenderKonto}' EmpfängerBank: '{EmpfaengerBankId}' EmpfängerKonto: '{EmpfaengerKonto}'");
+            sb.AppendLine($"TransactionType: '{TransaktionsTyp}' Verwendungszweck: '{Verwendungszweck}'");
+            return sb.ToString();
         }
 
         private sealed class BankMessageEqualityComparer : IEqualityComparer<Message>

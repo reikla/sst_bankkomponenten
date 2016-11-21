@@ -19,7 +19,7 @@ namespace CustomerModuleTest
 			int id = -1;
 			auto returnValue = CreateCustomer("Franz", "Müller", "Hintertupfing", 5020, id);
 			Assert::AreEqual(E_OK, returnValue);
-			Assert::AreEqual(0, id);
+			Assert::AreEqual(1, id);
 		}
 
 		TEST_METHOD(Customer_AddTwoCustomersID_OK)
@@ -28,7 +28,7 @@ namespace CustomerModuleTest
 			int id = -1;
 			CreateCustomer("Franz", "Müller", "Hintertupfing", 5020, id);
 			CreateCustomer("Franz", "Müller", "Hintertupfing", 5020, id);
-			Assert::AreEqual(1, id);
+			Assert::AreEqual(2, id);
 		}
 
 		TEST_METHOD(Customer_DeleteCstomer_OK)
@@ -49,7 +49,7 @@ namespace CustomerModuleTest
 			auto returnValue = CreateCustomer("Franz", "Müller", "Hintertupfing", 5020, id);
 
 			Assert::AreEqual(E_OK, returnValue);
-			Assert::AreEqual(1, id);
+			Assert::AreEqual(2, id);
 		}
 
 		TEST_METHOD(Customer_ModifyCustomer_OK)
@@ -58,7 +58,7 @@ namespace CustomerModuleTest
 			int id = -1;
 			CreateCustomer("Franz", "Müller", "Hintertupfing", 1000, id);
 			int newZip = 5020;
-			auto returnValue = ModifyCustomer(0,"Hans", "Meier", "Daheim", newZip);
+			auto returnValue = ModifyCustomer(id,"Hans", "Meier", "Daheim", newZip);
 
 			Assert::AreEqual(E_OK, returnValue);
 			auto customer = *(GetStorage()->GetCustomers()->begin());
@@ -75,7 +75,7 @@ namespace CustomerModuleTest
 			int id = -1;
 			CreateCustomer("Franz", "Müller", "Hintertupfing", 1000, id);
 			int newZip = 50120;
-			auto returnValue = ModifyCustomer(0, "Hans", "Meier", "Daheim", newZip);
+			auto returnValue = ModifyCustomer(id, "Hans", "Meier", "Daheim", newZip);
 			auto customer = *(GetStorage()->GetCustomers()->begin());
 
 			Assert::AreEqual(E_OK, returnValue);
@@ -90,7 +90,7 @@ namespace CustomerModuleTest
 			int id = -1;
 			CreateCustomer("Franz", "Müller", "Hintertupfing", 1000, id);
 			int newZip = 5020;
-			auto returnValue = ModifyCustomer(0, "Hans", NULL, NULL, NULL);
+			auto returnValue = ModifyCustomer(id, "Hans", NULL, NULL, NULL);
 
 			Assert::AreEqual(E_OK, returnValue);
 			auto customer = *(GetStorage()->GetCustomers()->begin());

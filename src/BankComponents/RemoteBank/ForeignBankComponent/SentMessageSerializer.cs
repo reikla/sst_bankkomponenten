@@ -8,21 +8,26 @@ namespace ForeignBankComponent
 {
     public class SentMessageSerializer
     {
-        private const string fileName = "sent_messages.xml";
+        private readonly string _fileName;
+
+        public SentMessageSerializer(string fileName = "sent_message.xml")
+        {
+            _fileName = fileName;
+        }
 
 
         public Dictionary<long, Message> Load()
         {
             var dict = new Dictionary<long, Message>();
 
-            if (!File.Exists(fileName)) // File not yet written
+            if (!File.Exists(_fileName)) // File not yet written
             {
                 return dict;
             }
 
             var serializer = new XmlSerializer(typeof(List<Message>));
             List<Message> messagesList;
-            using (TextReader tw = new StreamReader(fileName))
+            using (TextReader tw = new StreamReader(_fileName))
             {
                 messagesList = (List<Message>) serializer.Deserialize(tw);
             }
@@ -36,7 +41,7 @@ namespace ForeignBankComponent
 
             var serializer = new XmlSerializer(typeof(List<Message>));
 
-            using (TextWriter tw = new StreamWriter(fileName, false))
+            using (TextWriter tw = new StreamWriter(_fileName, false))
             {
                 serializer.Serialize(tw, messagesList);
             }

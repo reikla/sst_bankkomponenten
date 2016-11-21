@@ -10,17 +10,18 @@ namespace ForeignBankComponent
     public class RemoteBankComponent : IRemoteBankComponent
     {
 
-        private Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IBankCommunicationService _communicationService;
         private readonly string _email;
         private Random rand;
         private readonly SentMessageSerializer _serializer;
 
-        private readonly Dictionary<long, BankMessage.Message> _sentMessages;
+        private readonly Dictionary<long, Message> _sentMessages;
 
         public RemoteBankComponent(string email, string password)
         {
-
+            _logger.Info("Starting RemoteBankComponent.");
+            _logger.Info($"Email: {email}" );
             _email = email;
             var smtpCredentials = new SmtpCredentials
             {
@@ -50,12 +51,14 @@ namespace ForeignBankComponent
             }
             catch (Exception e)
             {
+                _logger.Error(e, "Error at starting RemoteBankComponent.");
                 throw new BankCommunicationException("Cannot communicate.", e);
             }
             _serializer = new SentMessageSerializer();
             _sentMessages = _serializer.Load();
 
             _communicationService.MessagesAvailable += communicationService_MessagesAvailable;
+            _logger.Info("Added MessageReceived event handler.");
 
             rand = new Random();
         }
@@ -115,7 +118,7 @@ namespace ForeignBankComponent
             }
         }
 
-        public void SwitchReceipients(BankMessage.Message message)
+        public void SwitchReceipients(Message message)
         {
             var oldTo = message.EmpfaengerBankId;
             var oldFrom = message.AbsenderBankId;
@@ -127,7 +130,7 @@ namespace ForeignBankComponent
         {
             var expired = _sentMessages.Values.Where(x => x.Ablaufdatum < DateTimeOffset.Now).ToArray();
 
-            foreach (BankMessage.Message message in expired)
+            foreach (var message in expired)
             {
                 _logger.Info($"Message timeout reached. Id: '{message.MessageID}'");
                 _logger.Info($"Send NACK to Bank: '{message.AbsenderBankId}'");
@@ -139,7 +142,7 @@ namespace ForeignBankComponent
             }
         }
 
-        public async void SendTransaction(BankMessage.Message message)
+        public async void SendTransaction(Message message)
         {
             _logger.Info($"Sending Message. Type: '{message.TransaktionsTyp}' Id: '{message.MessageID}' From: '{message.AbsenderBankId}' To: '{message.EmpfaengerBankId}'");
 
@@ -168,13 +171,13 @@ namespace ForeignBankComponent
 
         private long LongRandom(long min, long max, Random rand)
         {
-            byte[] buf = new byte[8];
+            var buf = new byte[8];
             rand.NextBytes(buf);
-            long longRand = BitConverter.ToInt64(buf, 0);
+            var longRand = BitConverter.ToInt64(buf, 0);
 
             return (Math.Abs(longRand % (max - min)) + min);
         }
 
-        public event EventHandler<BankMessage.Message> MessageReceived;
+        public event EventHandler<Message> MessageReceived;
     }
 }

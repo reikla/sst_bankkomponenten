@@ -6,6 +6,9 @@ using System.Reflection;
 using BankingApplication.Commands;
 using BankingApplication.Menu;
 using Components.Common.Exceptions;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace BankingApplication
 {
@@ -13,6 +16,10 @@ namespace BankingApplication
     {
         static void Main(string[] args)
         {
+            var logger = LogManager.GetCurrentClassLogger();
+            ConfigureLogging();
+            logger.Info("Starting application");
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             AggregateCatalog serviceCatalog = new AggregateCatalog();
@@ -56,6 +63,7 @@ namespace BankingApplication
                 new CommandMenuEntry("Create remote transaction", new TransferToRemoteBankCommand()),
                 new CommandMenuEntry("Create remote withdrawl", new WithdrawalFromRemoteBankCommand()),
                 new CommandMenuEntry("View remote transactions", new ViewRemoteTransactionsCommand()),
+                new CommandMenuEntry("Remove remote transaction", new RemoveRemoteTransactionCommand()),
                 new DividerMenuEntry(),
                 new CommandMenuEntry("Exit", new ExitCommand())
             };
@@ -70,7 +78,7 @@ namespace BankingApplication
                 Console.Clear();
                 Console.WriteLine("Select action: ");
 
-                menuEntries.ForEach(x=>Console.WriteLine(x.Title));
+                menuEntries.ForEach(x => Console.WriteLine(x.Title));
 
                 var action = Console.ReadLine();
                 var selectedEntry = menuEntries.Find(x => x.CanHandle(action));
@@ -102,6 +110,21 @@ namespace BankingApplication
             }
         }
 
+        private static void ConfigureLogging()
+        {
+            // Step 1. Create configuration object 
+            var config = new LoggingConfiguration();
+
+            // Step 2. Create targets and add them to the configuration 
+            var fileTarget = new FileTarget();
+            fileTarget.Layout = @"${date:format=HH\:mm\:ss} ${logger} ${message}";
+            fileTarget.FileName = "${basedir}\\logfile.log";
+            config.AddTarget("file", fileTarget);
+            var rule1 = new LoggingRule("*", LogLevel.Trace, fileTarget);
+            config.LoggingRules.Add(rule1);
+            LogManager.Configuration = config;
+        }
+
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Console.WriteLine($"A unexpected Error occured: {e.ExceptionObject}.");
@@ -112,21 +135,21 @@ namespace BankingApplication
 
         static IEnumerable<Assembly> AskForServiceType()
         {
-                while (true)
-                {
-                    Console.WriteLine("What Services do you want to load? 1=foreign 2=own?");
-                    var answer = Console.ReadLine();
+            while (true)
+            {
+                Console.WriteLine("What Services do you want to load? 1=foreign 2=own?");
+                var answer = Console.ReadLine();
 
-                    switch (answer)
-                    {
-                        case "1":
-                            return AssemblyLocator.GetServiceAssemblies(ServiceType.Foreign);
-                        case "2":
-                            return AssemblyLocator.GetServiceAssemblies(ServiceType.Own);
-                        default:
-                            continue;
-                    }
+                switch (answer)
+                {
+                    case "1":
+                        return AssemblyLocator.GetServiceAssemblies(ServiceType.Foreign);
+                    case "2":
+                        return AssemblyLocator.GetServiceAssemblies(ServiceType.Own);
+                    default:
+                        continue;
                 }
             }
+        }
     }
 }

@@ -54,10 +54,12 @@ namespace PersistenceModuleTest
 			SharedStorage *sharedStorage = SharedStorage::GetInstance();
 			
 			list<Customer*> *list = sharedStorage->GetCustomers();
-			if(list->size() == (size_t)4)
-				Assert::AreEqual((size_t)4, list->size());
+			
+			//todo: geiler test
+			if(list->size() == static_cast<size_t>(4))
+				Assert::AreEqual(static_cast<size_t>(4), list->size());
 			else
-				Assert::AreEqual((size_t)0, list->size());
+				Assert::AreEqual(static_cast<size_t>(0), list->size());
 
 			//Persistence::getInstance()->disconnect();
 		}

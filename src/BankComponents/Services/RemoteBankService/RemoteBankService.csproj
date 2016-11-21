@@ -31,6 +31,10 @@
     <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.3.11\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -49,14 +53,29 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Components.Common\Components.Common.csproj">
+      <Project>{5D7E5B8C-BF19-4A32-87CC-E8571AB48683}</Project>
+      <Name>Components.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Contracts\Contracts.csproj">
       <Project>{6f52a3fc-db4b-45ef-a610-85fc733a9388}</Project>
       <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteBank\BankMessage\BankMessage.csproj">
+      <Project>{1DA2C1CF-4488-4767-B1DA-407280ECF71E}</Project>
+      <Name>BankMessage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\RemoteBank\ForeignBankComponent\ForeignBankComponent.csproj">
       <Project>{E4471676-55D8-427A-AC55-69FEBDCF280E}</Project>
       <Name>ForeignBankComponent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Wrapper\Own\TransactionWrapper\TransactionWrapper.csproj">
+      <Project>{1DEF782B-D799-4D5D-B13C-E37521EABB22}</Project>
+      <Name>TransactionWrapper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

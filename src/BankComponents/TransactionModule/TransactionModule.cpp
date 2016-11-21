@@ -204,8 +204,13 @@ TRANSACTIONMODULE_API int AccountStatement(int disposerId, int accountNumber, S_
 		{
 			(*data).toAccount = transaction->getTo()->GetAccountNumber();
 		}
-
-		(*data).disposer = transaction->getDisposer()->getId();
+		if(transaction->getDisposer())
+		{
+			(*data).disposer = transaction->getDisposer()->getId();
+		}else
+		{
+			(*data).disposer = 0;
+		}
 		data++;
 	}
 

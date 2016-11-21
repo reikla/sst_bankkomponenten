@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestForeignWrapper</RootNamespace>
     <AssemblyName>TestForeignWrapper</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,11 +59,20 @@
     <Compile Include="ForeignCustomerWrapperTest.cs" />
     <Compile Include="ForeignAccountWrapperTest.cs" />
     <Compile Include="ForeignTransactionWrapperTest.cs" />
+    <Compile Include="SerializeDictionaryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Components.Common\Components.Common.csproj">
       <Project>{5D7E5B8C-BF19-4A32-87CC-E8571AB48683}</Project>
       <Name>Components.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteBank\BankMessage\BankMessage.csproj">
+      <Project>{1da2c1cf-4488-4767-b1da-407280ecf71e}</Project>
+      <Name>BankMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteBank\ForeignBankComponent\ForeignBankComponent.csproj">
+      <Project>{E4471676-55D8-427A-AC55-69FEBDCF280E}</Project>
+      <Name>ForeignBankComponent</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Wrapper\Foreign\AccountWrapper\AccountWrapper.csproj">
       <Project>{68A3D373-B8DF-416D-980D-751AAFDFA547}</Project>
