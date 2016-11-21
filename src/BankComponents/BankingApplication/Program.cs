@@ -53,6 +53,10 @@ namespace BankingApplication
                 new CommandMenuEntry("Load Data", new LoadCommand()),
                 new CommandMenuEntry("Save Data", new SaveCommand()),
                 new DividerMenuEntry(),
+                new CommandMenuEntry("Create remote transaction", new TransferToRemoteBankCommand()),
+                new CommandMenuEntry("Create remote withdrawl", new WithdrawalFromRemoteBankCommand()),
+                new CommandMenuEntry("View remote transactions", new ViewRemoteTransactionsCommand()),
+                new DividerMenuEntry(),
                 new CommandMenuEntry("Exit", new ExitCommand())
             };
 

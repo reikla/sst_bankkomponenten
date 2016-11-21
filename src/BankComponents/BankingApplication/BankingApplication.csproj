@@ -53,6 +53,7 @@
     <Compile Include="Commands\PayOutCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\LoadCommand.cs" />
+    <Compile Include="Commands\TransferToRemoteBankCommand.cs" />
     <Compile Include="Commands\TranslateToEuroCommand.cs" />
     <Compile Include="Commands\TranslateFromEuroCommand.cs" />
     <Compile Include="Commands\GetCurrencyToEuroFactorCommand.cs" />
@@ -66,6 +67,8 @@
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ModifyCustomerCommand.cs" />
+    <Compile Include="Commands\ViewRemoteTransactionsCommand.cs" />
+    <Compile Include="Commands\WithdrawalFromRemoteBankCommand.cs" />
     <Compile Include="Menu\DividerMenuEntry.cs" />
     <Compile Include="Menu\IMenuEntry.cs" />
     <Compile Include="Menu\CommandMenuEntry.cs" />

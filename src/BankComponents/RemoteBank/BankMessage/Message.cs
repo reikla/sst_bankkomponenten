@@ -4,7 +4,7 @@ namespace BankMessage
     using System;
     using System.Collections.Generic;
 
-    public class BankMessage
+    public class Message
     {
         public int Version { get; set; }
 
@@ -30,12 +30,12 @@ namespace BankMessage
 
 
 
-        public BankMessage()
+        public Message()
         {
             //var time = DateTimeOffset.Now.ToUnixTimeSeconds();
         }
 
-        public BankMessage(int version, double betrag, DateTimeOffset ablaufdatum, string absenderBankId, string empfaengerBankId, string waehrung, string absenderKonto, string empfaengerKonto, TransactionType transaktionsTyp, string verwendungszweck, long messageId)
+        public Message(int version, double betrag, DateTimeOffset ablaufdatum, string absenderBankId, string empfaengerBankId, string waehrung, string absenderKonto, string empfaengerKonto, TransactionType transaktionsTyp, string verwendungszweck, long messageId)
         {
             this.Version = version;
             this.Betrag = betrag;
@@ -50,9 +50,9 @@ namespace BankMessage
             this.MessageID = messageId;
         }
 
-        private sealed class BankMessageEqualityComparer : IEqualityComparer<BankMessage>
+        private sealed class BankMessageEqualityComparer : IEqualityComparer<Message>
         {
-            public bool Equals(BankMessage x, BankMessage y)
+            public bool Equals(Message x, Message y)
             {
                 if (ReferenceEquals(x, y)) return true;
                 if (ReferenceEquals(x, null)) return false;
@@ -61,7 +61,7 @@ namespace BankMessage
                 return x.Version == y.Version && x.Betrag.Equals(y.Betrag) && string.Equals(x.AbsenderBankId, y.AbsenderBankId) && string.Equals(x.EmpfaengerBankId, y.EmpfaengerBankId) && string.Equals(x.Waehrung, y.Waehrung) && string.Equals(x.AbsenderKonto, y.AbsenderKonto) && string.Equals(x.EmpfaengerKonto, y.EmpfaengerKonto) && x.TransaktionsTyp == y.TransaktionsTyp && string.Equals(x.Verwendungszweck, y.Verwendungszweck) && x.MessageID == y.MessageID;
             }
 
-            public int GetHashCode(BankMessage obj)
+            public int GetHashCode(Message obj)
             {
                 unchecked
                 {
@@ -81,9 +81,9 @@ namespace BankMessage
             }
         }
 
-        private static readonly IEqualityComparer<BankMessage> BankMessageComparerInstance = new BankMessageEqualityComparer();
+        private static readonly IEqualityComparer<Message> BankMessageComparerInstance = new BankMessageEqualityComparer();
 
-        public static IEqualityComparer<BankMessage> BankMessageComparer
+        public static IEqualityComparer<Message> BankMessageComparer
         {
             get
             {

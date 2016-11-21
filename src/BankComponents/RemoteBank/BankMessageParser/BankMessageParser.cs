@@ -19,14 +19,14 @@ namespace BankMessageParser
             set { delimiter = value; }
         }
 
-        public static string Serialize(BankMessage message)
+        public static string Serialize(Message message)
         {
             char d = delimiter;
             return
                 $"{message.Version}{d}{message.Betrag}{d}{message.Ablaufdatum.ToUnixTimeSeconds()}{d}{message.AbsenderBankId}{d}{message.EmpfaengerBankId}{d}{message.Waehrung}{d}{message.AbsenderKonto}{d}{message.EmpfaengerKonto}{d}{(int)message.TransaktionsTyp}{d}{message.MessageID}{d}{message.Verwendungszweck}";
         }
 
-        public static BankMessage Deserialize(string serializedText)
+        public static Message Deserialize(string serializedText)
         {
             string[] splitted = serializedText.Split(delimiter);
 
@@ -83,7 +83,7 @@ namespace BankMessageParser
                 throw new Exception("Error Ablaufdatum ist keine Zahl");
             }
 
-            return new BankMessage() { Version = Version, Betrag = Betrag, Ablaufdatum = Ablaufdatum, AbsenderBankId = splitted[3], EmpfaengerBankId = splitted[4], Waehrung = splitted[5], AbsenderKonto = splitted[6],
+            return new Message() { Version = Version, Betrag = Betrag, Ablaufdatum = Ablaufdatum, AbsenderBankId = splitted[3], EmpfaengerBankId = splitted[4], Waehrung = splitted[5], AbsenderKonto = splitted[6],
                                        EmpfaengerKonto = splitted[7], TransaktionsTyp = TransaktionsTyp, Verwendungszweck = splitted[10], MessageID = MessageID };
 
         }

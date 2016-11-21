@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ForeignComponent
+namespace ForeignBankComponent
 {
     public class BankCommunicationException : Exception
     {

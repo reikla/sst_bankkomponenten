@@ -5,12 +5,12 @@ namespace BankingApplication
 {
     class ServiceLocator
     {
-        private static ServiceLocator instance = null;
+        private static ServiceLocator _instance = null;
 
         private CompositionContainer _compositionContainer;
         public static ServiceLocator Instance()
         {
-            return instance ?? (instance = new ServiceLocator());
+            return _instance ?? (_instance = new ServiceLocator());
         }
 
         private ServiceLocator()

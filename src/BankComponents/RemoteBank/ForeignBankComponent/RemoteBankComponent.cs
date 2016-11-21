@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BankCommunication;
 using BankMessage;
 using NLog;
 
-namespace ForeignComponent
+namespace ForeignBankComponent
 {
-    using System.Linq;
-
-    public class ForeignBankComponent : IForeignBankComponent
+    public class RemoteBankComponent : IRemoteBankComponent
     {
 
         private Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IBankCommunicationService _communicationService;
         private readonly string _email;
         private Random rand;
+        private readonly SentMessageSerializer _serializer;
 
-        private readonly Dictionary<long, BankMessage.BankMessage> _sentMessages;
+        private readonly Dictionary<long, BankMessage.Message> _sentMessages;
 
-        public ForeignBankComponent(string email, string password)
+        public RemoteBankComponent(string email, string password)
         {
 
             _email = email;
-            _sentMessages = new Dictionary<long, BankMessage.BankMessage>();
             var smtpCredentials = new SmtpCredentials
             {
                 UserName = email,
@@ -53,6 +52,8 @@ namespace ForeignComponent
             {
                 throw new BankCommunicationException("Cannot communicate.", e);
             }
+            _serializer = new SentMessageSerializer();
+            _sentMessages = _serializer.Load();
 
             _communicationService.MessagesAvailable += communicationService_MessagesAvailable;
 
@@ -114,7 +115,7 @@ namespace ForeignComponent
             }
         }
 
-        public void SwitchReceipients(BankMessage.BankMessage message)
+        public void SwitchReceipients(BankMessage.Message message)
         {
             var oldTo = message.EmpfaengerBankId;
             var oldFrom = message.AbsenderBankId;
@@ -126,7 +127,7 @@ namespace ForeignComponent
         {
             var expired = _sentMessages.Values.Where(x => x.Ablaufdatum < DateTimeOffset.Now).ToArray();
 
-            foreach (BankMessage.BankMessage message in expired)
+            foreach (BankMessage.Message message in expired)
             {
                 _logger.Info($"Message timeout reached. Id: '{message.MessageID}'");
                 _logger.Info($"Send NACK to Bank: '{message.AbsenderBankId}'");
@@ -138,15 +139,21 @@ namespace ForeignComponent
             }
         }
 
-        public async void SendTransaction(BankMessage.BankMessage message)
+        public async void SendTransaction(BankMessage.Message message)
         {
             _logger.Info($"Sending Message. Type: '{message.TransaktionsTyp}' Id: '{message.MessageID}' From: '{message.AbsenderBankId}' To: '{message.EmpfaengerBankId}'");
+
             if (message.TransaktionsTyp == TransactionType.Abbuchung ||
                 message.TransaktionsTyp == TransactionType.Ueberweisung)
             {
-
+                if (_sentMessages.ContainsKey(message.MessageID))
+                {
+                    _logger.Error($"Message with id {message.MessageID} already in list!");
+                    throw new BankCommunicationException("Message with same Id already Sent!", null);
+                }
                 //we expect an ACK/NACK for this message so we store it.
                 _sentMessages.Add(message.MessageID, message);
+                _serializer.Store(_sentMessages);
             }
             var messageString = BankMessageParser.BankMessageParser.Serialize(message);
             await _communicationService.Send(_email, message.EmpfaengerBankId, messageString);
@@ -168,6 +175,6 @@ namespace ForeignComponent
             return (Math.Abs(longRand % (max - min)) + min);
         }
 
-        public event EventHandler<BankMessage.BankMessage> MessageReceived;
+        public event EventHandler<BankMessage.Message> MessageReceived;
     }
 }

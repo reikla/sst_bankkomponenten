@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6F52A3FC-DB4B-45EF-A610-85FC733A9388}</ProjectGuid>
+    <ProjectGuid>{64766BC4-BF22-41C0-9D3C-A9495718C084}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Components.Contracts</RootNamespace>
-    <AssemblyName>Components.Contracts</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Components.Service.RemoteBankService</RootNamespace>
+    <AssemblyName>Components.Service.RemoteBankService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,17 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Version.cs">
+    <Compile Include="..\..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
-    <Compile Include="AccountType.cs" />
-    <Compile Include="Services\IAccountService.cs" />
-    <Compile Include="Services\ICurrencyTranslationService.cs" />
-    <Compile Include="Services\ICustomerService.cs" />
-    <Compile Include="Services\IPersistenceService.cs" />
-    <Compile Include="Services\ITransactionService.cs" />
+    <Compile Include="RemoteBankService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IRemoteBankService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contracts\Contracts.csproj">
+      <Project>{6f52a3fc-db4b-45ef-a610-85fc733a9388}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteBank\ForeignBankComponent\ForeignBankComponent.csproj">
+      <Project>{E4471676-55D8-427A-AC55-69FEBDCF280E}</Project>
+      <Name>ForeignBankComponent</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

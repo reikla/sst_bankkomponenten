@@ -2,12 +2,12 @@
 
 namespace BankingApplication.Commands
 {
-    public class TransferToRemoteBankCommand : ICommand
+    public class ViewRemoteTransactionsCommand : ICommand
     {
         public void Execute()
         {
             var remoteBankingService = ServiceLocator.Instance().GetService<IRemoteBankService>();
-            remoteBankingService.Transfer();
+            remoteBankingService.ViewRemoteTransactions();
         }
     }
 }

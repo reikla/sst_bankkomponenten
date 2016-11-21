@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
-using ForeignComponent;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -54,10 +53,10 @@ namespace ForeignBankComponentTestApp
 
 
 
-            var foreignBankComponent = new ForeignBankComponent(email, password);
+            var foreignBankComponent = new ForeignBankComponent.RemoteBankComponent(email, password);
             foreignBankComponent.MessageReceived += ForeignBankComponent_MessageReceived;
 
-            foreignBankComponent.SendTransaction(new BankMessage.BankMessage(1, 1.7, DateTimeOffset.Now.AddHours(8), email, toEmail, "EUR", "0", //new DateTimeOffset(2016,12,1,0,0,0,TimeSpan.Zero)
+            foreignBankComponent.SendTransaction(new BankMessage.Message(1, 1.7, DateTimeOffset.Now.AddHours(8), email, toEmail, "EUR", "0", //new DateTimeOffset(2016,12,1,0,0,0,TimeSpan.Zero)
                 "1", BankMessage.TransactionType.Ueberweisung, "Blubb", foreignBankComponent.GetRandomMessageID()));
 
 
@@ -84,7 +83,7 @@ namespace ForeignBankComponentTestApp
             LogManager.Configuration = config;
         }
 
-        private static void ForeignBankComponent_MessageReceived(object sender, BankMessage.BankMessage e)
+        private static void ForeignBankComponent_MessageReceived(object sender, BankMessage.Message e)
         {
             var logger = LogManager.GetCurrentClassLogger();
             logger.Info($"Received Message from: '{e.AbsenderBankId}' to '{e.EmpfaengerBankId}'.");

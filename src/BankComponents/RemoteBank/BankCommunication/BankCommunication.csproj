@@ -17,7 +17,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,14 +24,16 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ImapX, Version=2.0.0.18, Culture=neutral, PublicKeyToken=5992873d65130d1f, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImapX.2.0.0.18\lib\net46\ImapX.dll</HintPath>
+      <HintPath>..\..\packages\ImapX.2.0.0.18\lib\net46\ImapX.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
