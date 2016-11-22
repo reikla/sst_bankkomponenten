@@ -93,7 +93,7 @@ namespace ForeignBankComponent
                         {
                             //we received an expecetd ACK/NACK 
                             _logger.Info($"Expected ACK/NACK for message '{bankMessage.MessageID}' received. Removing message from list. Fire MessageReceived event.");
-                            _sentMessages.Remove(bankMessage.MessageID);
+                            RemoveMessage(bankMessage);
 
                             MessageReceived?.Invoke(this, bankMessage);
                         }
@@ -138,7 +138,7 @@ namespace ForeignBankComponent
                 message.Ablaufdatum = DateTimeOffset.Now.AddHours(1);
                 SwitchReceipients(message);
                 MessageReceived?.Invoke(this, message);
-                _sentMessages.Remove(message.MessageID);
+                RemoveMessage(message);
             }
         }
 
@@ -155,8 +155,7 @@ namespace ForeignBankComponent
                     throw new BankCommunicationException("Message with same Id already Sent!", null);
                 }
                 //we expect an ACK/NACK for this message so we store it.
-                _sentMessages.Add(message.MessageID, message);
-                _serializer.Store(_sentMessages);
+                AddMessage(message);
             }
             var messageString = BankMessageParser.BankMessageParser.Serialize(message);
             await _communicationService.Send(_email, message.EmpfaengerBankId, messageString);
@@ -166,6 +165,18 @@ namespace ForeignBankComponent
         public long GetRandomMessageID()
         {
             return LongRandom(1, long.MaxValue, rand);
+        }
+
+        private void AddMessage(Message message)
+        {
+            _sentMessages.Add(message.MessageID, message);
+            _serializer.Store(_sentMessages);
+        }
+
+        private void RemoveMessage(Message message)
+        {
+            _sentMessages.Remove(message.MessageID);
+            _serializer.Store(_sentMessages);
         }
 
 
