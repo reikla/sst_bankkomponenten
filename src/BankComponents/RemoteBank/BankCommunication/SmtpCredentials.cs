@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BankCommunication
+﻿namespace BankCommunication
 {
     /// <summary>
     /// SMTP credentials used for sending messages over the simple mail transfer protocol

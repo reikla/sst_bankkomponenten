@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Components.Common;
 using Components.Wrapper.Foreign;
-using System.Runtime.InteropServices;
 
 namespace TestForeignWrapper
 {

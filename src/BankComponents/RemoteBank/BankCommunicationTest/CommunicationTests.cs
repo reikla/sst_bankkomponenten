@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BankCommunication;
-using System.Collections.Generic;
-using BankMessage;
 
 namespace BankCommunicationTest
 {

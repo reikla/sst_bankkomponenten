@@ -62,7 +62,7 @@ namespace TestForeignWrapper
             var retVal = TransactionWrapper.calcSaldo(id, currency, out saldo);
 
             Assert.IsTrue(retVal == 1);
-            Assert.IsTrue(saldo == 74.65);
+            Assert.IsTrue(Math.Abs(74.65-saldo)<0.1);
 
         }
     }
