@@ -18,6 +18,8 @@ ACCOUNTMODULE_API int CreateAccount(int disposerId, const char* accountName, ACC
 	}
 
 	auto account = new Account(accountName, accountType);
+	account->setIsActive(true);
+
 	GetStorage()->StoreAccount(account);
 
 	customer->getAccounts()->push_back(account);

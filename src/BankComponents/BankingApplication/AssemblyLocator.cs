@@ -20,10 +20,4 @@ namespace BankingApplication
             return assemblyFiles.Select(Assembly.LoadFrom); // AssemblyLaden
         }
     }
-
-    enum ServiceType
-    {
-        Own,
-        Foreign
-    }
 }

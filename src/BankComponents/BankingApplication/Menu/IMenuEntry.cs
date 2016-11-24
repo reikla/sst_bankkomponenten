@@ -2,11 +2,14 @@
 
 namespace BankingApplication.Menu
 {
-    public interface IMenuEntry
-    {
-        ICommand Command { get; }
-        string Title { get; }
+  public interface IMenuEntry
+  {
+    ICommand Command { get; }
+    string Title { get; }
 
-        bool CanHandle(string selection);
-    }
+    bool CanHandle(string selection);
+
+    bool IsAvailable(ServiceType selectedVersion);
+
+  }
 }
