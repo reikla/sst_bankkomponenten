@@ -116,7 +116,7 @@ void Persistence::insertOrReplace(list<Account*>* accountList) {
 			<< (*it)->GetAccountNumber() << ", "
 			<< quote((*it)->getName()) << ", "
 			<< (*it)->GetAccountType() << ", "
-			<< (*it)->isActive() << " );";
+			<< ((*it)->isActive() == 205?1:(*it)->isActive()) << " );";//make sure not initialized bool is interpreted default as true
 		query(insertQuery.str().c_str());
 		insertOrReplaceRelationCustomerToAccount(it);
 		insertQuery.str(string());//clears the stream
@@ -149,9 +149,9 @@ void Persistence::insertOrReplace(list<Transaction*>* transactionList) {
 			<< (*it)->getCurrency() << ", "
 			<< (*it)->getFactor() << ", "
 			<< (*it)->getAmount() << ", "
-			<< (*it)->getFrom() << ", " 
-			<< (*it)->getTo() << ", "
-			<< (*it)->getDisposer() << " );";
+			<< ((*it)->getFrom()!=NULL? std::to_string((*it)->getFrom()->GetAccountNumber()):"NULL") << ", "
+			<< ((*it)->getTo()!=NULL? std::to_string((*it)->getTo()->GetAccountNumber()):"NULL") << ", "
+			<< ((*it)->getDisposer()!=NULL? std::to_string((*it)->getDisposer()->getId()):"NULL") << " );";
 		query(insertQuery.str().c_str());
 		insertQuery.str(string());//clears the stream
 	}
@@ -174,19 +174,19 @@ list<Customer*>* Persistence::getAllCustomers() {
 	list<Customer*>* entityList = new list<Customer*>();
 	vector<vector<string>> resultVector = this->query((CUSTOMER_SELECT+string(";")).c_str());
 
-	for (vector<vector<string> >::iterator it = resultVector.begin(); it != resultVector.end(); ++it) {
-		vector<string> row = *it;
+	for (vector<vector<string> >::iterator resultIterator = resultVector.begin(); resultIterator != resultVector.end(); ++resultIterator) {
+		vector<string> resultRow = *resultIterator;
 		//cout << "CUSTOMER: (ID=" << row.at(0) << ", FIRST_NAME=" << row.at(1) << ", LAST_NAME = " << row.at(2) << ", STREET = " << row.at(3) << ", ZIP = " << row.at(4) << ", ACTIVE = " << row.at(5) << ")" << endl;
 		
-		Customer *customer = unmarshallingCustomer(row);
+		Customer *customer = unmarshallingCustomer(resultRow);
 
 		//Select the related Accounts to this Customer
 		ostringstream getAccountsToCustomerQuery;
 		getAccountsToCustomerQuery << ACCOUNT_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = ACCOUNT.ACCOUNT_NUMBER WHERE CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = '" << customer->getId() << "';";
 		vector<vector<string>> AccountsToThisCustomerVector = this->query(getAccountsToCustomerQuery.str().c_str());
-		for (vector<vector<string> >::iterator it = AccountsToThisCustomerVector.begin(); it != AccountsToThisCustomerVector.end(); ++it) {
-			vector<string> row = *it;
-			Account *account = unmarshallingAccount(row);
+		for (vector<vector<string> >::iterator accountToCustomerIterator = AccountsToThisCustomerVector.begin(); accountToCustomerIterator != AccountsToThisCustomerVector.end(); ++accountToCustomerIterator) {
+			vector<string> accountToCustomerRow = *accountToCustomerIterator;
+			Account *account = unmarshallingAccount(accountToCustomerRow);
 			customer->getAccounts()->push_back(account);
 		}
 
@@ -200,19 +200,19 @@ list<Account*>* Persistence::getAllAccounts() {
 	list<Account*>* entityList = new list<Account*>();
 	vector<vector<string>> resultVector = this->query((ACCOUNT_SELECT+string(";")).c_str());
 
-	for (vector<vector<string> >::iterator it = resultVector.begin(); it != resultVector.end(); ++it) {
-		vector<string> row = *it;
+	for (vector<vector<string> >::iterator resultIterator = resultVector.begin(); resultIterator != resultVector.end(); ++resultIterator) {
+		vector<string> resultRow = *resultIterator;
 		//cout << "ACCOUNT: (ID=" << row.at(0) << ", ACCOUNT_NUMBER=" << row.at(1) << ", NAME = " << row.at(2) << ", TYPE = " << row.at(3) << ", ACTIVE = " << row.at(4) << ")" << endl;
 
-		Account *account = unmarshallingAccount(row);
+		Account *account = unmarshallingAccount(resultRow);
 		
 		//Set the disposer-list
 		ostringstream getCustomersToAccountQuery;
 		getCustomersToAccountQuery << CUSTOMER_SELECT <<" JOIN CUSTOMER_TO_ACCOUNT ON CUSTOMER_TO_ACCOUNT.CUSTOMER_ID = CUSTOMER.ID WHERE CUSTOMER_TO_ACCOUNT.ACCOUNT_ID = '" << account->GetAccountNumber() << "';";
 		vector<vector<string>> CustomerToThisAccountVector = this->query(getCustomersToAccountQuery.str().c_str());
-		for (vector<vector<string> >::iterator it = CustomerToThisAccountVector.begin(); it != CustomerToThisAccountVector.end(); ++it) {
-			vector<string> row = *it;
-			Customer *customer = unmarshallingCustomer(row);
+		for (vector<vector<string> >::iterator customerToAccountIterator = CustomerToThisAccountVector.begin(); customerToAccountIterator != CustomerToThisAccountVector.end(); ++customerToAccountIterator) {
+			vector<string> customerToAccountRow = *customerToAccountIterator;
+			Customer *customer = unmarshallingCustomer(customerToAccountRow);
 			account->GetDisposers()->push_back(customer);
 		}
 
@@ -310,41 +310,42 @@ list<Transaction*>* Persistence::getAllTransactions() {
 	list<Transaction*>* entityList = new list<Transaction*>();
 	vector<vector<string>> resultVector = this->query((TRANSACTION_SELECT+string(";")).c_str());
 
-	for (vector<vector<string> >::iterator it = resultVector.begin(); it != resultVector.end(); ++it) {
-		vector<string> row = *it;
+	for (vector<vector<string> >::iterator resultIterator = resultVector.begin(); resultIterator != resultVector.end(); ++resultIterator) {
+		vector<string> resultRow = *resultIterator;
 		//cout << "TRANSACTION: (ID=" << row.at(0) << ", AMOUNT=" << row.at(1) << ", CURRENCY = " << row.at(2) << ", FACTOR = " << row.at(3) << ", SOURCE_ACCOUNT = " << row.at(4) << ", TARGET_ACCOUNT = " << row.at(5) << ")" << endl;
 
-		Account *sourceAccount;
-		Account *targetAccount;
-		Customer *disposer;
+		Account *sourceAccount = NULL;
+		Account *targetAccount = NULL;
+		Customer *disposer = NULL;
 
 		//Get the source-Account
 		ostringstream getAdditionalQuery;
-		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = '" << row.at(4) << "';";
+		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = '" << resultRow.at(4) << "';";
 		vector<vector<string>> sourceAccountVector = this->query((getAdditionalQuery.str().c_str()));
-		for (vector<vector<string> >::iterator it = sourceAccountVector.begin(); it != sourceAccountVector.end(); ++it) {
-			vector<string> row = *it;
+		for (vector<vector<string> >::iterator sourceAccountIterator = sourceAccountVector.begin(); sourceAccountIterator != sourceAccountVector.end(); ++sourceAccountIterator) {
+			vector<string> row = *sourceAccountIterator;
 			sourceAccount = unmarshallingAccount(row);
+			//sourceAccount = (row.empty ? unmarshallingAccount(row) : NULL);
 		}
 		getAdditionalQuery.str(string());//clears the stream;
 		//Get the target-Account
-		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = '" << row.at(5) << "';";
+		getAdditionalQuery << ACCOUNT_SELECT << " WHERE ACCOUNT_NUMBER = '" << resultRow.at(5) << "';";
 		vector<vector<string>> targetAccountVector = this->query((getAdditionalQuery.str().c_str()));
-		for (vector<vector<string> >::iterator it = targetAccountVector.begin(); it != targetAccountVector.end(); ++it) {
-			vector<string> row = *it;
+		for (vector<vector<string> >::iterator targetAccountIterator = targetAccountVector.begin(); targetAccountIterator != targetAccountVector.end(); ++targetAccountIterator) {
+			vector<string> row = *targetAccountIterator;
 			targetAccount = unmarshallingAccount(row);
 		}
 		getAdditionalQuery.str(string());//clears the stream;
 		//Get the disposer
-		getAdditionalQuery << CUSTOMER_SELECT << " WHERE ID = '" << row.at(6) << "';";
+		getAdditionalQuery << CUSTOMER_SELECT << " WHERE ID = '" << resultRow.at(6) << "';";
 		vector<vector<string>> disposerVector = this->query((getAdditionalQuery.str().c_str()));
-		for (vector<vector<string> >::iterator it = disposerVector.begin(); it != disposerVector.end(); ++it) {
-			vector<string> row = *it;
+		for (vector<vector<string> >::iterator disposerIterator = disposerVector.begin(); disposerIterator != disposerVector.end(); ++disposerIterator) {
+			vector<string> row = *disposerIterator;
 			disposer = unmarshallingCustomer(row);
 		}
 		getAdditionalQuery.str(string());//clears the stream;
 
-		Transaction *transaction = unmarshallingTransaction(row, sourceAccount, targetAccount, disposer);
+		Transaction *transaction = unmarshallingTransaction(resultRow, sourceAccount, targetAccount, disposer);
 		entityList->push_back(transaction);
 	}
 

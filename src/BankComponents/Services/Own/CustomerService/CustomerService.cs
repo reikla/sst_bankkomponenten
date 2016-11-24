@@ -37,7 +37,7 @@ namespace Components.Service.Own
             var customerId = InputParser.GetIntInput("Enter customer ID: ", "Customer Id", i => i >= 0);
             var firstName = InputParser.GetStringInput("Enter first name - nothing to skip: ", "First Name");
             var lastName = InputParser.GetStringInput("Enter last name - nothing to skip:", "Last Name");
-            var street = InputParser.GetStringInput("Enter street: ", "Street");
+            var street = InputParser.GetStringInput("Enter street - nothing to skip: ", "Street");
 
 
             var zipString = InputParser.GetStringInput("Enter new zip - nothing to skip: ", "Zip");

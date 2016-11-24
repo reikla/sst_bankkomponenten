@@ -5,8 +5,8 @@ namespace Components.Wrapper.Foreign
 {
     public static class AccountWrapper
     {
-        [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int getAccountById(int id, out ForeignAccount account);
+        [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern int getAccountById(int id, ForeignAccountOut account);
 
         [DllImport(Common.DllNames.ForeignAccountModuleName, CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetAccountsByCustomerId(int id, out int accountCount, out ForeignAccount[] accounts);

@@ -74,6 +74,7 @@
     <Compile Include="Commands\ModifyCustomerCommand.cs" />
     <Compile Include="Commands\ViewRemoteTransactionsCommand.cs" />
     <Compile Include="Commands\WithdrawalFromRemoteBankCommand.cs" />
+    <Compile Include="FunctionalAvailabilities.cs" />
     <Compile Include="Menu\DividerMenuEntry.cs" />
     <Compile Include="Menu\IMenuEntry.cs" />
     <Compile Include="Menu\CommandMenuEntry.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="ServiceType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -10,5 +10,10 @@ namespace BankingApplication.Menu
         {
             return false;
         }
+
+      public bool IsAvailable(ServiceType selectedVersion)
+      {
+        return true;
+      }
     }
 }

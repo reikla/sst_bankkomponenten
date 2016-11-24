@@ -45,6 +45,7 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="CustomerWrapper.cs" />
+    <Compile Include="ExternalCustomerWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.Composition;
 using Components.Contracts.Services;
+using Components.Common;
+using customer_service = Components.Wrapper.Foreign.ExternalCustomerWrapper;
+using System;
 
 namespace Components.Service.Foreign
 {
@@ -8,17 +11,25 @@ namespace Components.Service.Foreign
     {
         public void CreateCustomer()
         {
-            throw new System.NotImplementedException();
+            ForeignCustomer customer = new ForeignCustomer();
+            customer.firstName = InputParser.GetStringInput("Enter first name: ", "First Name", s => !string.IsNullOrWhiteSpace(s));
+            customer.lastName = InputParser.GetStringInput("Enter last name: ", "Last Name", s => !string.IsNullOrWhiteSpace(s));
+            customer_service.CreateCustomer(customer);
+            Console.WriteLine($"Customer with id '{customer.id}' created.");
         }
 
         public void DeleteCustomer()
         {
-            throw new System.NotImplementedException();
+            int customerId = 0;
+            customer_service.DeleteCustomer(customerId);
+            //Console.WriteLine($"Customer with id '{customerId}' deleted.");
         }
 
         public void ModifyCustomer()
         {
-            throw new System.NotImplementedException();
+            ForeignCustomer customer = new ForeignCustomer();
+            customer_service.ModifyCustomer(customer);
+            //Console.WriteLine($"Customer '{customer.id}' successfully modified.");
         }
     }
 }

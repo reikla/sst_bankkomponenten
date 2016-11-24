@@ -47,6 +47,7 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="AccountWrapper.cs" />
+    <Compile Include="ExternalAccountWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
