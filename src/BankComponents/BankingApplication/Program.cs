@@ -17,6 +17,15 @@ namespace BankingApplication
         static void Main(string[] args)
         {
             var logger = LogManager.GetCurrentClassLogger();
+
+
+            var height = Console.WindowHeight;
+            var width = Console.WindowWidth;
+
+            height += height/2;
+
+            Console.SetWindowSize(width,height);
+
             ConfigureLogging();
             logger.Info("Starting application");
 
