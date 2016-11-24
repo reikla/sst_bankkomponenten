@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.Composition;
 using Components.Contracts.Services;
 
+using persistence_service = Components.Wrapper.Foreign.ExternalPersistenceWrapper;
+
 namespace Components.Service.Foreign
 {
     [Export(typeof(IPersistenceService))]
@@ -8,12 +10,12 @@ namespace Components.Service.Foreign
     {
         public void Save()
         {
-            throw new System.NotImplementedException();
+            persistence_service.Store();
         }
 
         public void Load()
         {
-            throw new System.NotImplementedException();
+            persistence_service.Load();
         }
     }
 }

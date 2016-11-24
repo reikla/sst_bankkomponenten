@@ -8,7 +8,7 @@ namespace TestForeignWrapper
     [TestClass]
     public class ForeignTransactionWrapperTest
     {
-        [TestMethod]
+        /*[TestMethod]
         public void payOutTest()
         {
             ForeignCurrency currency = ForeignCurrency.EUR;
@@ -23,13 +23,13 @@ namespace TestForeignWrapper
         [TestMethod]
         public void payInTest()
         {
-            //ForeignCurrency currency = ForeignCurrency.EUR;
-            //Double amount = 200;
-            //int accountId = 1;
+            ForeignCurrency currency = ForeignCurrency.EUR;
+            Double amount = 200;
+            int accountId = 1;
 
-            ForeignCurrency currency = ForeignCurrency.JPY;
-            Double amount = 100;
-            int accountId = 2;
+            //ForeignCurrency currency = ForeignCurrency.JPY;
+            //Double amount = 100;
+            //int accountId = 2;
             var retVal = TransactionWrapper.einzahlung(currency, amount, accountId);
 
             Assert.IsTrue(retVal == 1);
@@ -56,14 +56,15 @@ namespace TestForeignWrapper
         [TestMethod]
         public void accountBalancingTest()
         {
-            int id = 1;
+            int id = 2;
             ForeignCurrency currency = ForeignCurrency.EUR;
             Double saldo = 0;
             var retVal = TransactionWrapper.calcSaldo(id, currency, out saldo);
 
             Assert.IsTrue(retVal == 1);
-            Assert.IsTrue(saldo == 74.65);
+            Assert.IsTrue(saldo == 89.65);
+            //Assert.IsTrue(saldo == 200);
 
-        }
+        }*/
     }
 }

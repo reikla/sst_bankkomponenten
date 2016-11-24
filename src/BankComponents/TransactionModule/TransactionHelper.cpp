@@ -8,12 +8,12 @@
 
 bool TransactionHelper::IsFrom(Transaction * transaction, Account* account)
 {
-	return(transaction->getFrom() == account);
+	return transaction->getFrom() != NULL ? (transaction->getFrom()->GetAccountNumber() == account->GetAccountNumber()) : false;
 }
 
 bool TransactionHelper::IsTo(Transaction * transaction, Account* account)
 {
-	return(transaction->getTo() == account);
+	return transaction->getTo() != NULL ? (transaction->getTo()->GetAccountNumber() == account->GetAccountNumber()) : false;
 }
 
 double TransactionHelper::GetEuroAmount(Transaction * transaction)

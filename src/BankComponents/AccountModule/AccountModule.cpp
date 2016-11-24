@@ -108,8 +108,21 @@ ACCOUNTMODULE_API int RemoveDisposer(int disposerId, int accountNumber, int disp
 		return E_REMOVE_DISPOSER_NOT_FOUND;
 	}
 
-	acc->GetDisposers()->remove(disposerToRemove);
-	disposerToRemove->getAccounts()->remove(acc);
+	for (std::list<Customer*>::iterator accIterator = acc->GetDisposers()->begin(); accIterator != acc->GetDisposers()->end();) {
+		Customer* customer = *accIterator;
+		if (customer->getId() == disposerToRemove->getId())
+			accIterator = acc->GetDisposers()->erase(accIterator);
+		else
+			++accIterator;
+	}
+
+	for (std::list<Account*>::iterator disposerIterator = disposerToRemove->getAccounts()->begin(); disposerIterator != disposerToRemove->getAccounts()->end();) {
+		Account* account = *disposerIterator;
+		if (account->GetAccountNumber() == acc->GetAccountNumber())
+			disposerIterator = disposerToRemove->getAccounts()->erase(disposerIterator);
+		else
+			++disposerIterator;
+	}
 
 	return E_OK;
 }

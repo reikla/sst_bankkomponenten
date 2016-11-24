@@ -82,6 +82,8 @@ namespace Components.Common
         {
             Console.WriteLine(message);
             var val = Console.ReadLine();
+            if (val == "")
+                return null;
             return val;
         }
 
@@ -97,7 +99,7 @@ namespace Components.Common
 
         public static AccountType GetAccountTypeInput()
         {
-            var accountTypeInt = GetIntInput("Enter AccountType SavingsAccount=1 LoadAccount=2: ", "Account type",
+            var accountTypeInt = GetIntInput("Enter AccountType SavingsAccount=1 LoanAccount=2: ", "Account type",
                 i => (i == 1 || i == 2));
             switch (accountTypeInt)
             {
@@ -105,6 +107,19 @@ namespace Components.Common
                     return AccountType.LoanAccount;
                 default:
                     return AccountType.SavingsAccount;
+            }
+        }
+
+        public static ForeignAccountType GetForeignAccountTypeInput()
+        {
+            var accountTypeInt = GetIntInput("Enter AccountType SavingsAccount=1 GiroAccount=0: ", "Account type",
+                i => (i == 1 || i == 0));
+            switch (accountTypeInt)
+            {
+                case 1:
+                    return ForeignAccountType.SavingsAccount;
+                default:
+                    return ForeignAccountType.GiroAccount;
             }
         }
 

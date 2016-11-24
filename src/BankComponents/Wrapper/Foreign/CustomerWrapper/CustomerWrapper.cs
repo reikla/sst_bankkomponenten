@@ -15,8 +15,8 @@ namespace Components.Wrapper.Foreign
         [DllImport(Common.DllNames.ForeignCustomerModuleName, CallingConvention = CallingConvention.Cdecl)]
         public static extern int updateCustomer(int id, [In, Out] ForeignCustomer customer);
 
-        [DllImport(Common.DllNames.ForeignCustomerModuleName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Auto)]
-        public static extern int GetGetCustomerById(int id, out ForeignCustomer customer);
+        [DllImport(Common.DllNames.ForeignCustomerModuleName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern int GetCustomerById(int id, ForeignCustomerOut customer);
 
     }
 }

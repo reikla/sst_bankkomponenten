@@ -44,6 +44,7 @@
     <Compile Include="..\..\..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
+    <Compile Include="ExternalPersistenceWrapper.cs" />
     <Compile Include="PersistenceWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
