@@ -64,36 +64,6 @@ namespace PersistenceModuleTest
 			//Persistence::getInstance()->disconnect();
 		}
 
-		TEST_METHOD(Persistence_LoadCustomerAndStoreModificationAndLoad_OK)
-		{
-			GetStorage()->clear();
-			auto returnLoadValue = Load();
-			Assert::AreEqual(E_OK, returnLoadValue);
-			
-			int newZip = 5020;
-			ModifyCustomer(2, "Hans", "Meier", "Daheim", newZip);
-			auto returnSaveValue = Store();
-			Assert::AreEqual(E_OK, returnSaveValue);
-
-			auto returnValue = Load();
-			Assert::AreEqual(E_OK, returnValue);
-
-			auto list = *(GetStorage()->GetCustomers());
-
-			unsigned index = 2;
-			if (list.size() > index)
-			{
-				std::list<Customer*>::iterator it = list.begin();
-				std::advance(it, index);
-				Assert::AreEqual(string("Hans"), (*it)->getFirstName());
-				Assert::AreEqual(std::string("Meier"),(*it)->getLastName());
-				Assert::AreEqual(std::string("Daheim"),(*it)->getStreet());
-				Assert::AreEqual(5020,(*it)->getZip());
-			}
-
-			//Persistence::getInstance()->disconnect();
-		}
-
 		TEST_METHOD(Persistence_ConnectDBAndCreateTables_OK)
 		{
 			GetStorage()->clear();
