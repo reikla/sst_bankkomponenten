@@ -51,7 +51,7 @@ list<CurrencyRate*>* SharedStorage::GetCurrencyRates()
 
 bool SharedStorage::StoreCustomer(Customer* customer)
 {
-	auto id = m_customers->size();
+	auto id = m_customers->size()+1;
 	customer->setId(id);
 	m_customers->push_back(customer);
 	return true;

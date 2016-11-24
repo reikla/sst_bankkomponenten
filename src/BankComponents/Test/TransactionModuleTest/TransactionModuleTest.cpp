@@ -27,10 +27,11 @@ namespace TransactionModuleTest
 			double amount;
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
+			CreateAccount(id, "", SavingsAccount, accountId);
 
-			auto returnValue = AccountBalancing(0, 0, EUR, amount);
+			auto returnValue = AccountBalancing(id, accountId, EUR, amount);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(0.0, amount);
@@ -44,11 +45,12 @@ namespace TransactionModuleTest
 			double amount;
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
-			PayIn(0, 0, 150, EUR);
+			CreateAccount(id, "", SavingsAccount, accountId);
+			PayIn(id, accountId, 150, EUR);
 
-			auto returnValue = AccountBalancing(0, 0, EUR, amount);
+			auto returnValue = AccountBalancing(id, accountId, EUR, amount);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(150.0, amount);
@@ -61,12 +63,13 @@ namespace TransactionModuleTest
 			double amount;
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
-			PayIn(0, 0, 150, EUR);
-			PayIn(0, 0, 150, EUR);
+			CreateAccount(id, "", SavingsAccount, accountId);
+			PayIn(id, accountId, 150, EUR);
+			PayIn(id, accountId, 150, EUR);
 
-			auto returnValue = AccountBalancing(0, 0, EUR, amount);
+			auto returnValue = AccountBalancing(id, accountId, EUR, amount);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(300.0, amount);
@@ -79,14 +82,15 @@ namespace TransactionModuleTest
 			double amount;
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
+			CreateAccount(id, "", SavingsAccount, accountId);
 			SetCurrencyToEuroFactor(USD, 2);
 
-			PayIn(0, 0, 150, USD);
-			PayIn(0, 0, 150, USD);
+			PayIn(id, accountId, 150, USD);
+			PayIn(id, accountId, 150, USD);
 
-			auto returnValue = AccountBalancing(0, 0, EUR, amount);
+			auto returnValue = AccountBalancing(id, accountId, EUR, amount);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(600.0, amount);
@@ -99,14 +103,15 @@ namespace TransactionModuleTest
 			double amount;
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
+			CreateAccount(id, "", SavingsAccount, accountId);
 			SetCurrencyToEuroFactor(USD, 2);
 
-			PayIn(0, 0, 150, USD);
-			PayIn(0, 0, 150, USD);
+			PayIn(id, accountId, 150, USD);
+			PayIn(id, accountId, 150, USD);
 
-			auto returnValue = AccountBalancing(0, 0, USD, amount);
+			auto returnValue = AccountBalancing(id, accountId, USD, amount);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(300.0, amount);
@@ -118,27 +123,29 @@ namespace TransactionModuleTest
 
 
 			int id = 0;
-			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
+			int accountId = 0;
 
-			PayIn(0, 0, 150, EUR);
+			CreateCustomer("", "", "", 1000, id);
+			CreateAccount(id, "", SavingsAccount, accountId);
+
+			PayIn(id, accountId, 150, EUR);
 
 			S_TRANSACTION* transactions = __nullptr;
 
 			int numOfEntries = 0;
 
-			auto sizeForStruct = (size_t) AccountStatement(0, 0, transactions, numOfEntries);
+			auto sizeForStruct = (size_t) AccountStatement(id, accountId, transactions, numOfEntries);
 
 			if (sizeForStruct > 0) // ansonsten fehler
 			{
 				transactions = (S_TRANSACTION*) malloc(sizeForStruct);
-				auto returnValue = AccountStatement(0, 0, transactions, numOfEntries);
+				auto returnValue = AccountStatement(id, accountId, transactions, numOfEntries);
 
 				Assert::AreEqual(E_OK, returnValue);
 
 				Assert::AreEqual(transactions[0].amount, 150.0);
 				Assert::AreEqual(transactions[0].factor, 1.0);
-				Assert::AreEqual(transactions[0].disposer, 0);
+				Assert::AreEqual(transactions[0].disposer, 1);
 				Assert::IsTrue(transactions[0].currency == EUR);
 				Assert::AreEqual(transactions[0].fromAccount, BAR_TRANSACTION);
 				Assert::AreEqual(transactions[0].toAccount, 0);
@@ -152,13 +159,14 @@ namespace TransactionModuleTest
 
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
+			CreateAccount(id, "", SavingsAccount, accountId);
 
 			S_TRANSACTION * transactions = __nullptr;
 			int numOfEntries = 0;
 
-			auto returnValue = AccountStatement(0, 0, transactions, numOfEntries);
+			auto returnValue = AccountStatement(id, accountId, transactions, numOfEntries);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(0, numOfEntries);
@@ -185,10 +193,11 @@ namespace TransactionModuleTest
 
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
-			PayIn(0, 0, 150, EUR);
-			auto returnValue = PayOut(0, 0, 150, EUR);
+			CreateAccount(id, "", SavingsAccount, accountId);
+			PayIn(id, accountId, 150, EUR);
+			auto returnValue = PayOut(id, accountId, 150, EUR);
 
 
 			Assert::AreEqual(E_OK, returnValue);
@@ -199,9 +208,10 @@ namespace TransactionModuleTest
 			SharedStorage::GetInstance()->clear();
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
-			auto returnValue = PayOut(0, 0, 150, EUR);
+			CreateAccount(id, "", SavingsAccount, accountId);
+			auto returnValue = PayOut(id, accountId, 150, EUR);
 
 
 			Assert::AreEqual(E_INSUFFICIENT_FUNDS, returnValue);
@@ -214,12 +224,13 @@ namespace TransactionModuleTest
 			double amount;
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
-			PayIn(0, 0, 150, EUR);
-			PayOut(0, 0, 150, EUR);
+			CreateAccount(id, "", SavingsAccount, accountId);
+			PayIn( id, accountId, 150, EUR);
+			PayOut(id, accountId, 150, EUR);
 
-			auto returnValue = AccountBalancing(0, 0, EUR, amount);
+			auto returnValue = AccountBalancing(id, accountId, EUR, amount);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(0.0, amount);
@@ -230,9 +241,10 @@ namespace TransactionModuleTest
 			SharedStorage::GetInstance()->clear();
 
 			int id = 0;
+			int accountId = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", LoanAccount, id);
-			auto returnValue = PayOut(0, 0, 150, EUR);
+			CreateAccount(id, "", LoanAccount, accountId);
+			auto returnValue = PayOut(id, accountId, 150, EUR);
 
 
 			Assert::AreEqual(E_OK, returnValue);
@@ -244,10 +256,10 @@ namespace TransactionModuleTest
 
 			int id = 0;
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", LoanAccount, id);
-			PayOut(0, 0, 150, EUR);
+			CreateAccount(1, "", LoanAccount, id);
+			PayOut(1, 0, 150, EUR);
 			double balance = 100;
-			auto returnValue = AccountBalancing(0, 0, EUR, balance);
+			auto returnValue = AccountBalancing(1, 0, EUR, balance);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(-150.0, balance);
@@ -259,21 +271,23 @@ namespace TransactionModuleTest
 
 
 			int id = 0;
+			int accountId = 0;
+
 			CreateCustomer("", "", "", 1000, id);
-			CreateAccount(0, "", SavingsAccount, id);
+			CreateAccount(id, "", SavingsAccount, accountId);
 			SetCurrencyToEuroFactor(USD, 0.5);
 
-			PayIn(0, 0, 150, EUR);
-			PayOut(0, 0, 150, USD);
+			PayIn( id, accountId, 150, EUR);
+			PayOut(id, accountId, 150, USD);
 
 			S_TRANSACTION * transactions = __nullptr;
 			int numOfEntries = 0;
 
-			auto returnValue = AccountStatement(0, 0, transactions, numOfEntries);
+			auto returnValue = AccountStatement(id, accountId, transactions, numOfEntries);
 
 			transactions = (S_TRANSACTION*) malloc(returnValue);
 
-			returnValue = AccountStatement(0, 0, transactions, numOfEntries);
+			returnValue = AccountStatement(id, accountId, transactions, numOfEntries);
 
 			Assert::AreEqual(E_OK, returnValue);
 			Assert::AreEqual(2, numOfEntries);
@@ -281,14 +295,14 @@ namespace TransactionModuleTest
 
 			Assert::AreEqual(transactions[0].amount, 150.0);
 			Assert::AreEqual(transactions[0].factor, 1.0);
-			Assert::AreEqual(transactions[0].disposer, 0);
+			Assert::AreEqual(transactions[0].disposer, 1);
 			Assert::IsTrue(  transactions[0].currency == EUR);
 			Assert::AreEqual(transactions[0].fromAccount, BAR_TRANSACTION);
 			Assert::AreEqual(transactions[0].toAccount, 0);
 
 			Assert::AreEqual(transactions[1].amount, 150.0);
 			Assert::AreEqual(transactions[1].factor, 0.5);
-			Assert::AreEqual(transactions[1].disposer, 0);
+			Assert::AreEqual(transactions[1].disposer, 1);
 			Assert::IsTrue(  transactions[1].currency == USD);
 			Assert::AreEqual(transactions[1].fromAccount, 0);
 			Assert::AreEqual(transactions[1].toAccount, BAR_TRANSACTION);

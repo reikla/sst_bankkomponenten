@@ -46,6 +46,28 @@ namespace Components.Common
             return val;
         }
 
+        public static long GetLongInput(string message, string parameterName)
+        {
+            Console.Write(message);
+            var input = Console.ReadLine();
+            long val;
+            if (!long.TryParse(input, out val))
+            {
+                throw new InvalidInputException($"Input {input} not Valid for: {parameterName}");
+            }
+            return val;
+        }
+
+        public static long GetLongInput(string message, string parameterName, Func<long, bool> predicate)
+        {
+            var val = GetLongInput(message, parameterName);
+            if (!predicate.Invoke(val))
+            {
+                throw new InvalidInputException($"Invlid range for {parameterName}.");
+            }
+            return val;
+        }
+
         public static int GetIntInput(string message, string parameterName, Func<int, bool> predicate)
         {
             var val = GetIntInput(message, parameterName);
@@ -87,7 +109,7 @@ namespace Components.Common
             return val;
         }
 
-        public static string GetStringInput(string message, string parameterName, Func<string,bool> predicate)
+        public static string GetStringInput(string message, string parameterName, Func<string, bool> predicate)
         {
             var val = GetStringInput(message, parameterName);
             if (!predicate.Invoke(val))
@@ -104,9 +126,9 @@ namespace Components.Common
             switch (accountTypeInt)
             {
                 case 1:
-                    return AccountType.LoanAccount;
-                default:
                     return AccountType.SavingsAccount;
+                default:
+                    return AccountType.LoanAccount;
             }
         }
 

@@ -56,7 +56,7 @@ inline int FindAccountAndAuthorizedDisposer(int accountNumber, int disposerId, A
 
 	auto disp = GetCustomer(disposerId);
 
-	if (disp == __nullptr || !disp->isActive()) // Kunde nicht gefunden oder nicht mehr aktiv
+	if ((disp == __nullptr || !disp->isActive()) && disposerId != 0) // Kunde nicht gefunden oder nicht mehr aktiv
 	{
 		return E_CUSTOMER_NOT_FOUND;
 	}
@@ -67,7 +67,7 @@ inline int FindAccountAndAuthorizedDisposer(int accountNumber, int disposerId, A
 
 	for (auto it = accountsDisposers->begin(); it != accountsDisposers->end(); ++it)
 	{
-		if ((*it)->getId() == disposerId) // kunde berechtigt.
+		if ((*it)->getId() == disposerId || disposerId == 0) // kunde berechtigt.
 		{
 			isAuthorized = true;
 			break;
